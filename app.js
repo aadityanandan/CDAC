@@ -1,18 +1,23 @@
-require('dotenv').config();
+
 const express = require('express');
-const authRoutes = require('./auth'); // Import the authentication routes
+const sendMail = require('./mailer'); // Import the mailer module
 
 const app = express();
 const port = 5000;
 
-// Middleware to serve static files from the "public" directory
 app.use(express.static('public'));
+app.use(express.json()); // Middleware to parse JSON bodies
 
-// Middleware to parse JSON bodies
-app.use(express.json());
-
-// Use the authentication routes
-app.use('/auth', authRoutes);
+// POST route to verify SMTP configuration
+app.post('/verify-email-server', (req, res) => {
+    sendMail.verifySMTP((error, success) => {
+        if (error) {
+            res.status(500).json({ message: 'Error verifying SMTP configuration', error });
+        } else {
+            res.status(200).json({ message: 'Server is ready to take our messages' });
+        }
+    });
+});
 
 // Start the server
 app.listen(port, () => {
