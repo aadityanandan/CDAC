@@ -25,11 +25,17 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">  
+
   <link rel="stylesheet" href="/public/dist/css/adminlte.css">
+
   <link rel="stylesheet" href="/public/dist/css/adminlte.css.map">
+
   <link rel="stylesheet" href="/public/dist/css/adminlte.min.css">
+
   <link rel="stylesheet" href="/public/dist/css/adminlte.min.css.map">
+
   <link rel="stylesheet" href="/public/dist/css/">
+
   <style>
     header {
         display: flex;
@@ -96,6 +102,7 @@
         <div class="card-body">
           <div class="tab-content" id="custom-tabs-one-tabContent">
            
+
             <div class="tab-pane fade" id="custom-tabs-one-email-page" role="tabpanel" aria-labelledby="custom-tabs-one-auth-tab">
               <section id="form1" class="content">
                   <div class="container-fluid">
@@ -130,6 +137,7 @@
               </section>
           </div>
 
+
             <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
               <section id="form2" class="content">
                 <div class="container-fluid">
@@ -158,6 +166,7 @@
                 </div>
               </section>
             </div>
+
 
             <div class="tab-pane fade" id="custom-tabs-one-hosting-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
               <section id="form3" class="content">
@@ -209,6 +218,8 @@
                 </div>
               </section>
             </div>
+
+
             <div class="tab-pane fade" id="custom-tabs-one-department-info" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
               <section id="form4" class="content">
                 <div class="container-fluid">
@@ -244,6 +255,8 @@
                 </div>
               </section>
             </div>
+
+
             <div class="tab-pane fade" id="custom-tabs-one-contact-info" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
               <section id="form5" class="content">
                 <div class="container-fluid">
@@ -281,6 +294,8 @@
                 </div>
               </section>
             </div>
+
+
             <div class="tab-pane fade" id="custom-tabs-one-additional-information" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
               <section id="form6" class="content">
                 <div class="container-fluid">
@@ -331,6 +346,8 @@
                 </div>
               </section>
             </div>
+
+
             <div class="tab-pane fade" id="custom-tabs-one-vm-information" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
               <section id="form7" class="content">
                 <div class="container-fluid">
@@ -367,6 +384,7 @@
                 </div>
               </section>
             </div>
+
 
           <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel" aria-labelledby="custom-tabs-one-terms-tab">
             <section id="form8" class="content">
@@ -496,6 +514,7 @@
                                 </div>
                             </div>
                         </div>
+
                     <!-- </div> -->
                 </div>
                 </div>
@@ -582,64 +601,64 @@ function showForm8() { showTab(7); }
 
 
 // send email and captcha
-// async function sendCaptcha() {
-//     try {
-//         const email = document.getElementById('email').value;
-//         if (!email) {
-//             alert('Please enter your email.');
-//             return;
-//         }
+async function sendCaptcha() {
+    try {
+        const email = document.getElementById('email').value;
+        if (!email) {
+            alert('Please enter your email.');
+            return;
+        }
 
-//         // Send email to server to generate and send CAPTCHA (implement server-side logic)
-//         const response = await fetch('/send-captcha', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({ email })
-//         });
+        // Send email to server to generate and send CAPTCHA (implement server-side logic)
+        const response = await fetch('/send-captcha', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
 
-//         if (response.ok) {
-//             alert('CAPTCHA has been sent to your email.');
-//             document.getElementById('captchaSection').style.display = 'block';
-//         } else {
-//             alert('Failed to send CAPTCHA.');
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         alert('An error occurred while sending CAPTCHA.');
-//     }
-// }
+        if (response.ok) {
+            alert('CAPTCHA has been sent to your email.');
+            document.getElementById('captchaSection').style.display = 'block';
+        } else {
+            alert('Failed to send CAPTCHA.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while sending CAPTCHA.');
+    }
+}
 
-// async function verifyCaptcha() {
-//     try {
-//         const email = document.getElementById('email').value;
-//         const captcha = document.getElementById('captcha').value;
-//         if (!captcha) {
-//             alert('Please enter the CAPTCHA.');
-//             return;
-//         }
+async function verifyCaptcha() {
+    try {
+        const email = document.getElementById('email').value;
+        const captcha = document.getElementById('captcha').value;
+        if (!captcha) {
+            alert('Please enter the CAPTCHA.');
+            return;
+        }
 
-//         // Verify CAPTCHA on server (implement server-side logic)
-//         const response = await fetch('/verify-captcha', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({ email, captcha })
-//         });
+        // Verify CAPTCHA on server (implement server-side logic)
+        const response = await fetch('/verify-captcha', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, captcha })
+        });
 
-//         if (response.ok) {
-//             alert('CAPTCHA verified successfully!');
-//             // Redirect to the next page or allow access
-//         } else {
-//             alert('CAPTCHA verification failed.');
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         alert('An error occurred during CAPTCHA verification.');
-//     }
-// }
+        if (response.ok) {
+            alert('CAPTCHA verified successfully!');
+            // Redirect to the next page or allow access
+        } else {
+            alert('CAPTCHA verification failed.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during CAPTCHA verification.');
+    }
+}
 
 // email regex for accepting only official emails
 function sendCaptcha() {
