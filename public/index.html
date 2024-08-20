@@ -25,11 +25,11 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">  
-  <link rel="stylesheet" href="public/dist/css/adminlte.css">
-  <link rel="stylesheet" href="public/dist/css/adminlte.css.map">
-  <link rel="stylesheet" href="public/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="public/dist/css/adminlte.min.css.map">
-  <link rel="stylesheet" href="public/dist/css/">
+  <link rel="stylesheet" href="/public/dist/css/adminlte.css">
+  <link rel="stylesheet" href="/public/dist/css/adminlte.css.map">
+  <link rel="stylesheet" href="/public/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/public/dist/css/adminlte.min.css.map">
+  <link rel="stylesheet" href="/public/dist/css/">
   <style>
     header {
         display: flex;
@@ -67,6 +67,9 @@
         <div class="card-header p-0 pt-1">
           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
             <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-email-page" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Authentication Page</a>
+            </li> 
+            <li class="nav-item">
               <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-landing-page" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Landing Page</a>
             </li>
             <li class="nav-item">
@@ -92,8 +95,43 @@
         </div>
         <div class="card-body">
           <div class="tab-content" id="custom-tabs-one-tabContent">
-            <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+           
+            <div class="tab-pane fade" id="custom-tabs-one-email-page" role="tabpanel" aria-labelledby="custom-tabs-one-auth-tab">
               <section id="form1" class="content">
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="card card-primary">
+                                  <div class="card-header">
+                                      <h3 class="card-title">Authentication Page</h3>
+                                  </div>
+                                  <div class="card-body">
+                                      <div class="content active">
+                                          <div class="form-group">
+                                              <label for="email">Enter your email address:</label>
+                                              <input type="email" class="form-control" id="email" placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
+                                          </div>
+                                          <button type="button" class="btn btn-primary" onclick="sendCaptcha()">Send CAPTCHA</button>
+          
+                                          <div id="captchaSection" style="margin-top: 20px; display: none;">
+                                              <div class="form-group">
+                                                  <label for="captcha">Enter the CAPTCHA sent to your email:</label>
+                                                  <input type="text" class="form-control" id="captcha" placeholder="Enter CAPTCHA" required>
+                                              </div>
+                                              <button type="button" class="btn btn-primary" onclick="verifyCaptcha()">Verify CAPTCHA</button>
+                                          </div>
+                                          <button type="button" class="btn btn-primary" style="margin-top: 10px; display:flex;" onclick="showForm2()">Next</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+          </div>
+
+            <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+              <section id="form2" class="content">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">
@@ -110,7 +148,8 @@
                                 <label><input type="radio" name="deploymentType" value="Existing"> No</label>
                               </div>
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="showForm2()">Next</button>
+                            <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
                           </div>
                         </div>
                       </div>
@@ -119,8 +158,9 @@
                 </div>
               </section>
             </div>
+
             <div class="tab-pane fade" id="custom-tabs-one-hosting-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-              <section id="form2" class="content">
+              <section id="form3" class="content">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">
@@ -160,8 +200,8 @@
                               <label class="form-check-label">Mobile application</label>
                             </div>
                           </div>
-                          <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
-                          <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
                         </div>
                       </div>
                     </div>
@@ -170,7 +210,7 @@
               </section>
             </div>
             <div class="tab-pane fade" id="custom-tabs-one-department-info" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
-              <section id="form3" class="content">
+              <section id="form4" class="content">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">
@@ -195,8 +235,8 @@
                             <label for="deptAddrs">Department Address: </label>
                             <input type="text" class="form-control" id="deptAddrs" placeholder="Enter the address of the department">
                           </div>
-                          <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
-                          <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm5()">Next</button>
                         </div>
                       </div>
                     </div>
@@ -205,7 +245,7 @@
               </section>
             </div>
             <div class="tab-pane fade" id="custom-tabs-one-contact-info" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-              <section id="form4" class="content">
+              <section id="form5" class="content">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">
@@ -232,8 +272,8 @@
                           </table>
                           <button type="button" class="btn btn-primary" onclick="addContactRow()">Add new contact Information</button>
                           
-                          <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
-                          <button type="button" class="btn btn-primary" onclick="showForm5()">Next</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
                         </div>
                       </div>
                     </div>
@@ -242,7 +282,7 @@
               </section>
             </div>
             <div class="tab-pane fade" id="custom-tabs-one-additional-information" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-              <section id="form5" class="content">
+              <section id="form6" class="content">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">
@@ -282,8 +322,8 @@
                               </select>
                             </div>
                           </div>
-                          <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
-                          <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm5()">Previous</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm7()">Next</button>
                         </div>
                       </div>
                     </div>
@@ -292,7 +332,7 @@
               </section>
             </div>
             <div class="tab-pane fade" id="custom-tabs-one-vm-information" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-              <section id="form6" class="content">
+              <section id="form7" class="content">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">
@@ -318,8 +358,8 @@
                               </tbody>
                           </table>
                           <button type="button" class="btn btn-primary" onclick="addVmRow()">Add VM</button>
-                          <button type="button" class="btn btn-primary" onclick="showForm5()">Previous</button>
-                          <button type="button" class="btn btn-primary" onclick="showForm7()">Next</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm6()">Previous</button>
+                          <button type="button" class="btn btn-primary" onclick="showForm8()">Next</button>
                       </div>
                       </div>
                     </div>
@@ -327,38 +367,9 @@
                 </div>
               </section>
             </div>
-<!-- 
-            <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel" aria-labelledby="custom-tabs-one-terms-tab">
-              <section id="form7" class="content">
-                  <div class="container-fluid">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="card card-primary">
-                                  <div class="card-header">
-                                      <h3 class="card-title">Terms and Conditions</h3>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="form-group">
-                                          <label for="termsConditions">Please read and accept the terms and conditions:</label>
-                                          <
-                                      </div>
-                                      <div class="form-group form-check">
-                                          <input type="checkbox" class="form-check-input" id="acceptTerms">
-                                          <label class="form-check-label" for="acceptTerms">I accept the terms and conditions</label>
-                                      </div>
-                                      
-                                  </div>
-                                  <button type="button" class="btn btn-primary" onclick="showForm6()">Previous</button>
-                                      <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button> 
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
-          </div>  -->
 
           <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel" aria-labelledby="custom-tabs-one-terms-tab">
-            <section id="form7" class="content">
+            <section id="form8" class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -480,7 +491,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="button" class="btn btn-primary" onclick="showForm6()">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm7()">Previous</button>
                                     <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
                                 </div>
                             </div>
@@ -534,6 +545,7 @@
 <!-- <script src="dist/js/pages/dashboard.js"></script> -->
 <!-- Custom Script -->
 <script>
+
   function submitForm() {
     const acceptTerms = document.getElementById('acceptTerms');
     if (!acceptTerms.checked) {
@@ -565,6 +577,94 @@ function showForm4() { showTab(3); }
 function showForm5() { showTab(4); }
 function showForm6() { showTab(5); }
 function showForm7() { showTab(6); }
+function showForm8() { showTab(7); }
+
+
+
+// send email and captcha
+// async function sendCaptcha() {
+//     try {
+//         const email = document.getElementById('email').value;
+//         if (!email) {
+//             alert('Please enter your email.');
+//             return;
+//         }
+
+//         // Send email to server to generate and send CAPTCHA (implement server-side logic)
+//         const response = await fetch('/send-captcha', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email })
+//         });
+
+//         if (response.ok) {
+//             alert('CAPTCHA has been sent to your email.');
+//             document.getElementById('captchaSection').style.display = 'block';
+//         } else {
+//             alert('Failed to send CAPTCHA.');
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred while sending CAPTCHA.');
+//     }
+// }
+
+// async function verifyCaptcha() {
+//     try {
+//         const email = document.getElementById('email').value;
+//         const captcha = document.getElementById('captcha').value;
+//         if (!captcha) {
+//             alert('Please enter the CAPTCHA.');
+//             return;
+//         }
+
+//         // Verify CAPTCHA on server (implement server-side logic)
+//         const response = await fetch('/verify-captcha', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email, captcha })
+//         });
+
+//         if (response.ok) {
+//             alert('CAPTCHA verified successfully!');
+//             // Redirect to the next page or allow access
+//         } else {
+//             alert('CAPTCHA verification failed.');
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred during CAPTCHA verification.');
+//     }
+// }
+
+// email regex for accepting only official emails
+function sendCaptcha() {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov)\.in$/;
+    const email = document.getElementById('email').value;
+
+    if (emailPattern.test(email)) {
+        // Email is valid
+        console.log('Valid email');
+        alert('CAPTCHA sent to your email address.');
+        
+        // Display the CAPTCHA section for user input
+        document.getElementById('captchaSection').style.display = 'block';
+    } else {
+        // Email is invalid
+        console.log('Invalid email');
+        alert('Please enter a valid email ending with .nic.in or .gov.in');
+    }
+}
+
+function verifyCaptcha() {
+    // Logic to verify CAPTCHA goes here
+    alert('CAPTCHA verified.');
+}
+
 
 
  //  js of contact information table
