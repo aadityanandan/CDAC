@@ -28,11 +28,45 @@ const express = require('express');
 const sendMail = require('./mailer'); // Import the mailer module
 const authRoutes = require('./auth'); // Import the auth routes
 const axios = require('axios');
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 5000;
 
+
 app.use(express.static('public'));
+app.use(express.static('view'));
 app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cookieParser()); //Middleware to parse cookie
+
+// Setup CSRF protection middleware
+const csrfProtection = csrf({ cookie: true });
+
+// Middleware to parse form data
+app.use(express.urlencoded({ extended: true }));
+
+// Use the CSRF protection on routes where you want to protect against CSRF attacks
+app.get('/form', csrfProtection, (req, res) => {
+    // Pass the CSRF token to the form view
+    //res.send(req.csrfToken());
+    res.render('public/index', { csrfToken: req.csrfToken() });
+});
+
+app.post('/process', csrfProtection, (req, res) => {
+    // Process the form data
+    res.send('Form processed successfully.');
+});
+
+app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+        // CSRF token validation failed
+        res.status(403);
+        res.send('Form tampered with.');
+    } else {
+        next(err);
+    }
+});
+
 
 app.post('/submit-form-endpoint', async (req, res) => {
     const recaptchaResponse = req.body['g-recaptcha-response'];
