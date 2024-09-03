@@ -4,13 +4,12 @@ const bodyParser = require('body-parser');
 const multer = require('multer'); // For handling form data
 const authRoutes = require('./auth');
 
-
 const app = express();
 const db = require('./db'); // Import the MySQL connection
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 
 app.use(express.json());
 
