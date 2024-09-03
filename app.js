@@ -27,13 +27,37 @@
 const express = require('express');
 const sendMail = require('./mailer'); // Import the mailer module
 const authRoutes = require('./auth'); // Import the auth routes
-
+const axios = require('axios');
 const app = express();
 const port = 5000;
 
 app.use(express.static('public'));
 app.use(express.json()); // Middleware to parse JSON bodies
 
+app.post('/submit-form-endpoint', async (req, res) => {
+    const recaptchaResponse = req.body['g-recaptcha-response'];
+
+    // Verify the reCAPTCHA response with Google's API
+    const secretKey = '6LePUzUqAAAAACn3uL5vANK2JVECdWvfiXIciVgH';
+    const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}`;
+
+    try {
+        const response = await axios.post(verificationURL);
+        const { success } = response.data;
+
+        if (success) {
+            // reCAPTCHA verification succeeded
+            console.log(req.body);  // Log the received data
+            res.send('Form submitted successfully!');
+        } else {
+            // reCAPTCHA verification failed
+            res.status(400).send('reCAPTCHA failed. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error during reCAPTCHA verification:', error);
+        res.status(500).send('An error occurred during reCAPTCHA verification.');
+    }
+});
 // Use the auth routes
 app.use('/auth', authRoutes);
 
@@ -41,7 +65,7 @@ app.post('/submit-form-endpoint', (req, res) => {
     console.log(req.body);  // Log the received data
     res.send('Form submitted successfully!');
 });
-
+ 
 // Start the server
 app.listen(port, () => {
     console.log(`Server successful, listening on port ${port}`);

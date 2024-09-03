@@ -36,6 +36,18 @@
 
   <link rel="stylesheet" href="/public/dist/css/">
 
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <script>
+    function onClick(e) {
+      e.preventDefault();
+      grecaptcha.enterprise.ready(async () => {
+        const token = await grecaptcha.enterprise.execute('6LePUzUqAAAAACn3uL5vANK2JVECdWvfiXIciVgH', {action: 'LOGIN'}); 
+      });
+    }
+  </script>
+  </head>
+
   <style>
     body {
       display: flex;
@@ -57,8 +69,14 @@
     img {
         max-height: 70px; /* Ensures the images maintain the correct proportions */
     }
+    /* g-recaptcha {
+  display: block; /* Ensure it's displayed inline-block or block 
+  margin-top: 20px; /* Space between the button and the widget 
+  text-align: center;  Optional: Center it within the div 
+} */
+
 </style>
-</head>
+
 <header>
   
   <div>
@@ -74,6 +92,7 @@
 </header>
 
 <main>
+  <form action="/submit-end point" method="post">
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="row"></div>
   <div class="row">
@@ -112,39 +131,43 @@
           <div class="tab-content" id="custom-tabs-one-tabContent">
            
 
-            <div class="tab-pane fade" id="custom-tabs-one-email-page" role="tabpanel" aria-labelledby="custom-tabs-one-auth-tab">
+            <div class="tab-pane fade show active" id="custom-tabs-one-email-page" role="tabpanel" aria-labelledby="custom-tabs-one-email-page-tab">
               <section id="form1" class="content">
-                  <div class="container-fluid">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="card card-primary">
-                                  <div class="card-header">
-                                      <h3 class="card-title">Authentication Page</h3>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="content active">
-                                          <div class="form-group">
-                                              <label for="email">Enter your email address:</label>
-                                              <input type="email" class="form-control" id="email" placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
-                                          </div>
-                                          <button type="button" class="btn btn-primary" onclick="sendCaptcha()">Send CAPTCHA</button>
-          
-                                          <div id="captchaSection" style="margin-top: 20px; display: none;">
-                                              <div class="form-group">
-                                                  <label for="captcha">Enter the CAPTCHA sent to your email:</label>
-                                                  <input type="text" class="form-control" id="captcha" placeholder="Enter CAPTCHA" required>
-                                              </div>
-                                              <button type="button" class="btn btn-primary" onclick="verifyCaptcha()">Verify CAPTCHA</button>
-                                          </div>
-                                          <button type="button" class="btn btn-primary" style="margin-top: 10px; display:flex;" onclick="showForm2()">Next</button>
-                                      </div>
-                                  </div>
-                              </div>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card card-primary">
+                        <div class="card-header">
+                          <h3 class="card-title">Authentication Page</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="email">Enter your email address:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
                           </div>
+                          <button type="button" class="btn btn-primary" onclick="sendCaptcha()">Send CAPTCHA</button>
+
+                          <div id="captchaSection" style="margin-top: 20px; display: none;">
+                            <div class="form-group">
+                              <label for="captcha">Enter the CAPTCHA sent to your email:</label>
+                              <input type="text" class="form-control" id="captcha" placeholder="Enter CAPTCHA" required>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="verifyCaptcha()">Verify CAPTCHA</button>
+                          </div>
+
+                          <!-- reCAPTCHA Widget -->
+                          <div class="g-recaptcha" data-sitekey="6LePUzUqAAAAACn3uL5vANK2JVECdWvfiXIciVgH" style="margin-top: 20px;"></div>
+
+                          <button type="button" class="btn btn-primary" style="margin-top: 20px;" onclick="showForm2()">Next</button>
+
+                        </div>
                       </div>
+                    </div>
                   </div>
+                </div>
               </section>
-          </div>
+            </div>
+            
 
 
             <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
@@ -536,6 +559,7 @@
         <!-- /.card -->
       </div>
     </div>
+  </form>
   </main>
 
 
