@@ -15,6 +15,11 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 
+// app.set('view engine', 'ejs');
+
+// app.get('/', function(req, res) {
+//     res.render('public/index');
+
 // Use multer to handle form data (optional, if you have file uploads)
 const upload = multer();
 

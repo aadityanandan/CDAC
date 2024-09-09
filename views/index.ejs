@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Protected Form</title>
+</head>
+<body>
+    <form action="/process" method="POST">
+        <!-- CSRF Token as hidden input -->
+        <input type="hidden" name="_csrf" value= "<%= csrfToken %>">
+        
+        <!-- Your form fields -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

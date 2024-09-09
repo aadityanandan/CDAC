@@ -1,61 +1,37 @@
 
-
-    // Assuming you're using something like body-parser to parse the form data
-//     const sql = `INSERT INTO form_data (column1, column2, column3, ...) VALUES (?, ?, ?, ...)`;
-
-//     db.query(sql, [formData.field1, formData.field2, formData.field3,] (err, result) => {
-//         if (err) {
-//             console.error('Database error:', err);
-//             res.status(500).send('Failed to save data.');
-//         }
-//         else{
-//             res.status(200).send('Data saved successfully.');
-//         }
-//     });
-// });
-
-// POST route to verify SMTP configuration
-// app.post('/verify-email-server', (req, res) => {
-//     sendMail.verifySMTP((error, success) => {
-//         if (error) {
-//             res.status(500).json({ message: 'Error verifying SMTP configuration', error });
-//         } else {
-//             res.status(200).json({ message: 'Server is ready to take our messages' });
-//         }
-//     });
-// });
-const express = require('express');
-const sendMail = require('./mailer'); // Import the mailer module
-const authRoutes = require('./auth'); // Import the auth routes
+const express =require('express');
 const axios = require('axios');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 5000;
-
+const authRoutes = require('./auth'); // Import the auth routes
 
 app.use(express.static('public'));
 app.use(express.static('view'));
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cookieParser()); //Middleware to parse cookie
+// const csrfProtection = csrf({ cookie: true });
 
-// Setup CSRF protection middleware
-const csrfProtection = csrf({ cookie: true });
+
+const homeRouter = require('./routes/home'); 
+
+const csrfProtection = require('./routes/process');
+
+
 
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 
 // Use the CSRF protection on routes where you want to protect against CSRF attacks
-app.get('/form', csrfProtection, (req, res) => {
-    // Pass the CSRF token to the form view
-    //res.send(req.csrfToken());
-    res.render('public/index', { csrfToken: req.csrfToken() });
-});
+// app.get('/process', csrfProtection, (req, res) => {
+//     // Pass the CSRF token to the form view
+//     res.send(req.csrfToken());
+//     res.render('public/index', { csrfToken: req.csrfToken() });
+// });
+app.set('view engine', 'ejs');
 
-app.post('/process', csrfProtection, (req, res) => {
-    // Process the form data
-    res.send('Form processed successfully.');
-});
+
 
 app.use((err, req, res, next) => {
     if (err.code === 'EBADCSRFTOKEN') {
@@ -92,6 +68,12 @@ app.post('/submit-form-endpoint', async (req, res) => {
         res.status(500).send('An error occurred during reCAPTCHA verification.');
     }
 });
+ app.use("/home", homeRouter);
+
+ app.use("/", csrfProtection);
+
+
+
 // Use the auth routes
 app.use('/auth', authRoutes);
 

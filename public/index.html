@@ -36,7 +36,8 @@
 
   <link rel="stylesheet" href="/public/dist/css/">
 
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_6LePUzUqAAAAACn3uL5vANK2JVECdWvfiXIciVgH"></script>
+  
 
   <script>
     function onClick(e) {
@@ -45,6 +46,7 @@
         const token = await grecaptcha.enterprise.execute('6LePUzUqAAAAACn3uL5vANK2JVECdWvfiXIciVgH', {action: 'LOGIN'}); 
       });
     }
+
   </script>
   </head>
 
@@ -69,11 +71,11 @@
     img {
         max-height: 70px; /* Ensures the images maintain the correct proportions */
     }
-    /* g-recaptcha {
-  display: block; /* Ensure it's displayed inline-block or block 
-  margin-top: 20px; /* Space between the button and the widget 
-  text-align: center;  Optional: Center it within the div 
-} */
+     g-recaptcha {
+  display: block;  /*Ensure it's displayed inline-block or block */
+  margin-top: 20px; /* Space between the button and the widget */
+  text-align: center; /* Optional: Center it within the div */ 
+} 
 
 </style>
 
@@ -596,8 +598,6 @@
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="dist/js/pages/dashboard.js"></script> -->
 <!-- Custom Script -->
 <script>
 
@@ -787,10 +787,6 @@ function updateVmRowNumbers() {
     vmRowCount = rows.length;
 }
 
-
-  // function submitFormss() {
-  //   alert("Form Submitted Successfully!");
-  // } 
   async function submitForm() {
     try {
         // Gather form data
@@ -867,12 +863,12 @@ function updateVmRowNumbers() {
     }
 }
 //to catch the error
-const element = document.getElementById('elementID');
-if (element) {
-    // Access element.value or other properties
-} else {
-    console.error('Element not found');
-}
+// const element = document.getElementById('elementID');
+// if (element) {
+//     // Access element.value or other properties
+// } else {
+//     console.error('Element not found');
+// }
 
   function submitForm() {
     const acceptTerms = document.getElementById('acceptTerms');
@@ -883,12 +879,8 @@ if (element) {
     // Proceed with form submission
     alert('Form submitted successfully!');
 }
-app.post('/submit-form-endpoint', (req, res) => {
-    // Handle form submission here
-    res.send('Form submitted successfully');
-});
-
 </script>
+
 </body>
 <footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram </strong>
   All rights reserved.
@@ -897,3 +889,4 @@ app.post('/submit-form-endpoint', (req, res) => {
   </div>
 </footer>
 </html>
+
