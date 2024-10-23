@@ -48,7 +48,7 @@
     }
 
   </script>
-  </head>
+  </head> 
 
   <style>
     body {
@@ -94,7 +94,7 @@
 </header>
 
 <main>
-  <form action="/submit-end point" method="post">
+  <form id="form"  action="/submit-form-endpoint" method="post">
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="row"></div>
   <div class="row">
@@ -171,7 +171,6 @@
             </div>
             
 
-
             <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
               <section id="form2" class="content">
                 <div class="container-fluid">
@@ -214,32 +213,32 @@
                         <div class="card-body">
                           <div class="form-group">
                             <label for="appName"> Name of the application: </label>
-                            <input type="text" class="form-control" id="appName" placeholder="Enter the name of the application">
+                            <input type="text" class="form-control" name = "appName" id="appName" placeholder="Enter the name of the application">
                           </div>
                           <div class="form-group">
                             <label for="appdetails"> Details about the application: </label>
-                            <input type="text" class="form-control" id="appdetails" placeholder="Give a brief description about the application">
+                            <input type="text" class="form-control" name = "appDdetails" id="appdetails" placeholder="Give a brief description about the application">
                           </div>
                           <div class="form-group">
                             <label for="langUsed"> Programming Languages used: </label>
-                            <textarea class="form-control" id="langUsed" placeholder="Enter the programming languages used with their versions"></textarea>
+                            <textarea class="form-control" id="langUsed" name = "langUsed" placeholder="Enter the programming languages used with their versions"></textarea>
                           </div>
                           <div class="form-group">
                             <label for="dbUsed"> Databases used: </label>
-                            <textarea class="form-control" id="dbUsed" placeholder="Enter the databases used with their versions"></textarea>
+                            <textarea class="form-control" id="dbUsed" name="dbUsed" placeholder="Enter the databases used with their versions"></textarea>
                           </div>
                           <div class="form-group">
                             <label for="frameworkUsed"> Any framwork used: </label>
-                            <input type="text" class="form-control" id="frameworkUsed" placeholder="Enter the name of the fraework used">
+                            <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed" placeholder="Enter the name of the fraework used">
                           </div>
                           <div class="form-group">
                             <label for="appType">Type of Application</label>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox">
+                              <input name="appType" class="form-check-input" type="checkbox">
                               <label class="form-check-label">Web application</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" checked="">
+                              <input name="appType" class="form-check-input" type="checkbox" checked="">
                               <label class="form-check-label">Mobile application</label>
                             </div>
                           </div>
@@ -266,19 +265,19 @@
                         <div class="card-body">
                           <div class="form-group">
                             <label for="deptName">Name of the Department:</label>
-                            <input type="text" class="form-control" id="deptName" placeholder="Enter the name of the department">
+                            <input type="text" for="deptName" class="form-control" id="deptName" placeholder="Enter the name of the department">
                           </div>
                           <div class="form-group">
                             <label for="deptEmail">Department Email:</label>
-                            <input type="text" class="form-control" id="deptEmail" placeholder="Enter the email address of the department">
+                            <input type="text" for="deptEmail" class="form-control" id="deptEmail" placeholder="Enter the email address of the department">
                           </div>
                           <div class="form-group">
                             <label for="deptPhNum">Department Phone Number:</label>
-                            <input type="tel" class="form-control" id="deptPhNum" placeholder="Enter the phone number of the department">
+                            <input type="tel" name="deptNum" class="form-control" id="deptPhNum" placeholder="Enter the phone number of the department">
                           </div>
                           <div class="form-group">
                             <label for="deptAddrs">Department Address: </label>
-                            <input type="text" class="form-control" id="deptAddrs" placeholder="Enter the address of the department">
+                            <input type="text" name="deptAddrs" class="form-control" id="deptAddrs" placeholder="Enter the address of the department">
                           </div>
                           <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
                           <button type="button" class="btn btn-primary" onclick="showForm5()">Next</button>
@@ -347,25 +346,25 @@
                             </div>
                             <div class="form-group">
                               <label for="peakTime">Any peak time of the application: </label>
-                              <input type="datetime" class="form-control" id="peakTime" placeholder="(any particular time during the month/year)">
+                              <input type="varchar" name="peakTime" class="form-control" id="peakTime" placeholder="(any particular time during the month/year)">
                             </div>
                             <div class="form-group">
                               <label for="loadBalance">Server Load Balancer: </label>
-                              <select class="form-control" id="loadBalance">
+                              <select name="loadBalance" class="form-control" id="loadBalance">
                                   <option>Yes </option>
                                   <option>No </option>
                               </select>
                             </div>
                             <div class="form-group">
                               <label for="ipv6Compatibility">Ipv6 Compatibility: </label>
-                              <select class="form-control" id="ipv6Compatibility">
+                              <select  name ="ipv6Compatibility" class="form-control" id="ipv6Compatibility">
                                   <option>Yes </option>
                                   <option>No </option>
                               </select>
-                            </div>
+                            </div>   
                             <div class="form-group">
                               <label for="tapeBackup">Tape backup required: </label>
-                              <select class="form-control" id="tapeBackup">
+                              <select name="tapeBackup" class="form-control" id="tapeBackup">
                                   <option>Yes </option>
                                   <option>No </option>
                               </select>
@@ -381,7 +380,7 @@
               </section>
             </div>
 
-
+            
             <div class="tab-pane fade" id="custom-tabs-one-vm-information" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
               <section id="form7" class="content">
                 <div class="container-fluid">
@@ -545,7 +544,7 @@
                                 <div class="card-footer">
                                     <button type="button" class="btn btn-primary" onclick="showForm7()">Previous</button>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                                    <button type="button" class="btn btn-primary" onclick="submitForm(event)">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -602,9 +601,6 @@
 <script>
 
 
-
-
-
 function showTab(index) {
     const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
     const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
@@ -628,92 +624,89 @@ function showForm7() { showTab(6); }
 function showForm8() { showTab(7); }
 
 
-
 // send email and captcha
-async function sendCaptcha() {
-    try {
-        const email = document.getElementById('email').value;
-        if (!email) {
-            alert('Please enter your email.');
-            return;
-        }
+// async function sendCaptcha() {
+//     try {
+//         const email = document.getElementById('email').value;
+//         if (!email) {
+//             alert('Please enter your email.');
+//             return;
+//         }
 
-        // Send email to server to generate and send CAPTCHA (implement server-side logic)
-        const response = await fetch('/send-captcha', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-        });
+//         // Send email to server to generate and send CAPTCHA (implement server-side logic)
+//         const response = await fetch('/send-captcha', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email })
+//         });
 
-        if (response.ok) {
-            alert('CAPTCHA has been sent to your email.');
-            document.getElementById('captchaSection').style.display = 'block';
-        } else {
-            alert('Failed to send CAPTCHA.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while sending CAPTCHA.');
-    }
-}
+//         if (response.ok) {
+//             alert('CAPTCHA has been sent to your email.');
+//             document.getElementById('captchaSection').style.display = 'block';
+//         } else {
+//             alert('Failed to send CAPTCHA.');
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred while sending CAPTCHA.');
+//     }
+// }
 
-async function verifyCaptcha() {
-    try {
-        const email = document.getElementById('email').value;
-        const captcha = document.getElementById('captcha').value;
-        if (!captcha) {
-            alert('Please enter the CAPTCHA.');
-            return;
-        }
+// async function verifyCaptcha() {
+//     try {
+//         const email = document.getElementById('email').value;
+//         const captcha = document.getElementById('captcha').value;
+//         if (!captcha) {
+//             alert('Please enter the CAPTCHA.');
+//             return;
+//         }
 
-        // Verify CAPTCHA on server (implement server-side logic)
-        const response = await fetch('/verify-captcha', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, captcha })
-        });
+//         // Verify CAPTCHA on server (implement server-side logic)
+//         const response = await fetch('/verify-captcha', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email, captcha })
+//         });
 
-        if (response.ok) {
-            alert('CAPTCHA verified successfully!');
-            // Redirect to the next page or allow access
-        } else {
-            alert('CAPTCHA verification failed.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred during CAPTCHA verification.');
-    }
-}
+//         if (response.ok) {
+//             alert('CAPTCHA verified successfully!');
+//             // Redirect to the next page or allow access
+//         } else {
+//             alert('CAPTCHA verification failed.');
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred during CAPTCHA verification.');
+//     }
+// }
 
 // email regex for accepting only official emails
-function sendCaptcha() {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov|cdac)\.in$/;
-    const email = document.getElementById('email').value;
+// function sendCaptcha() {
+//     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov|cdac)\.in$/;
+//     const email = document.getElementById('email').value;
 
-    if (emailPattern.test(email)) {
-        // Email is valid
-        console.log('Valid email');
-        alert('CAPTCHA sent to your email address.');
+//     if (emailPattern.test(email)) {
+//         // Email is valid
+//         console.log('Valid email');
+//         alert('CAPTCHA sent to your email address.');
         
-        // Display the CAPTCHA section for user input
-        document.getElementById('captchaSection').style.display = 'block';
-    } else {
-        // Email is invalid
-        console.log('Invalid email');
-        alert('Please enter a valid email ending with .nic.in or .gov.in');
-    }
-}
+//         // Display the CAPTCHA section for user input
+//         document.getElementById('captchaSection').style.display = 'block';
+//     } else {
+//         // Email is invalid
+//         console.log('Invalid email');
+//         alert('Please enter a valid email ending with .nic.in or .gov.in');
+//     }
+// }
 
-function verifyCaptcha() {
-    // Logic to verify CAPTCHA goes here
-    alert('CAPTCHA verified.');
-}
-
-
+// function verifyCaptcha() {
+//     // Logic to verify CAPTCHA goes here
+//     alert('CAPTCHA verified.');
+// }
 
  //  js of contact information table
  let contactRowCount = 0;
@@ -787,10 +780,22 @@ function updateVmRowNumbers() {
     vmRowCount = rows.length;
 }
 
-  async function submitForm() {
+async function submitForm(event) {
+  const formData = new FormData(document.getElementById('form'));  // Collects the form data
+    event.preventDefault();
+    const formElement = document.getElementById('form');
+    if (!formElement) {
+        console.error('Form element not found');
+        return;
+    }
+    
     try {
-        // Gather form data
-        const formData = new FormData();
+        // Ensure terms and conditions are accepted before proceeding
+        const acceptTerms = document.getElementById('acceptTerms');
+        if (!acceptTerms.checked) {
+            alert('You must accept the terms and conditions before submitting the form.');
+            return;
+        }
 
         // Collect data from Landing Page
         const deploymentType = document.querySelector('input[name="deploymentType"]:checked');
@@ -804,7 +809,6 @@ function updateVmRowNumbers() {
         formData.append('langUsed', document.getElementById('langUsed').value);
         formData.append('dbUsed', document.getElementById('dbUsed').value);
         formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
-        // You can collect the type of application similarly by iterating through checkboxes if needed
 
         // Collect data from Department Information
         formData.append('deptName', document.getElementById('deptName').value);
@@ -845,40 +849,25 @@ function updateVmRowNumbers() {
         }
 
         // Make an HTTP request to submit the form data
-        const response = await fetch('/submit-form-endpoint', {
+        const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
             method: 'POST',
             body: formData
         });
 
-        if (response.ok) {
-            alert("Form Submitted Successfully!");
-            // Optionally, redirect to a success page or reset the form
-        } else {
-            alert("Failed to submit the form.");
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(`Error: ${response.status} - ${errorMessage}`);
         }
 
+        console.log("Form submitted successfully."); // Updated log message
     } catch (error) {
         console.error('Error:', error);
         alert("An error occurred during form submission.");
     }
 }
-//to catch the error
-// const element = document.getElementById('elementID');
-// if (element) {
-//     // Access element.value or other properties
-// } else {
-//     console.error('Element not found');
-// }
 
-  function submitForm() {
-    const acceptTerms = document.getElementById('acceptTerms');
-    if (!acceptTerms.checked) {
-        alert('You must accept the terms and conditions before submitting the form.');
-        return;
-    }
-    // Proceed with form submission
-    alert('Form submitted successfully!');
-}
+
+
 </script>
 
 </body>
@@ -889,4 +878,8 @@ function updateVmRowNumbers() {
   </div>
 </footer>
 </html>
+
+
+
+
 

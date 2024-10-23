@@ -3,7 +3,7 @@ require('dotenv').config(); // For loading environment variables
 
 // Create a transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
-    service: 'Gmail', // You can change this to another service like 'SendGrid', 'Yahoo', etc.
+    service: 'Gmail', 
     auth: {
         user: process.env.EMAIL_USER, // Your email address
         pass: process.env.EMAIL_PASS  // Your email password

@@ -1,25 +1,31 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "��#\u0000 \u0000C\u0000D\u0000A\u0000C\u0000\r\u0000 \u0000",
   "dependencies": {
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^2.0.1",
     "cookie-parser": "^1.4.6",
-    "csurf": "^1.11.0",
+    "cors": "^2.8.5",
+    "csrf": "^3.1.0",
+    "csurf": "^1.2.2",
+    "debug": "^4.3.7",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.2",
+    "express": "^5.0.0",
+    "finalhandler": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
-    "mysql2": "^3.11.0",
+    "mysql2": "^3.11.3",
     "nodemailer": "^6.9.14",
     "nodemon": "^3.1.4"
   }
