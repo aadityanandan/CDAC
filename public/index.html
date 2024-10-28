@@ -956,30 +956,10 @@
       // Collect data from Hosting Form
       formData.append('appName', document.getElementById('appName').value);
       formData.append('appDetails', document.getElementById('appDetails').value);
-//       const appDetailsValue = document.getElementById('appdetails').value;
-// console.log('appDetails:', appDetailsValue);
-// formData.append('appDetails', appDetailsValue || "");
-
       formData.append('langUsed', document.getElementById('langUsed').value);
       formData.append('dbUsed', document.getElementById('dbUsed').value);
       formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
       formData.append('appType', document.querySelector('input[name="appType"]:checked').value);                         
-    //   const appTypeChecked = document.querySelector('input[name="appType"]:checked');
-    //   if (appTypeChecked) {
-    //  formData.append('appType', appTypeChecked.value);
-    // } else {
-    // formData.append('appType', ''); // or any default value you want
-    // }
-
-      // document.querySelectorAll('input[name="appType"]:checked').forEach(checkbox => {
-      // formData.append('appType[]', checkbox.value);
-      //  });
-
-
-                    
-
-      console.log(formData);
-
 
       // Collect data from Department Information
       formData.append('deptName', document.getElementById('deptName').value);
