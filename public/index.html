@@ -255,10 +255,10 @@
                                   placeholder="Enter the name of the application">
                               </div>
                               <div class="form-group">
-                                <label for="appDetails"> Details about the application: </label>
-                                <input type="text" name="appDetails" class="form-control" id="appDetails"
-                                  placeholder="Give a brief description about the application">
-                              </div>
+                                <label for ="appDetails"> Details about the application: </label>
+                                <textarea class ="form-control" id="appDetails" name="appDetails" 
+                                placeholder="Give a brief description about the application"> </textarea>
+                              </div> 
                               <div class="form-group">
                                 <label for="langUsed"> Programming Languages used: </label>
                                 <textarea class="form-control" id="langUsed" name="langUsed"
@@ -956,16 +956,20 @@
       // Collect data from Hosting Form
       formData.append('appName', document.getElementById('appName').value);
       formData.append('appDetails', document.getElementById('appDetails').value);
+//       const appDetailsValue = document.getElementById('appdetails').value;
+// console.log('appDetails:', appDetailsValue);
+// formData.append('appDetails', appDetailsValue || "");
+
       formData.append('langUsed', document.getElementById('langUsed').value);
       formData.append('dbUsed', document.getElementById('dbUsed').value);
       formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
-      // formData.append('appType', document.querySelector('input[name="appType"]:checked').value);                         
-      const appTypeChecked = document.querySelector('input[name="appType"]:checked');
-if (appTypeChecked) {
-    formData.append('appType', appTypeChecked.value);
-} else {
-    formData.append('appType', ''); // or any default value you want
-}
+      formData.append('appType', document.querySelector('input[name="appType"]:checked').value);                         
+    //   const appTypeChecked = document.querySelector('input[name="appType"]:checked');
+    //   if (appTypeChecked) {
+    //  formData.append('appType', appTypeChecked.value);
+    // } else {
+    // formData.append('appType', ''); // or any default value you want
+    // }
 
       // document.querySelectorAll('input[name="appType"]:checked').forEach(checkbox => {
       // formData.append('appType[]', checkbox.value);
