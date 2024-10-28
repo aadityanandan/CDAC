@@ -23,24 +23,30 @@ const upload = multer();
 
 router.post('/submit-form-endpoint', upload.none(), async (req, res) => {
     // Extract form data from the request body
-    const {deploymentType, appName, appdetails, langUsed, dbUsed, frameworkUsed, appType, deptName, deptEmail, deptPhNum, deptAddrs, contactInfo, concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup, vmInfo } = req.body;
+    const { deploymentType, appName, appdetails, langUsed, dbUsed, frameworkUsed, appType, deptName, deptEmail, deptPhNum, deptAddrs, contactInfo, concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup, vmInfo } = req.body;
+
+    console.log(req.body);
 
     // Validate reCAPTCHA (assuming it's part of the form)
     const recaptchaResponse = req.body['g-recaptcha-response'];
-    const secretKey = '6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv';  // Replace with your reCAPTCHA secret key
+    const secretKey = '6LfFuWkqAAAAAHv6yI3n8wtSRFMy0NagLqY8Rfqb';  // Replace with your reCAPTCHA secret key
     const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}`;
+
 
     try {
         // Verify reCAPTCHA response with Google's API
         const recaptchaVerification = await axios.post(verificationURL);
         const { success } = recaptchaVerification.data;
 
+        
         if (!success) {
             return res.status(400).send('reCAPTCHA validation failed');
         }
 
         // Now save the form data into the database
-        const formData = {deploymentType, appName, appdetails, langUsed, dbUsed, frameworkUsed, appType, deptName, deptEmail, deptPhNum, deptAddrs, contactInfo, concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup, vmInfo };
+        const formData = { deploymentType, appName, appdetails, langUsed, dbUsed, frameworkUsed, appType, deptName, deptEmail, deptPhNum, deptAddrs, contactInfo, concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup, vmInfo };
+
+console.log(formData);
 
         // Insert form data into your database (replace 'your_table' with your actual table name)
         connection.query('INSERT INTO form_data SET ?', formData, (error, results) => {
