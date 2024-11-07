@@ -119,37 +119,37 @@
                     href="#custom-tabs-one-email-page" role="tab" aria-controls="custom-tabs-one-profile"
                     aria-selected="false">Authentication Page</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                     href="#custom-tabs-one-landing-page" role="tab" aria-controls="custom-tabs-one-profile"
                     aria-selected="false">Landing Page</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                     href="#custom-tabs-one-hosting-page" role="tab" aria-controls="custom-tabs-one-profile"
                     aria-selected="false">Hosting Info</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
                     href="#custom-tabs-one-department-info" role="tab" aria-controls="custom-tabs-one-messages"
                     aria-selected="false">Department Info</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
                     href="#custom-tabs-one-contact-info" role="tab" aria-controls="custom-tabs-one-settings"
                     aria-selected="false">Contact Info</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
                     href="#custom-tabs-one-additional-information" role="tab" aria-controls="custom-tabs-one-settings"
                     aria-selected="false">Additional Info</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
                     href="#custom-tabs-one-vm-information" role="tab" aria-controls="custom-tabs-one-settings"
                     aria-selected="false">VM Details</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-terms-tab" data-toggle="pill" href="#custom-tabs-one-terms"
                     role="tab" aria-controls="custom-tabs-one-terms" aria-selected="false">Terms and Conditions</a>
                 </li>
@@ -746,7 +746,12 @@
   }
 
   function showForm1() { showTab(0); }
-  function showForm2() { showTab(1); }
+  function showForm2() { 
+    document.querySelectorAll('.nav-item.invisible').forEach(tab => {
+      tab.classList.remove('invisible');
+    });
+  
+  showTab(1); }
   function showForm3() { showTab(2); }
   function showForm4() { showTab(3); }
   function showForm5() { showTab(4); }
