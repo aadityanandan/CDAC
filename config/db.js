@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',        // Add your MySQL username
     password: '',    // Add your MySQL password
-    database: 'formdb'
+    database: 'mydb' 
 });
 
 // Connect to the MySQL database

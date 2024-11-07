@@ -28,32 +28,20 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
-  <!-- <link rel="stylesheet" href="/public/dist/css/adminlte.css">
-
-  <link rel="stylesheet" href="/public/dist/css/adminlte.css.map">
-
-  <link rel="stylesheet" href="/public/dist/css/adminlte.min.css">
-
-  <link rel="stylesheet" href="/public/dist/css/adminlte.min.css.map"> -->
-
-  <!-- <link rel="stylesheet" href="/public/dist/css/"> -->
-
-  <!-- <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv"></script> -->
+  
 
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <script>
-    // function submitForm(e) {
-    //   e.preventDefault();
-    //   grecaptcha.enterprise.ready(async () => {
-    //     const token = await grecaptcha.enterprise.execute('6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv', {action: 'LOGIN'});
-    //   });
-    // }
-
-  </script>
 </head>
 
 <style>
+
+  /* Hide all tabs except the Authentication Page initially */
+/* #custom-tabs-one-tab .nav-item:not(:first-child),
+#custom-tabs-one-tabContent .tab-pane:not(#custom-tabs-one-email-page) {
+  display: none;
+} */
+
   body {
     display: flex;
     flex-direction: column;
@@ -137,7 +125,7 @@
                 <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
                     href="#custom-tabs-one-contact-info" role="tab" aria-controls="custom-tabs-one-settings"
-                    aria-selected="false">Contact Info</a>
+                    aria-selected="false">Contact Info</a> 
                 </li>
                 <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
@@ -177,7 +165,7 @@
                                   placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
                               </div>
                               <button type="button" class="btn btn-primary" onclick="sendCaptcha()">Send
-                                CAPTCHA</button>
+                                OTP</button>
 
                               <div id="captchaSection" style="margin-top: 20px; display: none;">
                                 <div class="form-group">
@@ -195,7 +183,6 @@
 
                               <button type="button" class="btn btn-primary" style="margin-top: 20px;"
                                 onclick="showForm2()">Next</button>
-
                             </div>
                           </div>
                         </div>
@@ -205,7 +192,7 @@
                 </div>
 
 
-                <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"
+                <div id="page2"style="display: none;" class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"  
                   aria-labelledby="custom-tabs-one-profile-tab">
                   <section id="form2" class="content">
                     <div class="container-fluid">
@@ -732,6 +719,7 @@
 <script>
 
 
+
   function showTab(index) {
     const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
     const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
@@ -762,6 +750,7 @@
 
   // send email and captcha
   // async function sendCaptcha() {
+  //   alert("otp send")
   //     try {
   //         const email = document.getElementById('email').value;
   //         if (!email) {
@@ -790,59 +779,59 @@
   //     }
   // }
 
-  // async function verifyCaptcha() {
-  //     try {
-  //         const email = document.getElementById('email').value;
-  //         const captcha = document.getElementById('captcha').value;
-  //         if (!captcha) {
-  //             alert('Please enter the CAPTCHA.');
-  //             return;
-  //         }
+  async function verifyCaptcha() {
+      try {
+          const email = document.getElementById('email').value;
+          const captcha = document.getElementById('captcha').value;
+          if (!captcha) {
+              alert('Please enter the CAPTCHA.');
+              return;
+          }
 
-  //         // Verify CAPTCHA on server (implement server-side logic)
-  //         const response = await fetch('/verify-captcha', {
-  //             method: 'POST',
-  //             headers: {
-  //                 'Content-Type': 'application/json'
-  //             },
-  //             body: JSON.stringify({ email, captcha })
-  //         });
+          // Verify CAPTCHA on server (implement server-side logic)
+          const response = await fetch('/verify-captcha', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email, captcha })
+          });
 
-  //         if (response.ok) {
-  //             alert('CAPTCHA verified successfully!');
-  //             // Redirect to the next page or allow access
-  //         } else {
-  //             alert('CAPTCHA verification failed.');
-  //         }
-  //     } catch (error) {
-  //         console.error('Error:', error);
-  //         alert('An error occurred during CAPTCHA verification.');
-  //     }
-  // }
+          if (response.ok) {
+              alert('CAPTCHA verified successfully!');
+              // Redirect to the next page or allow access
+          } else {
+              alert('CAPTCHA verification failed.');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred during CAPTCHA verification.');
+      }
+  }
 
   // email regex for accepting only official emails
   // function sendCaptcha() {
-  //     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov|cdac)\.in$/;
-  //     const email = document.getElementById('email').value;
+      // const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov|cdac)\.in$/;
+      // const email = document.getElementById('email').value;
 
-  //     if (emailPattern.test(email)) {
-  //         // Email is valid
-  //         console.log('Valid email');
-  //         alert('CAPTCHA sent to your email address.');
+      // if (emailPattern.test(email)) {
+      //     // Email is valid
+      //     console.log('Valid email');
+      //     alert('CAPTCHA sent to your email address.');
 
-  //         // Display the CAPTCHA section for user input
-  //         document.getElementById('captchaSection').style.display = 'block';
-  //     } else {
-  //         // Email is invalid
-  //         console.log('Invalid email');
-  //         alert('Please enter a valid email ending with .nic.in or .gov.in');
-  //     }
+      //     // Display the CAPTCHA section for user input
+      //     document.getElementById('captchaSection').style.display = 'block';
+      // } else {
+      //     // Email is invalid
+      //     console.log('Invalid email');
+      //     alert('Please enter a valid email ending with .nic.in or .gov.in');
+      // }
   // }
 
-  // function verifyCaptcha() {
-  //     // Logic to verify CAPTCHA goes here
-  //     alert('CAPTCHA verified.');
-  // }
+  function verifyCaptcha() {
+      // Logic to verify CAPTCHA goes here
+      alert('CAPTCHA verified.');
+  }
 
   //  js of contact information table
   let contactRowCount = 0;
@@ -852,6 +841,7 @@
     contactRowCount++;
     const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
     const newRow = table.insertRow();
+    alert(1)
 
     newRow.innerHTML = `
         <td>${contactRowCount}.</td>
@@ -869,6 +859,7 @@
         </td>
         <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>  
     `;
+    console.log("new Row data--",newRow)
   }
 
   function removeContactRow(button) {
@@ -917,7 +908,9 @@
   }
 
   async function submitForm(event) {
-    event.preventDefault();  // Prevent the default form submission
+    event.preventDefault();
+
+    // Prevent the default form submission
 
     // Collect form data
     // const formData = new FormData(document.getElementById('form'));
@@ -941,20 +934,13 @@
     // }
 
     const formData = new FormData();
-    try {
+    
       // Ensure terms and conditions are accepted before proceeding
       const acceptTerms = document.getElementById('acceptTerms');
       if (!acceptTerms.checked) {
         alert('You must accept the terms and conditions before submitting the form.');
         return;
       }
-
-      // Collect data from Landing Page
-      // const deploymentType = document.querySelector('input[name="deploymentType"]:checked');
-      // if (deploymentType) {    
-      //   formData.append('deploymentType', deploymentType.value);
-      // }
-
 
     // Collect from 1st Page
       formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
@@ -1010,25 +996,48 @@
       }
 
       // Make an HTTP request to submit the form data
-      const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+    //   const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+    //     method: 'POST',
+    //     body: formData
+    //   });
+       
+    //   if (!response.ok) {
+    //     const errorMessage = await response.text();
+    //     throw new Error(`Error: ${response.status} - ${errorMessage}`);
+    //   }
+
+    //   console.log("Form submitted successfully."); // Updated log message
+
+    //   console.log('formdata------>',Formdata);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   alert("An error occurred during form submission.");
+    // } 
+
+
+    try {
+    const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
         method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Error: ${response.status} - ${errorMessage}`);
-      }
-
-      console.log("Form submitted successfully."); // Updated log message
-
-      console.log('formdata------>',Formdata);
-    } catch (error) {
-      console.error('Error:', error);
-      alert("An error occurred during form submission.");
+        body: formData,
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
     }
-  }
+    console.log("Form submitted successfully.");
+    } catch (error) {
+    console.error("Form submission error:", error);
+    alert("An error occurred while submitting the form.");
+    }
 
+
+
+    }
+    console.log("Request body:", req.body);
+
+
+
+    
 
 
 </script>
