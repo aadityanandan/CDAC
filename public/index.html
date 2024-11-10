@@ -36,11 +36,7 @@
 
 <style>
 
-  /* Hide all tabs except the Authentication Page initially */
-/* #custom-tabs-one-tab .nav-item:not(:first-child),
-#custom-tabs-one-tabContent .tab-pane:not(#custom-tabs-one-email-page) {
-  display: none;
-} */
+ 
 
   body {
     display: flex;
@@ -192,7 +188,7 @@
                 </div>
 
 
-                <div id="page2"style="display: none;" class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"  
+                <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"  
                   aria-labelledby="custom-tabs-one-profile-tab">
                   <section id="form2" class="content">
                     <div class="container-fluid">
@@ -719,8 +715,7 @@
 <script>
 
 
-
-  function showTab(index) {
+function showTab(index) {
     const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
     const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
 
@@ -729,23 +724,34 @@
     tabContents.forEach((content) => content.classList.remove('active', 'show'));
 
     // Add active class to the selected tab and content
-    tabLinks[index].classList.add('active');
-    tabContents[index].classList.add('active', 'show');
-  }
+    if (tabLinks[index] && tabContents[index]) {
+        tabLinks[index].classList.add('active');
+        tabContents[index].classList.add('active', 'show');
+    } else {
+        console.error("Tab or content with index", index, "not found");
+    }
+}
 
-  function showForm1() { showTab(0); }
-  function showForm2() { 
+function showForm1() { showTab(0); }
+
+function showForm2() {
+    // Remove the invisible class from the tab item if it’s hidden
     document.querySelectorAll('.nav-item.invisible').forEach(tab => {
-      tab.classList.remove('invisible');
+        tab.classList.remove('invisible');
     });
-  
-  showTab(1); }
-  function showForm3() { showTab(2); }
-  function showForm4() { showTab(3); }
-  function showForm5() { showTab(4); }
-  function showForm6() { showTab(5); }
-  function showForm7() { showTab(6); }
-  function showForm8() { showTab(7); }
+
+    // Activate the second tab (Form 2)
+    showTab(1);
+    console.log("Form 2 should now be visible and active.");
+}
+
+// Other functions for additional tabs
+function showForm3() { showTab(2); }
+function showForm4() { showTab(3); }
+function showForm5() { showTab(4); }
+function showForm6() { showTab(5); }
+function showForm7() { showTab(6); }
+function showForm8() { showTab(7); }
 
 
   // send email and captcha
@@ -841,8 +847,6 @@
     contactRowCount++;
     const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
     const newRow = table.insertRow();
-    alert(1)
-
     newRow.innerHTML = `
         <td>${contactRowCount}.</td>
         <td><input type="text" name="contactName[]" class="form-control" required></td>
@@ -906,32 +910,10 @@
     }
     vmRowCount = rows.length;
   }
+  
 
   async function submitForm(event) {
     event.preventDefault();
-
-    // Prevent the default form submission
-
-    // Collect form data
-    // const formData = new FormData(document.getElementById('form'));
-
-    // Send the form data to the backend
-    // try {
-    //   const response = await fetch('/submit-form-endpoint', {
-    //     method: 'POST',
-    //     body: formData
-    //   });
-
-    //   if (!response.ok) {
-    //     const errorMessage = await response.text();
-    //     throw new Error(`Error: ${response.status} - ${errorMessage}`);
-    //   }
-
-    //   alert('Form submitted and data saved successfully!');
-    // } catch (error) {
-    //   console.error('Error during form submission:', error);
-    //   alert('An error occurred during form submission.');
-    // }
 
     const formData = new FormData();
     
@@ -995,25 +977,7 @@
         console.log(pair[0] + ': ' + pair[1]);
       }
 
-      // Make an HTTP request to submit the form data
-    //   const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
-    //     method: 'POST',
-    //     body: formData
-    //   });
-       
-    //   if (!response.ok) {
-    //     const errorMessage = await response.text();
-    //     throw new Error(`Error: ${response.status} - ${errorMessage}`);
-    //   }
-
-    //   console.log("Form submitted successfully."); // Updated log message
-
-    //   console.log('formdata------>',Formdata);
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   alert("An error occurred during form submission.");
-    // } 
-
+      
 
     try {
     const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
@@ -1033,7 +997,6 @@
 
 
     }
-    console.log("Request body:", req.body);
 
 
 

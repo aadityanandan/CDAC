@@ -4,22 +4,32 @@ const connection = require('../config/db');  // Import the database connection
 exports.submitForm = (req, res) => {
     const uuid = uuidv4(); // Generate unique identifier
 
-    // Destructure fields for each table from req.body
     const {
         deploymentType, appName, appDetails, langUsed, dbUsed, frameworkUsed, appType,
         deptName, deptEmail, deptPhNum, deptAddrs,
-        concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup
+        concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup,
     } = req.body;
+    
+// Construct contactInfo and vmInfo arrays if they come as individual arrays
+const contactInfo = req.body.contactName.map((name, index) => ({
+    contactName: name,
+    contactEmail: req.body.contactEmail[index],
+    contactPhNum: req.body.contactPhNum[index],
+    contactDesignation: req.body.contactDesignation[index],
+    contactRole: req.body.contactRole[index]
+}));
 
-    // Access dynamic arrays
-    const contactInfo = req.body.contactInfo || [];  // Array of contact details
-    const vmInfo = req.body.vmInfo || [];            // Array of VM details
+const vmInfo = req.body.vmName.map((name, index) => ({
+    vmName: name,
+    cpuCount: req.body.cpuCount[index],
+    servicesVersions: req.body.servicesVersions[index],
+    osVersion: req.body.osVersion[index],
+    storage: req.body.storage[index]
+}));
 
-    // **Debugging Logs** - Check data right after receiving it from req.body
-    console.log("Received vmInfo array:", vmInfo);
-    console.log("Received contactInfo array:", contactInfo);
+    console.log("Parsed contactInfo array:", contactInfo);
+    console.log("Parsed vmInfo array:", vmInfo);
 
-    // Insert data into hosting_details with UUID
     const hostingQuery = `
         INSERT INTO hosting_details (
             deploymentType, uuid, appName, appDetails, langUsed, dbUsed, frameworkUsed, appType
@@ -32,11 +42,9 @@ exports.submitForm = (req, res) => {
     connection.query(hostingQuery, hostingValues, (err, hostingResults) => {
         if (err) {
             console.error('Error inserting into hosting_details:', err);
-            res.status(500).json({ error: 'Error saving hosting details', details: err.message });
-            return;
+            return res.status(500).json({ error: 'Error saving hosting details', details: err.message });
         }
 
-        // Insert data into department_details with the same UUID
         const departmentQuery = `
             INSERT INTO department_details (deptName, deptEmail, deptPhNum, deptAddrs, uuid)
             VALUES (?, ?, ?, ?, ?)
@@ -46,11 +54,9 @@ exports.submitForm = (req, res) => {
         connection.query(departmentQuery, departmentValues, (err, departmentResults) => {
             if (err) {
                 console.error('Error inserting into department_details:', err);
-                res.status(500).json({ error: 'Error saving department details', details: err.message });
-                return;
+                return res.status(500).json({ error: 'Error saving department details', details: err.message });
             }
 
-            // Insert data into contact_details for each contact entry
             const contactQuery = `
                 INSERT INTO contact_details (contactName, contactEmail, contactPhNum, contactDesignation, contactRole, uuid)
                 VALUES (?, ?, ?, ?, ?, ?)
@@ -61,13 +67,15 @@ exports.submitForm = (req, res) => {
                 ];
                 return new Promise((resolve, reject) => {
                     connection.query(contactQuery, contactValues, (err, result) => {
-                        if (err) return reject(err);
+                        if (err) {
+                            console.error("Error inserting contact info:", err);
+                            return reject(err);
+                        }
                         resolve(result);
                     });
                 });
             });
 
-            // Insert data into additional_info with the same UUID
             const additionalQuery = `
                 INSERT INTO additional_info (
                     concurrentUsers, peakTime, loadBalance, ipv6Compatibility, uuid, tapeBackup
@@ -79,12 +87,14 @@ exports.submitForm = (req, res) => {
 
             const additionalPromise = new Promise((resolve, reject) => {
                 connection.query(additionalQuery, additionalValues, (err, result) => {
-                    if (err) return reject(err);
+                    if (err) {
+                        console.error("Error inserting additional info:", err);
+                        return reject(err);
+                    }
                     resolve(result);
                 });
             });
 
-            // Insert data into vm_details for each VM entry
             const vminfoQuery = `
                 INSERT INTO vm_details (vmName, cpuCount, servicesVersions, osVersion, storage, uuid)
                 VALUES (?, ?, ?, ?, ?, ?)
@@ -95,7 +105,10 @@ exports.submitForm = (req, res) => {
                 ];
                 return new Promise((resolve, reject) => {
                     connection.query(vminfoQuery, vminfoValues, (err, result) => {
-                        if (err) return reject(err);
+                        if (err) {
+                            console.error("Error inserting VM info:", err);
+                            return reject(err);
+                        }
                         resolve(result);
                     });
                 });
