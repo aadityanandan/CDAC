@@ -89,6 +89,13 @@
 // // });
 
 // // module.exports = router;
+
+
+
+
+
+
+
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -116,10 +123,12 @@ router.post('/submit-form-endpoint', upload.none(), async (req, res) => {
             }
         });
 
+        console.log('reCAPTCHA verification response:', recaptchaVerification.data);
+
         const { success } = recaptchaVerification.data;
 
         if (!success) {
-            return res.status(400).json({ error: 'reCAPTCHA validation failed' });
+            return res.status(400).json({ error: 'reCAPTCHA validation failed', details: recaptchaVerification.data });
         }
 
         // If reCAPTCHA validation is successful, proceed to save form data in the database

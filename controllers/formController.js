@@ -9,7 +9,7 @@ exports.submitForm = (req, res) => {
         deptName, deptEmail, deptPhNum, deptAddrs,
         concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup,
     } = req.body;
-    
+
 // Construct contactInfo and vmInfo arrays if they come as individual arrays
 const contactInfo = req.body.contactName.map((name, index) => ({
     contactName: name,
@@ -26,9 +26,6 @@ const vmInfo = req.body.vmName.map((name, index) => ({
     osVersion: req.body.osVersion[index],
     storage: req.body.storage[index]
 }));
-
-    console.log("Parsed contactInfo array:", contactInfo);
-    console.log("Parsed vmInfo array:", vmInfo);
 
     const hostingQuery = `
         INSERT INTO hosting_details (

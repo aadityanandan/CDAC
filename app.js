@@ -46,8 +46,9 @@ app.use(session({
 // app.use('/auth', authRoutes);  // Authentication routes
 app.use('/form', formRoutes);  // Form-related routes
 app.use('/home', homeRouter);
-app.use('/otp', otpRoutes);    // Use the OTP routes
 app.use('/', csrfProtection);
+app.use('/api', otpRoutes);  
+
 app.use(cors());
 
 module.exports = app;

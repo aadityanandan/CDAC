@@ -754,90 +754,78 @@ function showForm7() { showTab(6); }
 function showForm8() { showTab(7); }
 
 
-  // send email and captcha
-  // async function sendCaptcha() {
-  //   alert("otp send")
-  //     try {
-  //         const email = document.getElementById('email').value;
-  //         if (!email) {
-  //             alert('Please enter your email.');
-  //             return;
-  //         }
 
-  //         // Send email to server to generate and send CAPTCHA (implement server-side logic)
-  //         const response = await fetch('/send-captcha', {
-  //             method: 'POST',
-  //             headers: {
-  //                 'Content-Type': 'application/json'
-  //             },
-  //             body: JSON.stringify({ email })
-  //         });
+// Show the CAPTCHA section when the OTP is sent
+function showCaptchaSection() {
+    document.getElementById("captchaSection").style.display = "block";
+}
 
-  //         if (response.ok) {
-  //             alert('CAPTCHA has been sent to your email.');
-  //             document.getElementById('captchaSection').style.display = 'block';
-  //         } else {
-  //             alert('Failed to send CAPTCHA.');
-  //         }
-  //     } catch (error) {
-  //         console.error('Error:', error);
-  //         alert('An error occurred while sending CAPTCHA.');
-  //     }
-  // }
+// Send OTP
+async function sendCaptcha() {
+    const email = document.getElementById("email").value;
 
-  async function verifyCaptcha() {
-      try {
-          const email = document.getElementById('email').value;
-          const captcha = document.getElementById('captcha').value;
-          if (!captcha) {
-              alert('Please enter the CAPTCHA.');
-              return;
-          }
+    // Validate email format with regex for .nic.in or .gov.in domains
+    // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov)\.in$/;
+    // if (!emailRegex.test(email)) {
+    //     alert("Please enter a valid official email ending with .nic.in or .gov.in");
+    //     return;
+    // }
 
-          // Verify CAPTCHA on server (implement server-side logic)
-          const response = await fetch('/verify-captcha', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ email, captcha })
-          });
+    // Send a POST request to the backend to trigger OTP email
+    try {
+        const response = await fetch("/api/sendOtp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: email })
+        });
 
-          if (response.ok) {
-              alert('CAPTCHA verified successfully!');
-              // Redirect to the next page or allow access
-          } else {
-              alert('CAPTCHA verification failed.');
-          }
-      } catch (error) {
-          console.error('Error:', error);
-          alert('An error occurred during CAPTCHA verification.');
-      }
-  }
+        const data = await response.json();
 
-  // email regex for accepting only official emails
-  // function sendCaptcha() {
-      // const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov|cdac)\.in$/;
-      // const email = document.getElementById('email').value;
+        if (data.success) {
+            alert("OTP sent successfully!");
+            showCaptchaSection();  // Show the captcha section for OTP entry
+        } else {
+            alert("Failed to send OTP. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error sending OTP:", error);
+        alert("Error sending OTP.");
+    }
+}
 
-      // if (emailPattern.test(email)) {
-      //     // Email is valid
-      //     console.log('Valid email');
-      //     alert('CAPTCHA sent to your email address.');
+// Verify OTP
+async function verifyCaptcha() {
+    const userOtp = document.getElementById("captcha").value;
 
-      //     // Display the CAPTCHA section for user input
-      //     document.getElementById('captchaSection').style.display = 'block';
-      // } else {
-      //     // Email is invalid
-      //     console.log('Invalid email');
-      //     alert('Please enter a valid email ending with .nic.in or .gov.in');
-      // }
-  // }
+    // Send a POST request to the backend to verify OTP
+    try {
+        const response = await fetch("/api/verifyOtp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ otp: userOtp })
+        });
 
-  function verifyCaptcha() {
-      // Logic to verify CAPTCHA goes here
-      alert('CAPTCHA verified.');
-  }
+        const data = await response.json();
+
+        if (data.success) {
+            alert("OTP verified successfully!");
+            showForm2();  // Assuming showForm2() leads to the next step
+        } else {
+            alert(data.message || "Incorrect OTP. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error verifying OTP:", error);
+        alert("Error verifying OTP.");
+    }
+}
+
+
+
+
 
   //  js of contact information table
   let contactRowCount = 0;

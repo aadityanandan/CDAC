@@ -1,3 +1,4 @@
+require('dotenv').config();
 const nodemailer = require('nodemailer');
 
 // Configure Nodemailer
@@ -5,8 +6,8 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
+        pass: process.env.EMAIL_PASS,
+    },
 });
 
 // Generate a random OTP
@@ -26,7 +27,7 @@ exports.sendOtp = async (req, res) => {
             from: process.env.EMAIL_USER,
             to: email,
             subject: 'Your OTP Code',
-            text: `Your OTP code is ${otp}`
+            text: `Your OTP code is ${otp}`,
         });
         res.json({ success: true });
     } catch (error) {
@@ -36,7 +37,7 @@ exports.sendOtp = async (req, res) => {
 };
 
 // Controller to verify OTP
-exports.verifyOtp = (req, res) => { 
+exports.verifyOtp = (req, res) => {
     const userOtp = req.body.otp;
 
     // Check if the OTP matches the one stored in session
