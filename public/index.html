@@ -164,19 +164,19 @@
 
                               <div id="captchaSection" style="margin-top: 20px; display: none;">
                                 <div class="form-group">
-                                  <label for="captcha">Enter the CAPTCHA sent to your email:</label>
+                                  <label for="captcha">Enter the OTP sent to your email:</label>
                                   <input type="text" class="form-control" id="captcha" placeholder="Enter CAPTCHA"
                                     required>
                                 </div>
-                                <button type="button" class="btn btn-primary" onclick="verifyOtp()">Verify
-                                  CAPTCHA</button>
+                                <button  type="button" class="btn btn-primary" onclick="verifyOtp()">Verify
+                                  OTP</button>
                               </div>
 
                               <!-- reCAPTCHA Widget -->
-                              <div class="g-recaptcha" data-sitekey="6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv"
-                                style="margin-top: 20px;"></div>
+                              <div id="captcha-check" class="g-recaptcha" data-sitekey="6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv"
+                                style="margin-top: 20px; display: none;"></div>
 
-                              <button type="button" class="btn btn-primary" style="margin-top: 20px;"
+                              <button id="nextBtn" type="button" class="btn btn-primary" style="margin-top: 20px; display: none;"
                                 onclick="showForm2()">Next</button>
                             </div>
                           </div>
@@ -812,7 +812,10 @@ async function verifyOtp() {
 
         if (data.success) {
             alert("OTP verified successfully!");
-            showForm2();  // Assuming showForm2() leads to the next step
+            document.getElementById('nextBtn').style.display = "block";
+            document.getElementById('captcha-check').style.display = "block";
+            
+            // showForm2();  // Assuming showForm2() leads to the next step
         } else {
             alert(data.message || "Incorrect OTP. Please try again.");
         }
