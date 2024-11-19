@@ -35,9 +35,7 @@
 </head>
 
 <style>
-
- 
-
+  
   body {
     display: flex;
     flex-direction: column;
@@ -72,6 +70,7 @@
     text-align: center;
     /* Optional: Center it within the div */
   }
+
 </style>
 
 <header>
@@ -160,7 +159,7 @@
                                 <input type="email" class="form-control" id="email"
                                   placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
                               </div>
-                              <button type="button" class="btn btn-primary" onclick="sendCaptcha()">Send
+                              <button type="button" class="btn btn-primary" onclick="generateOtp()">Send
                                 OTP</button>
 
                               <div id="captchaSection" style="margin-top: 20px; display: none;">
@@ -169,7 +168,7 @@
                                   <input type="text" class="form-control" id="captcha" placeholder="Enter CAPTCHA"
                                     required>
                                 </div>
-                                <button type="button" class="btn btn-primary" onclick="verifyCaptcha()">Verify
+                                <button type="button" class="btn btn-primary" onclick="verifyOtp()">Verify
                                   CAPTCHA</button>
                               </div>
 
@@ -350,7 +349,6 @@
                               </table>
                               <button type="button" class="btn btn-primary" onclick="addContactRow()">Add new contact
                                 Information</button>
-
                               <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
                               <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
                             </div>
@@ -376,7 +374,7 @@
                               <div class="form-group">
                                 <div class="form-group">
                                   <label for="concurrentUsers">Total number of concurrent connections: </label>
-                                  <input type="text" name="concurrentUsers" class="form-control" id="concurrentUsers"
+                                  <input type="te xt" name="concurrentUsers" class="form-control" id="concurrentUsers"
                                     placeholder="Enter the estimated total number of concurrent connections">
                                 </div>
                                 <div class="form-group">
@@ -761,7 +759,7 @@ function showCaptchaSection() {
 }
 
 // Send OTP
-async function sendCaptcha() {
+async function generateOtp() {
     const email = document.getElementById("email").value;
 
     // Validate email format with regex for .nic.in or .gov.in domains
@@ -773,7 +771,7 @@ async function sendCaptcha() {
 
     // Send a POST request to the backend to trigger OTP email
     try {
-        const response = await fetch("/api/sendOtp", {
+        const response = await fetch("http://localhost:5000/api/send-otp", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -796,12 +794,13 @@ async function sendCaptcha() {
 }
 
 // Verify OTP
-async function verifyCaptcha() {
+async function verifyOtp() {
     const userOtp = document.getElementById("captcha").value;
 
     // Send a POST request to the backend to verify OTP
+    
     try {
-        const response = await fetch("/api/verifyOtp", {
+        const response = await fetch("/api/verify-Otp", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -822,10 +821,6 @@ async function verifyCaptcha() {
         alert("Error verifying OTP.");
     }
 }
-
-
-
-
 
   //  js of contact information table
   let contactRowCount = 0;
@@ -981,16 +976,53 @@ async function verifyCaptcha() {
     console.error("Form submission error:", error);
     alert("An error occurred while submitting the form.");
     }
-
-
-
     }
 
+    function submitForm(event) {
+    // Disable the submit button to prevent duplicate submissions
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+
+    // Perform reCAPTCHA check and other form validation
+    grecaptcha.execute(); // This will execute the reCAPTCHA check
+
+    // Assuming you have a callback for reCAPTCHA verification
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv', { action: 'submit' }).then(function(token) {
+            // Append reCAPTCHA token to form data
+            const formData = new FormData();
+            formData.append('recaptchaToken', token);
+
+            // Add other form fields to formData here
+
+            // Example: Submit the form data to the server
+            fetch('/your-form-endpoint', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                    alert("Form submitted successfully!");
+                } else {
+                    // Handle reCAPTCHA errors
+                    if (data['error-codes'] && data['error-codes'].includes("timeout-or-duplicate")) {
+                        alert("reCAPTCHA expired or already used. Please try again.");
+                        grecaptcha.reset(); // Reset reCAPTCHA
+                        submitBtn.disabled = false; // Re-enable the button for retry
+                    } else {
+                        alert("Submission failed. Please try again.");
+                    }
+                }
+            }).catch(error => {
+                console.error("Error submitting form:", error);
+                submitBtn.disabled = false; // Re-enable button on error
+            });
+        });
+    });
+}
 
 
     
-
-
 </script>
 
 </body>

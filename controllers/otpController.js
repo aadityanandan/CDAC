@@ -1,9 +1,15 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 
+console.log(process.env.EMAIL_USER)
+console.log(process.env.EMAIL_PASS)
+
 // Configure Nodemailer
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -11,12 +17,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Generate a random OTP
-const sendCaptcha = () => Math.floor(100000 + Math.random() * 900000).toString();
+const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
 
 // Controller to send OTP
 exports.sendOtp = async (req, res) => {
     const email = req.body.email;
-    const otp = sendCaptcha();
+    const otp = generateOtp();
 
     // Store OTP in session
     req.session.otp = otp;
