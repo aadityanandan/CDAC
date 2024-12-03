@@ -28,14 +28,9 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
-  
-
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 </head>
 
 <style>
-  
   body {
     display: flex;
     flex-direction: column;
@@ -62,30 +57,25 @@
     /* Ensures the images maintain the correct proportions */
   }
 
-  g-recaptcha {
-    display: block;
-    /*Ensure it's displayed inline-block or block */
-    margin-top: 20px;
-    /* Space between the button and the widget */
-    text-align: center;
-    /* Optional: Center it within the div */
-  }
-
 </style>
+<script>
+  function includeHTML() {
+      const elements = document.querySelectorAll('[data-include]');
+      elements.forEach(el => {
+          const file = el.getAttribute('data-include');
+          fetch(file)
+              .then(response => {
+                  if (!response.ok) throw new Error(`Failed to load ${file}`);
+                  return response.text();
+              })
+              .then(data => el.innerHTML = data)
+              .catch(error => console.error(error));
+      });
+  }
+  document.addEventListener("DOMContentLoaded", includeHTML);
+</script>
 
-<header>
-
-  <div>
-    <figure>
-      <img src="pics/cdac-logo.png" alt="CDAC Logo">
-    </figure>
-  </div>
-  <div>
-    <figure>
-      <img src="pics/logo.png" alt="Logo" width="80" height="70">
-    </figure>
-  </div>
-</header>
+<div data-include="header.html"></div>
 
 <main>
   <form id="form" action="/submit-form-endpoint" method="post" enctype="application/x-www-form-urlencoded">
@@ -97,11 +87,6 @@
           <div class="card card-primary card-tabs">
             <div class="card-header p-0 pt-1">
               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                    href="#custom-tabs-one-email-page" role="tab" aria-controls="custom-tabs-one-profile"
-                    aria-selected="false">Authentication Page</a>
-                </li>
                 <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                     href="#custom-tabs-one-landing-page" role="tab" aria-controls="custom-tabs-one-profile"
@@ -120,7 +105,7 @@
                 <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
                     href="#custom-tabs-one-contact-info" role="tab" aria-controls="custom-tabs-one-settings"
-                    aria-selected="false">Contact Info</a> 
+                    aria-selected="false">Contact Info</a>
                 </li>
                 <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
@@ -143,53 +128,11 @@
               <div class="tab-content" id="custom-tabs-one-tabContent">
 
 
-                <div class="tab-pane fade show active" id="custom-tabs-one-email-page" role="tabpanel"
-                  aria-labelledby="custom-tabs-one-email-page-tab">
-                  <section id="form1" class="content">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="card card-primary">
-                            <div class="card-header">
-                              <h3 class="card-title">Authentication Page</h3>
-                            </div>
-                            <div class="card-body">
-                              <div class="form-group">
-                                <label for="email">Enter your email address:</label>
-                                <input type="email" class="form-control" id="email"
-                                  placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
-                              </div>
-                              <button type="button" class="btn btn-primary" onclick="generateOtp()">Send
-                                OTP</button>
-
-                              <div id="captchaSection" style="margin-top: 20px; display: none;">
-                                <div class="form-group">
-                                  <label for="captcha">Enter the OTP sent to your email:</label>
-                                  <input type="text" class="form-control" id="captcha" placeholder="Enter CAPTCHA"
-                                    required>
-                                </div>
-                                <button  type="button" class="btn btn-primary" onclick="verifyOtp()">Verify
-                                  OTP</button>
-                              </div>
-
-                              <!-- reCAPTCHA Widget -->
-                              <div id="captcha-check" class="g-recaptcha" data-sitekey="6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv"
-                                style="margin-top: 20px; display: none;"></div>
-
-                              <button id="nextBtn" type="button" class="btn btn-primary" style="margin-top: 20px; display: none;"
-                                onclick="showForm2()">Next</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </div>
 
 
-                <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"  
+                <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"
                   aria-labelledby="custom-tabs-one-profile-tab">
-                  <section id="form2" class="content">
+                  <section id="form1" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -208,8 +151,7 @@
                                     <label><input type="radio" name="deploymentType" value="Existing"> No</label>
                                   </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
-                                <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
+                                <button type="button" class="btn btn-primary" onclick="showForm2()">Next</button>
                               </div>
                             </div>
                           </div>
@@ -222,7 +164,7 @@
 
                 <div class="tab-pane fade" id="custom-tabs-one-hosting-page" role="tabpanel"
                   aria-labelledby="custom-tabs-one-profile-tab">
-                  <section id="form3" class="content">
+                  <section id="form2" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -237,10 +179,10 @@
                                   placeholder="Enter the name of the application">
                               </div>
                               <div class="form-group">
-                                <label for ="appDetails"> Details about the application: </label>
-                                <textarea class ="form-control" id="appDetails" name="appDetails" 
-                                placeholder="Give a brief description about the application"> </textarea>
-                              </div> 
+                                <label for="appDetails"> Details about the application: </label>
+                                <textarea class="form-control" id="appDetails" name="appDetails"
+                                  placeholder="Give a brief description about the application"> </textarea>
+                              </div>
                               <div class="form-group">
                                 <label for="langUsed"> Programming Languages used: </label>
                                 <textarea class="form-control" id="langUsed" name="langUsed"
@@ -267,8 +209,8 @@
                                   <label class="form-check-label">Mobile application</label>
                                 </div>
                               </div>
-                              <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
                             </div>
                           </div>
                         </div>
@@ -280,7 +222,7 @@
 
                 <div class="tab-pane fade" id="custom-tabs-one-department-info" role="tabpanel"
                   aria-labelledby="custom-tabs-one-messages-tab">
-                  <section id="form4" class="content">
+                  <section id="form3" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -309,8 +251,8 @@
                                 <input type="text" name="deptAddrs" class="form-control" id="deptAddrs"
                                   placeholder="Enter the address of the department">
                               </div>
-                              <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm5()">Next</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
                             </div>
                           </div>
                         </div>
@@ -322,7 +264,7 @@
 
                 <div class="tab-pane fade" id="custom-tabs-one-contact-info" role="tabpanel"
                   aria-labelledby="custom-tabs-one-settings-tab">
-                  <section id="form5" class="content">
+                  <section id="form4" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -349,8 +291,8 @@
                               </table>
                               <button type="button" class="btn btn-primary" onclick="addContactRow()">Add new contact
                                 Information</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm5()">Next</button>
                             </div>
                           </div>
                         </div>
@@ -362,7 +304,7 @@
 
                 <div class="tab-pane fade" id="custom-tabs-one-additional-information" role="tabpanel"
                   aria-labelledby="custom-tabs-one-settings-tab">
-                  <section id="form6" class="content">
+                  <section id="form5" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -404,8 +346,8 @@
                                   </select>
                                 </div>
                               </div>
-                              <button type="button" class="btn btn-primary" onclick="showForm5()">Previous</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm7()">Next</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
                             </div>
                           </div>
                         </div>
@@ -417,7 +359,7 @@
 
                 <div class="tab-pane fade" id="custom-tabs-one-vm-information" role="tabpanel"
                   aria-labelledby="custom-tabs-one-settings-tab">
-                  <section id="form7" class="content">
+                  <section id="form6" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -443,8 +385,8 @@
                                 </tbody>
                               </table>
                               <button type="button" class="btn btn-primary" onclick="addVmRow()">Add VM</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm6()">Previous</button>
-                              <button type="button" class="btn btn-primary" onclick="showForm8()">Next</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm5()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm7()">Next</button>
                             </div>
                           </div>
                         </div>
@@ -456,7 +398,7 @@
 
                 <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel"
                   aria-labelledby="custom-tabs-one-terms-tab">
-                  <section id="form8" class="content">
+                  <section id="form7" class="content">
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12">
@@ -711,9 +653,36 @@
 <script src="dist/js/demo.js"></script>
 <!-- Custom Script -->
 <script>
+ function showTab(index) {
+    const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+    const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
 
+    // Check if the index is valid
+    if (index < 0 || index >= tabLinks.length) {
+        console.error("Tab or content with index", index, "not found");
+        return;
+    }
 
-function showTab(index) {
+    // Remove active class from all tabs and contents
+    tabLinks.forEach((link) => link.classList.remove('active'));
+    tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+    // Add active class to the selected tab and content
+    tabLinks[index].classList.add('active');
+    tabContents[index].classList.add('active', 'show');
+}
+
+// Function to display all tabs
+function showAllTabs() {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('invisible');
+    });
+
+    // Set the first tab as active by default
+    showTab(0);
+}
+function showTabById(tabId) {
     const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
     const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
 
@@ -721,110 +690,59 @@ function showTab(index) {
     tabLinks.forEach((link) => link.classList.remove('active'));
     tabContents.forEach((content) => content.classList.remove('active', 'show'));
 
-    // Add active class to the selected tab and content
-    if (tabLinks[index] && tabContents[index]) {
-        tabLinks[index].classList.add('active');
-        tabContents[index].classList.add('active', 'show');
+    // Find the tab link and content using the ID
+    const targetLink = Array.from(tabLinks).find(link => link.getAttribute('href') === `#${tabId}`);
+    const targetContent = document.getElementById(tabId);
+
+    if (targetLink && targetContent) {
+        targetLink.classList.add('active');
+        targetContent.classList.add('active', 'show');
     } else {
-        console.error("Tab or content with index", index, "not found");
+        console.error(`Tab or content with ID ${tabId} not found`);
     }
 }
 
-function showForm1() { showTab(0); }
+// Functions to show specific tabs by their IDs
+function showForm1() {
+    showTabById('custom-tabs-one-landing-page');
+}
 
 function showForm2() {
-    // Remove the invisible class from the tab item if it’s hidden
-    document.querySelectorAll('.nav-item.invisible').forEach(tab => {
-        tab.classList.remove('invisible');
-    });
-
-    // Activate the second tab (Form 2)
-    showTab(1);
-    console.log("Form 2 should now be visible and active.");
+    showTabById('custom-tabs-one-hosting-page');
 }
 
-// Other functions for additional tabs
-function showForm3() { showTab(2); }
-function showForm4() { showTab(3); }
-function showForm5() { showTab(4); }
-function showForm6() { showTab(5); }
-function showForm7() { showTab(6); }
-function showForm8() { showTab(7); }
-
-
-
-// Show the CAPTCHA section when the OTP is sent
-function showCaptchaSection() {
-    document.getElementById("captchaSection").style.display = "block";
+function showForm3() {
+    showTabById('custom-tabs-one-department-info');
 }
 
-// Send OTP
-async function generateOtp() {
-    const email = document.getElementById("email").value;
-
-    // Validate email format with regex for .nic.in or .gov.in domains
-    // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(nic|gov)\.in$/;
-    // if (!emailRegex.test(email)) {
-    //     alert("Please enter a valid official email ending with .nic.in or .gov.in");
-    //     return;
-    // }
-
-    // Send a POST request to the backend to trigger OTP email
-    try {
-        const response = await fetch("http://localhost:5000/api/send-otp", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: email })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            alert("OTP sent successfully!");
-            showCaptchaSection();  // Show the captcha section for OTP entry
-        } else {
-            alert("Failed to send OTP. Please try again.");
-        }
-    } catch (error) {
-        console.error("Error sending OTP:", error);
-        alert("Error sending OTP.");
-    }
+function showForm4() {
+    showTabById('custom-tabs-one-contact-info');
 }
 
-// Verify OTP
-async function verifyOtp() {
-    const userOtp = document.getElementById("captcha").value;
-
-    // Send a POST request to the backend to verify OTP
-    
-    try {
-        const response = await fetch("/api/verify-Otp", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ otp: userOtp })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            alert("OTP verified successfully!");
-            document.getElementById('nextBtn').style.display = "block";
-            document.getElementById('captcha-check').style.display = "block";
-            
-            // showForm2();  // Assuming showForm2() leads to the next step
-        } else {
-            alert(data.message || "Incorrect OTP. Please try again.");
-        }
-    } catch (error) {
-        console.error("Error verifying OTP:", error);
-        alert("Error verifying OTP.");
-    }
+function showForm5() {
+    showTabById('custom-tabs-one-additional-information');
 }
 
+function showForm6() {
+    showTabById('custom-tabs-one-vm-information');
+}
+
+function showForm7() {
+    showTabById('custom-tabs-one-terms');
+}
+
+
+
+
+// Call showAllTabs on page load or after redirection
+window.addEventListener('DOMContentLoaded', () => {
+    showAllTabs();
+});
+
+
+
+
+  
   //  js of contact information table
   let contactRowCount = 0;
 
@@ -849,7 +767,7 @@ async function verifyOtp() {
         </td>
         <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>  
     `;
-    console.log("new Row data--",newRow)
+    console.log("new Row data--", newRow)
   }
 
   function removeContactRow(button) {
@@ -867,6 +785,7 @@ async function verifyOtp() {
   }
   // js of vm info table 
   let vmRowCount = 0;
+
   function addVmRow() {
     vmRowCount++;
     const table = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0];
@@ -896,144 +815,97 @@ async function verifyOtp() {
     }
     vmRowCount = rows.length;
   }
-  
+
 
   async function submitForm(event) {
     event.preventDefault();
 
     const formData = new FormData();
-    
-      // Ensure terms and conditions are accepted before proceeding
-      const acceptTerms = document.getElementById('acceptTerms');
-      if (!acceptTerms.checked) {
-        alert('You must accept the terms and conditions before submitting the form.');
-        return;
-      }
+
+    // Ensure terms and conditions are accepted before proceeding
+    const acceptTerms = document.getElementById('acceptTerms');
+    if (!acceptTerms.checked) {
+      alert('You must accept the terms and conditions before submitting the form.');
+      return;
+    }
 
     // Collect from 1st Page
-      formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
-      // Collect data from Hosting Form
-      formData.append('appName', document.getElementById('appName').value);
-      formData.append('appDetails', document.getElementById('appDetails').value);
-      formData.append('langUsed', document.getElementById('langUsed').value);
-      formData.append('dbUsed', document.getElementById('dbUsed').value);
-      formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
-      formData.append('appType', document.querySelector('input[name="appType"]:checked').value);                         
+    formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
+    // Collect data from Hosting Form
+    formData.append('appName', document.getElementById('appName').value);
+    formData.append('appDetails', document.getElementById('appDetails').value);
+    formData.append('langUsed', document.getElementById('langUsed').value);
+    formData.append('dbUsed', document.getElementById('dbUsed').value);
+    formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
+    formData.append('appType', document.querySelector('input[name="appType"]:checked').value);
 
-      // Collect data from Department Information
-      formData.append('deptName', document.getElementById('deptName').value);
-      formData.append('deptEmail', document.getElementById('deptEmail').value);
-      formData.append('deptPhNum', document.getElementById('deptPhNum').value);
-      formData.append('deptAddrs', document.getElementById('deptAddrs').value);
+    // Collect data from Department Information
+    formData.append('deptName', document.getElementById('deptName').value);
+    formData.append('deptEmail', document.getElementById('deptEmail').value);
+    formData.append('deptPhNum', document.getElementById('deptPhNum').value);
+    formData.append('deptAddrs', document.getElementById('deptAddrs').value);
 
-      // Collect data from Contact Information table
-      const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
-      for (let i = 0; i < contactRows.length; i++) {
-        formData.append('contactName[]', contactRows[i].querySelector('input[name="contactName[]"]').value);
-        formData.append('contactEmail[]', contactRows[i].querySelector('input[name="contactEmail[]"]').value);
-        formData.append('contactPhNum[]', contactRows[i].querySelector('input[name="contactPhNum[]"]').value);
-        formData.append('contactDesignation[]', contactRows[i].querySelector('input[name="contactDesignation[]"]').value);
-        formData.append('contactRole[]', contactRows[i].querySelector('select[name="contactRole[]"]').value);
-      }
+    // Collect data from Contact Information table
+    const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < contactRows.length; i++) {
+      formData.append('contactName[]', contactRows[i].querySelector('input[name="contactName[]"]').value);
+      formData.append('contactEmail[]', contactRows[i].querySelector('input[name="contactEmail[]"]').value);
+      formData.append('contactPhNum[]', contactRows[i].querySelector('input[name="contactPhNum[]"]').value);
+      formData.append('contactDesignation[]', contactRows[i].querySelector('input[name="contactDesignation[]"]')
+        .value);
+      formData.append('contactRole[]', contactRows[i].querySelector('select[name="contactRole[]"]').value);
+    }
 
-      // Collect data from Additional Information
-      formData.append('concurrentUsers', document.getElementById('concurrentUsers').value);
-      formData.append('peakTime', document.getElementById('peakTime').value);
-      formData.append('loadBalance', document.getElementById('loadBalance').value);
-      formData.append('ipv6Compatibility', document.getElementById('ipv6Compatibility').value);
-      formData.append('tapeBackup', document.getElementById('tapeBackup').value);
+    // Collect data from Additional Information
+    formData.append('concurrentUsers', document.getElementById('concurrentUsers').value);
+    formData.append('peakTime', document.getElementById('peakTime').value);
+    formData.append('loadBalance', document.getElementById('loadBalance').value);
+    formData.append('ipv6Compatibility', document.getElementById('ipv6Compatibility').value);
+    formData.append('tapeBackup', document.getElementById('tapeBackup').value);
 
-      // Collect data from VM Information table
-      const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
-      for (let i = 0; i < vmRows.length; i++) {
-        formData.append('vmName[]', vmRows[i].querySelector('input[name="vmName[]"]').value);
-        formData.append('cpuCount[]', vmRows[i].querySelector('input[name="cpuCount[]"]').value);
-        formData.append('servicesVersions[]', vmRows[i].querySelector('input[name="servicesVersions[]"]').value);
-        formData.append('osVersion[]', vmRows[i].querySelector('input[name="osVersion[]"]').value);
-        formData.append('storage[]', vmRows[i].querySelector('input[name="storage[]"]').value);
-      }
-
-
-      formData.append('_csrf', document.getElementById('_csrf').value);
-      formData.append('g-recaptcha-response', document.getElementById('g-recaptcha-response').value);
+    // Collect data from VM Information table
+    const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < vmRows.length; i++) {
+      formData.append('vmName[]', vmRows[i].querySelector('input[name="vmName[]"]').value);
+      formData.append('cpuCount[]', vmRows[i].querySelector('input[name="cpuCount[]"]').value);
+      formData.append('servicesVersions[]', vmRows[i].querySelector('input[name="servicesVersions[]"]').value);
+      formData.append('osVersion[]', vmRows[i].querySelector('input[name="osVersion[]"]').value);
+      formData.append('storage[]', vmRows[i].querySelector('input[name="storage[]"]').value);
+    }
 
 
-      // Log formData for debugging (optional)
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
+    formData.append('_csrf', document.getElementById('_csrf').value);
+    formData.append('g-recaptcha-response', document.getElementById('g-recaptcha-response').value);
 
-      
+
+    // Log formData for debugging (optional)
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
+
 
     try {
-    const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+      const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
         method: 'POST',
         body: formData,
-    });
-    if (!response.ok) {
+      });
+      if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Error ${response.status}: ${errorText}`);
-    }
-    console.log("Form submitted successfully.");
+      }
+      console.log("Form submitted successfully.");
     } catch (error) {
-    console.error("Form submission error:", error);
-    alert("An error occurred while submitting the form.");
+      console.error("Form submission error:", error);
+      alert("An error occurred while submitting the form.");
     }
-    }
+  }
 
-    function submitForm(event) {
-    // Disable the submit button to prevent duplicate submissions
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-
-    // Perform reCAPTCHA check and other form validation
-    grecaptcha.execute(); // This will execute the reCAPTCHA check
-
-    // Assuming you have a callback for reCAPTCHA verification
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv', { action: 'submit' }).then(function(token) {
-            // Append reCAPTCHA token to form data
-            const formData = new FormData();
-            formData.append('recaptchaToken', token);
-
-            // Add other form fields to formData here
-
-            // Example: Submit the form data to the server
-            fetch('/your-form-endpoint', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json())
-              .then(data => {
-                if (data.success) {
-                    alert("Form submitted successfully!");
-                } else {
-                    // Handle reCAPTCHA errors
-                    if (data['error-codes'] && data['error-codes'].includes("timeout-or-duplicate")) {
-                        alert("reCAPTCHA expired or already used. Please try again.");
-                        grecaptcha.reset(); // Reset reCAPTCHA
-                        submitBtn.disabled = false; // Re-enable the button for retry
-                    } else {
-                        alert("Submission failed. Please try again.");
-                    }
-                }
-            }).catch(error => {
-                console.error("Error submitting form:", error);
-                submitBtn.disabled = false; // Re-enable button on error
-            });
-        });
-    });
-}
-
-
-    
+  
 </script>
 
 </body>
-<footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram </strong>
-  All rights reserved.
-  <div class="float-right d-none d-sm-inline-block">
-    <b>Version</b> 1.0.0
-  </div>
-</footer>
+
+<div data-include="footer.html"></div>
 
 </html>

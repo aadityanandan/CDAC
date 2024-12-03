@@ -12,12 +12,11 @@ router.use(express.urlencoded({ extended: false })); // Body parser for form dat
 const csrfProtection = csrf({ cookie: true });
 
 // Routes
-router.get('/process', csrfProtection, (req, res) => {
-    res.render('process', { csrfToken: req.csrfToken() }); // This should work now
-    // res.send('process'+req.csrfToken()); // This should work now
+router.get('/', csrfProtection, (req, res) => {
+    res.render('process', { csrfToken: req.csrfToken() });
 });
 
-router.post('/process', csrfProtection, (req, res) => {
+router.post('/', csrfProtection, (req, res) => {
     // Process the form data
     res.send('Form processed successfully.');
 });

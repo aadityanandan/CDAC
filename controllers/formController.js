@@ -10,14 +10,15 @@ exports.submitForm = (req, res) => {
         concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup,
     } = req.body;
 
-// Construct contactInfo and vmInfo arrays if they come as individual arrays
+// Construct contactInfo and vmInfo arrays if they come as individual arrays 
 const contactInfo = req.body.contactName.map((name, index) => ({
     contactName: name,
     contactEmail: req.body.contactEmail[index],
     contactPhNum: req.body.contactPhNum[index],
     contactDesignation: req.body.contactDesignation[index],
-    contactRole: req.body.contactRole[index]
+    contactRole: req.body.contactRole[index],
 }));
+
 
 const vmInfo = req.body.vmName.map((name, index) => ({
     vmName: name,
