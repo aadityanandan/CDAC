@@ -42,7 +42,7 @@ app.use(session({
 // Routes
 app.use('/form', formRoutes);
 app.use('/', csrfProtection);
-app.use('/api', otpRoutes);  
+app.use('/', otpRoutes);  
 
 app.use(cors());
 
