@@ -7,6 +7,9 @@ const formRoutes = require('./routes/formRoutes');
 const csrfProtection = require('./routes/csrfProtection');
 const connection = require('./config/db');
 const otpRoutes = require('./routes/otpRoutes');
+const authRoutes = require('./routes/authRoutes');
+
+
 const session = require('express-session');
 const cors = require('cors');
 require('dotenv').config();
@@ -31,18 +34,20 @@ app.use((err, req, res, next) => {
 });
 app.use(express.json());
 
-// Set up session middleware
+
+
 app.use(session({
-    secret: '-x-',
+    secret: process.env.SESSION_SECRET, // Use your securely generated secret
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false, maxAge: 1000 * 60 * 10 }, // 10 minutes
 }));
 
 // Routes
 app.use('/form', formRoutes);
 app.use('/', csrfProtection);
-app.use('/', otpRoutes);  
+app.use('/', otpRoutes); 
+// app.use('/', authRoutes);
 
 app.use(cors());
 

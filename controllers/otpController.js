@@ -1,6 +1,10 @@
-// require('dotenv').config();
 // const nodemailer = require('nodemailer');
-// // Configure Nodemailer
+// require('dotenv').config();
+
+// // Function to generate OTP
+// const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+// // Nodemailer transporter
 // const transporter = nodemailer.createTransport({
 //     service: 'gmail',
 //     host: 'smtp.gmail.com',
@@ -12,19 +16,14 @@
 //     },
 // });
 
-// // Generate a random OTP
-// const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
-
 // // Controller to send OTP
 // exports.sendOtp = async (req, res) => {
 //     const email = req.body.email;
 //     const otp = generateOtp();
-    
 
 //     // Store OTP in session
 //     req.session.otp = otp;
 
-//     // Send OTP email
 //     try {
 //         await transporter.sendMail({
 //             from: process.env.EMAIL_USER,
@@ -32,28 +31,12 @@
 //             subject: 'Your OTP Code',
 //             text: `Your OTP code is ${otp}`,
 //         });
-//         res.json({ success: true });
+//         res.json({ success: true, message: 'OTP sent successfully.' });
 //     } catch (error) {
 //         console.error('Error sending email:', error);
-//         res.json({ success: false, message: 'Error sending OTP.' });
+//         res.status(500).json({ success: false, message: 'Failed to send OTP.' });
 //     }
 // };
-
-// // Controller to verify OTP
-// exports.verifyOtp = (req, res) => {
-//     const userOtp = req.body.otp;
-
-//     // Check if the OTP matches the one stored in session
-//     if (userOtp === req.session.otp) {
-//         req.session.otp = null; // Clear OTP after successful verification
-//         res.json({ success: true });
-//     } else {
-//         res.json({ success: false, message: 'Incorrect OTP' });
-//     }
-// };
-
-
-
 
 
 
@@ -65,47 +48,98 @@ const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString()
 
 // Nodemailer transporter
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
 // Controller to send OTP
 exports.sendOtp = async (req, res) => {
     const email = req.body.email;
     const otp = generateOtp();
-
+  
     // Store OTP in session
     req.session.otp = otp;
-
+  
     try {
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: email,
-            subject: 'Your OTP Code',
-            text: `Your OTP code is ${otp}`,
-        });
-        res.json({ success: true, message: 'OTP sent successfully.' });
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Your OTP Code',
+        text: `Your OTP code is: ${otp}`,
+      });
+      // Redirect to verification page
+      res.redirect('/verificationpage.html'); // Adjust this path to your actual verification page route
     } catch (error) {
-        console.error('Error sending email:', error);
-        res.status(500).json({ success: false, message: 'Failed to send OTP.' });
+      console.error('Error sending email:', error);
+      res.status(500).send('<h2 style="color: red;">Failed to send OTP. Please try again later.</h2>');
     }
-};
-
+  };
+  
 
 // Controller to verify OTP
 exports.verifyOtp = (req, res) => {
-    const userOtp = req.body.otp;
-
-    if (userOtp === req.session.otp) {
-        req.session.otp = null; // Clear OTP after successful verification
-        res.json({ success: true, message: 'OTP verified successfully.' });
-    } else {
-        res.status(400).json({ success: false, message: 'Invalid OTP.' });
+    const { otp } = req.body;
+  
+    // Initialize the failed attempts counter if not already present
+    if (!req.session.failedAttempts) {
+      req.session.failedAttempts = 0;
     }
-};
+  
+    if (otp === req.session.otp) {
+      req.session.otp = null; // Clear the OTP after successful verification
+      req.session.failedAttempts = 0; // Reset the counter on success
+      res.send(`
+        <script>
+          window.onload = function() {
+            toastr.success('OTP verified successfully! You are now authenticated.');
+            setTimeout(() => {
+              window.location.href = '/pages.html';
+            }, 2000); // Redirect after 2 seconds
+          };
+        </script>
+        <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <script src="/plugins/toastr/toastr.min.js"></script>
+      `);
+    } else {
+      req.session.failedAttempts += 1;
+  
+      if (req.session.failedAttempts >= 3) {
+        req.session.failedAttempts = 0; // Reset the counter after redirecting
+        res.send(`
+          <script>
+            window.onload = function() {
+              toastr.error('Too many failed attempts! Redirecting to the previous page.');
+              setTimeout(() => {
+                window.location.href = '/index.html';s
+              }, 2000); // Redirect after 2 seconds
+            };
+          </script>
+          <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
+          <script src="/plugins/jquery/jquery.min.js"></script>
+          <script src="/plugins/toastr/toastr.min.js"></script>
+        `);
+      } else {
+        res.send(`
+          <script>
+            window.onload = function() {
+              toastr.error('Invalid OTP! You have ${3 - req.session.failedAttempts} attempts remaining.');
+              setTimeout(() => {
+                window.location.href = '/verificationpage.html';
+              }, 2000); // Redirect after 2 seconds
+            };
+          </script>
+          <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
+          <script src="/plugins/jquery/jquery.min.js"></script>
+          <script src="/plugins/toastr/toastr.min.js"></script>
+        `);
+      }
+    }
+  };
+  

@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Verification Page</title>
 
-
   
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -99,18 +98,17 @@
             <div class="col-md-12">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Authentication Page</h3>
+                  <h3 class="card-title">Verification Page</h3>
                 </div>
                 <div class="card-body">
-                  <!-- OTP Send Form -->
-                  <form id="otpForm" action="/generate-otp" method="post" onsubmit="return validateForm()">
-                    <div class="form-group" id="mailBox">
-                      <label for="email">Enter your email address:</label>
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
-                      <!-- CAPTCHA Widget -->
-                      <div id="captcha-check" class="g-recaptcha" data-sitekey="6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
-                      <!-- Generate OTP Submit Button -->
-                      <button type="submit" id="sendOtpButton" class="btn btn-primary" disabled>Send OTP </button>
+
+
+                  <!-- OTP Verification Form -->
+                  <form id="verifyOtpForm" action="/verify-otp" method="post" style="display:none;">
+                    <div class="form-group">
+                      <label for="otp">Enter the OTP:</label>
+                      <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter OTP" required>
+                      <button type="submit" class="btn btn-success" style="margin-top: 10px;">Verify OTP </button> 
                     </div>
                   </form>
                 </div>
@@ -133,60 +131,21 @@
 
   <script>
 
-function validateForm() {
-  const email = document.getElementById("email").value;
-  if (grecaptcha.getResponse() === "") {
-    toastr.warning("Please complete the CAPTCHA");
-    return false;
-  }
-  return true;
-}
 
-function onCaptchaSuccess() {
-  document.getElementById("sendOtpButton").disabled = false;
-}
 
-function onCaptchaExpired() {
-  document.getElementById("sendOtpButton").disabled = true;
-}
 
-    // let captchaSuccess = false;
 
-    // // Enable Send OTP button after successful CAPTCHA
-    // function onCaptchaSuccess() {
-    //   captchaSuccess = true;
-    //   document.getElementById('sendOtpButton').disabled = false;
-    // }
+    document.addEventListener("DOMContentLoaded", function () {
+  // Make the OTP verification form always visible
+  const verifyOtpForm = document.getElementById("verifyOtpForm");
+  verifyOtpForm.style.display = "block";
 
-    // // Disable the button again if CAPTCHA expires
-    // function onCaptchaExpired() {
-    //   captchaSuccess = false;
-    //   document.getElementById('sendOtpButton').disabled = true;
-    // }
+  // Add an event listener to display a success message after form submission
+  verifyOtpForm.addEventListener("submit", function () {
+    toastr.info("Verifying OTP, please wait...");
+  });
+});
 
-    // function validateForm() {
-    //   if (!captchaSuccess) {
-    //     toastr.warning("Please complete the CAPTCHA before clicking Send OTP.");
-    //     return false;
-    //   }
-    //   return true;
-    // }
-
-    // When OTP is submitted and server responds successfully, show verification form
-    document.getElementById("otpForm").addEventListener("submit", function() {
-      // Wait for normal form submission
-      toastr.info("Sending OTP, please wait...");
-    });
-
-    // Handle showing OTP Verification only upon successful submission
-    document.addEventListener("DOMContentLoaded", function() {
-      const verifyOtpForm = document.getElementById("verifyOtpForm");
-      // Check if server response indicates a successful email submission
-      if (window.location.href.includes("success=otp")) {
-        verifyOtpForm.style.display = "block";
-        toastr.success("OTP has been sent successfully. Please check your email.");
-      }
-    });
     
     
   </script>
