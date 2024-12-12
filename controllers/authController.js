@@ -12,8 +12,9 @@ exports.verifyOtp = (req, res) => {
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.session.isAuthenticated) {
-        return next(); // User is authenticated, proceed to the requested page
+        next(); // User is authenticated, proceed to the requested page
     }
     res.redirect('/'); // Redirect to login/OTP page
 };
+
 

@@ -43,12 +43,15 @@ app.use(session({
     cookie: { secure: false, maxAge: 1000 * 60 * 10 }, // 10 minutes
 }));
 
+app.use(cors());
+
 // Routes
-app.use('/form', formRoutes);
-app.use('/', csrfProtection);
+// app.use(csrfProtection);
 app.use('/', otpRoutes); 
+app.use('/form', formRoutes);
 // app.use('/', authRoutes);
 
-app.use(cors());
+
+
 
 module.exports = app;

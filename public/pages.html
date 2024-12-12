@@ -75,7 +75,7 @@
   document.addEventListener("DOMContentLoaded", includeHTML);
 </script>
 
-<div data-include="header.html"></div>
+<div data-include="header.html"> </div>
 
 <main>
   <form id="form" action="/submit-form-endpoint" method="post" enctype="application/x-www-form-urlencoded">
@@ -598,7 +598,7 @@
                             <div class="card-footer">
                               <button type="button" class="btn btn-primary" onclick="showForm7()">Previous</button>
                               <input type="hidden" name="_csrf" id="_csrf" value="<%= csrfToken %>">
-                              <button type="button" class="btn btn-primary" onclick="submitForm(event)">Submit</button>
+                              <button type="button" class="btn btn-primary" id="submitButton" onclick="submitForm(event)">Submit</button>
                             </div>
                           </div>
                         </div>
@@ -767,7 +767,6 @@ window.addEventListener('DOMContentLoaded', () => {
         </td>
         <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>  
     `;
-    console.log("new Row data--", newRow)
   }
 
   function removeContactRow(button) {
@@ -817,7 +816,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  async function submitForm(event) {
+  document.addEventListener('DOMContentLoaded', () => {
+  const submitForm = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
@@ -829,9 +829,10 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Collect from 1st Page
+    // Collect data from the form
     formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
-    // Collect data from Hosting Form
+
+    // Hosting Form Data
     formData.append('appName', document.getElementById('appName').value);
     formData.append('appDetails', document.getElementById('appDetails').value);
     formData.append('langUsed', document.getElementById('langUsed').value);
@@ -839,67 +840,71 @@ window.addEventListener('DOMContentLoaded', () => {
     formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
     formData.append('appType', document.querySelector('input[name="appType"]:checked').value);
 
-    // Collect data from Department Information
+    // Department Information
     formData.append('deptName', document.getElementById('deptName').value);
     formData.append('deptEmail', document.getElementById('deptEmail').value);
     formData.append('deptPhNum', document.getElementById('deptPhNum').value);
     formData.append('deptAddrs', document.getElementById('deptAddrs').value);
 
-    // Collect data from Contact Information table
+    // Contact Information
     const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
-    for (let i = 0; i < contactRows.length; i++) {
-      formData.append('contactName[]', contactRows[i].querySelector('input[name="contactName[]"]').value);
-      formData.append('contactEmail[]', contactRows[i].querySelector('input[name="contactEmail[]"]').value);
-      formData.append('contactPhNum[]', contactRows[i].querySelector('input[name="contactPhNum[]"]').value);
-      formData.append('contactDesignation[]', contactRows[i].querySelector('input[name="contactDesignation[]"]')
-        .value);
-      formData.append('contactRole[]', contactRows[i].querySelector('select[name="contactRole[]"]').value);
+    for (let row of contactRows) {
+      formData.append('contactName[]', row.querySelector('input[name="contactName[]"]').value);
+      formData.append('contactEmail[]', row.querySelector('input[name="contactEmail[]"]').value);
+      formData.append('contactPhNum[]', row.querySelector('input[name="contactPhNum[]"]').value);
+      formData.append('contactDesignation[]', row.querySelector('input[name="contactDesignation[]"]').value);
+      formData.append('contactRole[]', row.querySelector('select[name="contactRole[]"]').value);
     }
 
-    // Collect data from Additional Information
+    // Additional Information
     formData.append('concurrentUsers', document.getElementById('concurrentUsers').value);
     formData.append('peakTime', document.getElementById('peakTime').value);
     formData.append('loadBalance', document.getElementById('loadBalance').value);
     formData.append('ipv6Compatibility', document.getElementById('ipv6Compatibility').value);
     formData.append('tapeBackup', document.getElementById('tapeBackup').value);
 
-    // Collect data from VM Information table
+    // VM Information
     const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
-    for (let i = 0; i < vmRows.length; i++) {
-      formData.append('vmName[]', vmRows[i].querySelector('input[name="vmName[]"]').value);
-      formData.append('cpuCount[]', vmRows[i].querySelector('input[name="cpuCount[]"]').value);
-      formData.append('servicesVersions[]', vmRows[i].querySelector('input[name="servicesVersions[]"]').value);
-      formData.append('osVersion[]', vmRows[i].querySelector('input[name="osVersion[]"]').value);
-      formData.append('storage[]', vmRows[i].querySelector('input[name="storage[]"]').value);
+    for (let row of vmRows) {
+      formData.append('vmName[]', row.querySelector('input[name="vmName[]"]').value);
+      formData.append('cpuCount[]', row.querySelector('input[name="cpuCount[]"]').value);
+      formData.append('servicesVersions[]', row.querySelector('input[name="servicesVersions[]"]').value);
+      formData.append('osVersion[]', row.querySelector('input[name="osVersion[]"]').value);
+      formData.append('storage[]', row.querySelector('input[name="storage[]"]').value);
     }
-
-
-    formData.append('_csrf', document.getElementById('_csrf').value);
-    formData.append('g-recaptcha-response', document.getElementById('g-recaptcha-response').value);
-
 
     // Log formData for debugging (optional)
     for (let pair of formData.entries()) {
       console.log(pair[0] + ': ' + pair[1]);
     }
 
-
-
+    // Submit form data
     try {
       const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
         method: 'POST',
         body: formData,
       });
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Error ${response.status}: ${errorText}`);
       }
-      console.log("Form submitted successfully.");
+
+      console.log('Form submitted successfully.');
+      alert('Form submitted successfully.');
     } catch (error) {
-      console.error("Form submission error:", error);
-      alert("An error occurred while submitting the form.");
+      console.error('Form submission error:', error);
+      alert('An error occurred while submitting the form.');
     }
-  }
+  };
+
+  document.getElementById('submitButton').addEventListener('click', submitForm);
+});
+
+
+
+    
+  
 
   
 </script>

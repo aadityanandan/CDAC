@@ -1,32 +1,49 @@
-const { v4: uuidv4 } = require('uuid');  // Import uuid library
-const connection = require('../config/db');  // Import the database connection
+const {
+    v4: uuidv4
+} = require('uuid'); // Import uuid library
+const connection = require('../config/db'); // Import the database connection
 
 exports.submitForm = (req, res) => {
     const uuid = uuidv4(); // Generate unique identifier
-
+    if (!req.body) {
+        return res.status(400).json({ error: 'Request body is missing' });
+    }
     const {
-        deploymentType, appName, appDetails, langUsed, dbUsed, frameworkUsed, appType,
-        deptName, deptEmail, deptPhNum, deptAddrs,
-        concurrentUsers, peakTime, loadBalance, ipv6Compatibility, tapeBackup,
+        deploymentType,
+        appName,
+        appDetails,
+        langUsed,
+        dbUsed,
+        frameworkUsed,
+        appType,
+        deptName,
+        deptEmail,
+        deptPhNum,
+        deptAddrs,
+        concurrentUsers,
+        peakTime,
+        loadBalance,
+        ipv6Compatibility,
+        tapeBackup,
     } = req.body;
 
-// Construct contactInfo and vmInfo arrays if they come as individual arrays 
-const contactInfo = req.body.contactName.map((name, index) => ({
-    contactName: name,
-    contactEmail: req.body.contactEmail[index],
-    contactPhNum: req.body.contactPhNum[index],
-    contactDesignation: req.body.contactDesignation[index],
-    contactRole: req.body.contactRole[index],
-}));
+    // Construct contactInfo and vmInfo arrays if they come as individual arrays 
+    const contactInfo = req.body.contactName.map((name, index) => ({
+        contactName: name,
+        contactEmail: req.body.contactEmail[index],
+        contactPhNum: req.body.contactPhNum[index],
+        contactDesignation: req.body.contactDesignation[index],
+        contactRole: req.body.contactRole[index],
+    }));
 
 
-const vmInfo = req.body.vmName.map((name, index) => ({
-    vmName: name,
-    cpuCount: req.body.cpuCount[index],
-    servicesVersions: req.body.servicesVersions[index],
-    osVersion: req.body.osVersion[index],
-    storage: req.body.storage[index]
-}));
+    const vmInfo = req.body.vmName.map((name, index) => ({
+        vmName: name,
+        cpuCount: req.body.cpuCount[index],
+        servicesVersions: req.body.servicesVersions[index],
+        osVersion: req.body.osVersion[index],
+        storage: req.body.storage[index]
+    }));
 
     const hostingQuery = `
         INSERT INTO hosting_details (
@@ -40,7 +57,10 @@ const vmInfo = req.body.vmName.map((name, index) => ({
     connection.query(hostingQuery, hostingValues, (err, hostingResults) => {
         if (err) {
             console.error('Error inserting into hosting_details:', err);
-            return res.status(500).json({ error: 'Error saving hosting details', details: err.message });
+            return res.status(500).json({
+                error: 'Error saving hosting details',
+                details: err.message
+            });
         }
 
         const departmentQuery = `
@@ -52,7 +72,10 @@ const vmInfo = req.body.vmName.map((name, index) => ({
         connection.query(departmentQuery, departmentValues, (err, departmentResults) => {
             if (err) {
                 console.error('Error inserting into department_details:', err);
-                return res.status(500).json({ error: 'Error saving department details', details: err.message });
+                return res.status(500).json({
+                    error: 'Error saving department details',
+                    details: err.message
+                });
             }
 
             const contactQuery = `
@@ -129,7 +152,10 @@ const vmInfo = req.body.vmName.map((name, index) => ({
                 })
                 .catch(error => {
                     console.error('Error inserting data:', error);
-                    res.status(500).json({ error: 'Error saving form data', details: error.message });
+                    res.status(500).json({
+                        error: 'Error saving form data',
+                        details: error.message
+                    });
                 });
         });
     });
