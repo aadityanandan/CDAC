@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+    <body>
 <head>
    <%- include("../partials/header"); %>
 </head>
-<body>
-    <form action="/process" method="POST">
-        <!-- CSRF Token as hidden input -->
-        <input type="hidden" name="_csrf" value= "<%= csrfToken %>">
-        
-        <!-- Your form fields -->
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        
-        <button type="submit">Submit</button>
-    </form>
+
+    <main>
+        <div id="form-auth" class="tab-pane fade show active">
+          <section id="form1" class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Authentication Page</h3>
+                    </div>
+                    <div class="card-body">
+                      <!-- OTP Send Form -->
+                      <form id="otpForm" action="/generate-otp" method="post" onsubmit="return validateForm()">
+                        <div class="form-group" id="mailBox">
+                          <label for="email">Enter your email address:</label>
+                          <input type="email" class="form-control" name="email" id="email" placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
+                          <!-- CAPTCHA Widget -->
+                          <div id="captcha-check" class="g-recaptcha" data-sitekey="6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+                          <!-- Generate OTP Submit Button -->
+                          <button type="submit" id="sendOtpButton" class="btn btn-primary" disabled>Send OTP </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    <%- include("../partials/indexFooter"); %>
+    
 </body>
 </html>

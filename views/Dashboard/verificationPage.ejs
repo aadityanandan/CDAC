@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+<head>
+    <%- include("../partials/header"); %>
+</head>
+<main>
+    <div id="form-auth" class="tab-pane fade show active">
+      <section id="form1" class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Verification Page</h3>
+                </div>
+                <div class="card-body">
+
+
+                  <!-- OTP Verification Form -->
+                  <form id="verifyOtpForm" action="/verify-otp" method="post" style="display:none;">
+                    <div class="form-group">
+                      <label for="otp">Enter the OTP:</label>
+                      <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter OTP" required>
+                      <button type="submit" class="btn btn-success" style="margin-top: 10px;">Verify OTP </button> 
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+<% include("../partials/verificationFooter"); %>
+    </body>
+    </html>

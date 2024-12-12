@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+<head>
+   <%- include("../partials/header"); %>
+</head>
+    <main>
+        <form id="form" action="/submit-form-endpoint" method="post" enctype="application/x-www-form-urlencoded">
+      
+          <body class="hold-transition sidebar-mini layout-fixed">
+            <div class="row"></div>
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <div class="card card-primary card-tabs">
+                  <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+                          href="#custom-tabs-one-landing-page" role="tab" aria-controls="custom-tabs-one-profile"
+                          aria-selected="false">Landing Page</a>
+                      </li>
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+                          href="#custom-tabs-one-hosting-page" role="tab" aria-controls="custom-tabs-one-profile"
+                          aria-selected="false">Hosting Info</a>
+                      </li>
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                          href="#custom-tabs-one-department-info" role="tab" aria-controls="custom-tabs-one-messages"
+                          aria-selected="false">Department Info</a>
+                      </li>
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+                          href="#custom-tabs-one-contact-info" role="tab" aria-controls="custom-tabs-one-settings"
+                          aria-selected="false">Contact Info</a>
+                      </li>
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+                          href="#custom-tabs-one-additional-information" role="tab" aria-controls="custom-tabs-one-settings"
+                          aria-selected="false">Additional Info</a>
+                      </li>
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+                          href="#custom-tabs-one-vm-information" role="tab" aria-controls="custom-tabs-one-settings"
+                          aria-selected="false">VM Details</a>
+                      </li>
+                      <li class="nav-item invisible">
+                        <a class="nav-link" id="custom-tabs-one-terms-tab" data-toggle="pill" href="#custom-tabs-one-terms"
+                          role="tab" aria-controls="custom-tabs-one-terms" aria-selected="false">Terms and Conditions</a>
+                      </li>
+      
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-one-tabContent">
+      
+      
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-profile-tab">
+                        <section id="form1" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Landing Page</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="content active">
+                                      <div class="form-group">
+                                        <label for="deploymentType">Is your application from the department is already hosted
+                                          in SDC ?</label>
+                                        <div class="radio-group">
+                                          <label><input type="radio" name="deploymentType" value="New" required checked>
+                                            Yes</label>
+                                          <label><input type="radio" name="deploymentType" value="Existing"> No</label>
+                                        </div>
+                                      </div>
+                                      <button type="button" class="btn btn-primary" onclick="showForm2()">Next</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-hosting-page" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-profile-tab">
+                        <section id="form2" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Hosting Form</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <label for="appName"> Name of the application: </label>
+                                      <input type="text" name="appName" class="form-control" id="appName"
+                                        placeholder="Enter the name of the application">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="appDetails"> Details about the application: </label>
+                                      <textarea class="form-control" id="appDetails" name="appDetails"
+                                        placeholder="Give a brief description about the application"> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="langUsed"> Programming Languages used: </label>
+                                      <textarea class="form-control" id="langUsed" name="langUsed"
+                                        placeholder="Enter the programming languages used with their versions"> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="dbUsed"> Databases used: </label>
+                                      <textarea class="form-control" id="dbUsed" name="dbUsed"
+                                        placeholder="Enter the databases used with their versions"> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="frameworkUsed"> Any framwork used: </label>
+                                      <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed"
+                                        placeholder="Enter the name of the fraework used">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="appType">Type of Application</label>
+                                      <div class="form-check">
+                                        <input name="appType" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Web application</label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input name="appType" class="form-check-input" type="checkbox" checked="">
+                                        <label class="form-check-label">Mobile application</label>
+                                      </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-department-info" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-messages-tab">
+                        <section id="form3" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Department Information</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <label for="deptName">Name of the Department:</label>
+                                      <input type="text" name="deptName" class="form-control" id="deptName"
+                                        placeholder="Enter the name of the department">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="deptEmail">Department Email:</label>
+                                      <input type="text" name="deptEmail" class="form-control" id="deptEmail"
+                                        placeholder="Enter the email address of the department">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="deptPhNum">Department Phone Number:</label>
+                                      <input type="tel" name="deptPhNum" class="form-control" id="deptPhNum"
+                                        placeholder="Enter the phone number of the department">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="deptAddrs">Department Address: </label>
+                                      <input type="text" name="deptAddrs" class="form-control" id="deptAddrs"
+                                        placeholder="Enter the address of the department">
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-contact-info" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-settings-tab">
+                        <section id="form4" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Contact Information</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <table class="table table-bordered" id="dynamicTable">
+                                      <thead>
+                                        <tr>
+                                          <th style="width: 10px">#</th>
+                                          <th>Name</th>
+                                          <th>Email</th>
+                                          <th>Phone Number</th>
+                                          <th>Designation</th>
+                                          <th>Role</th>
+                                          <th>Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <!-- Dynamic rows will be added here -->
+                                      </tbody>
+                                    </table>
+                                    <button type="button" class="btn btn-primary" onclick="addContactRow()">Add new contact
+                                      Information</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm5()">Next</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-additional-information" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-settings-tab">
+                        <section id="form5" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Additional Information</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <div class="form-group">
+                                        <label for="concurrentUsers">Total number of concurrent connections: </label>
+                                        <input type="te xt" name="concurrentUsers" class="form-control" id="concurrentUsers"
+                                          placeholder="Enter the estimated total number of concurrent connections">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="peakTime">Any peak time of the application: </label>
+                                        <input type="varchar" name="peakTime" class="form-control" id="peakTime"
+                                          placeholder="(any particular time during the month/year)">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="loadBalance">Server Load Balancer: </label>
+                                        <select name="loadBalance" class="form-control" id="loadBalance">
+                                          <option>Yes </option>
+                                          <option>No </option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="ipv6Compatibility">Ipv6 Compatibility: </label>
+                                        <select name="ipv6Compatibility" class="form-control" id="ipv6Compatibility">
+                                          <option>Yes </option>
+                                          <option>No </option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="tapeBackup">Tape backup required: </label>
+                                        <select name="tapeBackup" class="form-control" id="tapeBackup">
+                                          <option>Yes </option>
+                                          <option>No </option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-vm-information" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-settings-tab">
+                        <section id="form6" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Details about the Virtual Machine</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <table class="table table-bordered" id="dynamicTableVm">
+                                      <thead>
+                                        <tr>
+                                          <th style="width: 10px">#</th>
+                                          <th>Name of the Virtual Machine</th>
+                                          <th>Number of Cpus required</th>
+                                          <th>Specify all the services and versions used</th>
+                                          <th>OS Version</th>
+                                          <th>Storage</th>
+                                          <th>Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <!-- Dynamic rows will be added here -->
+                                      </tbody>
+                                    </table>
+                                    <button type="button" class="btn btn-primary" onclick="addVmRow()">Add VM</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm5()">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="showForm7()">Next</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                      <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-terms-tab">
+                        <section id="form7" class="content">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Terms and Conditions</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <label for="termsConditions">Please read and accept the terms and conditions:</label>
+                                      <div class="form-control" id="termsConditions" style="overflow-y: auto; height: 400px;"
+                                        readonly>
+                                        <!-- <div class="form-control" id="termsConditions" rows="10" readonly> -->
+                                        <h1>Terms and Conditions for the Virtual-Hosting</h1>
+                                        <div>
+                                          <ol>
+                                            <li>
+                                              The department shall maintain technical documentation including Software
+                                              application Architecture document. The architecture document should include
+                                              application details such as Application Overview and functionalities, Component
+                                              architecture diagram showing inter dependencies and any external dependencies,
+                                              technology used, deployment architecture, deployment configurations, revision
+                                              history of document etc. Updates to the document should be versioned as separate
+                                              versions and maintained. The architecture document shall be shared in print
+                                              along with the hosting request form or mauiled to...............to respective
+                                              SDC's email id's.
+                                            </li>
+                                            <li>
+                                              The application will be hosted under Staging Server for a period of
+                                              ................. from the date of presenting the filled application form for
+                                              conducting Security Audit. If the process is not completed in the
+                                              .............., the application will be deallocated from Staging Server without
+                                              prior intimation.
+                                            </li>
+                                            <li>
+                                              Security auditing of the application by any CERT-In empaneled agency has to be
+                                              carried out in the hosting environment. A copy of the security certificate shall
+                                              be provided to the SDC. The SDC should allow hosting on production servers only
+                                              after receiving security audit certificates (safe to host certificate) which
+                                              needs to be maintained in records.
+                                            </li>
+                                            <li>
+                                              Due to stringent security policy implemented in the server, some of the
+                                              functionalities of the application may not work as expected. All
+                                              functionalitiesof the web application should be validated in the staging server.
+                                            </li>
+                                            <li>
+                                              JKSDC has set a maximum space limitation on Web / Application to ............
+                                              and Db Storage limitation to ............. for all departments for VM which can
+                                              be increased upon usage.
+                                            </li>
+                                            <li>
+                                              Access to the Database server will only be given from the application server.
+                                              The database server cannot be accessed directly from Internet.
+                                            </li>
+                                            <li>
+                                              Application level security is solely under the privilege of the department. It
+                                              is the Department/authorized vendor's responsibility to tighten the security of
+                                              the application. By the above condition, it should be accepted that the
+                                              department shall take the following measures:
+                                            </li>
+                                          </ol>
+                                          The Department shall be commited to maintaining the security of its own application.
+                                          Application Security needs to be a significant consideration during the development
+                                          of any software. Additionally, security patches post production also needs to be
+                                          factored into the contract with the application development vendor.
+      
+                                          Have maintenance contract such that technical support is available at any point of
+                                          time to address any request for enhancement, upgrades, security remediation,
+                                          migration and testing of the application. Upgrades/patches are frequently released
+                                          by vendors/open communities for any software (including operating Sysytem, Database,
+                                          Application Server, Programming technology such as Java, various code frameworks and
+                                          commercial/open source libraries and components) to address added functionalities as
+                                          well as security vulnerabilities. It is the responsibility of the application
+                                          support team of the department to proactively identify patches to any tecnologies/
+                                          components used in the application and apply these after proper testing.
+      
+                                          Periodic security auditing is necessary. The department shall get the sites audited
+                                          once every 2 years by a CERT-IN empaneled agency. If an application is developed in
+                                          an agile manner such that enhancements to the application are rolled out frequently,
+                                          the department is required to have Security Audites done by a CERT-In empaneled
+                                          agency once every 6 months.
+                                        </div>
+                                        <div>
+                                          <strong>
+                                            <i>
+                                              Once audited and hosting, the Department / Technical Lead shall raise a Change
+                                              Request (CR) and submit the CR form to SDC if any subsequent change is to be
+                                              made on the application including any configuration change or patch application.
+                                            </i>
+                                          </strong>
+                                          Updated Software Application Architecture Document also needs to be submitted. The
+                                          Change Advisory Board shall verify the technical changes and evaluate if a
+                                          subsequent security audit is required before the changes are deployed on the
+                                          production server.
+                                          <ul>
+                                            <li>
+                                              If any change to the application is depolyed without intimation to the SDC, the
+                                              CEO jaKeGa reserves the right to de-allocate domain name and pull down the
+                                              website.
+                                            </li>
+                                            <li>
+                                              As per the Data Center policy, there is a limit for maximum resource allocation
+                                              of servers, and we can able to increase the same based on the utilization and
+                                              requirements.
+                                            </li>
+                                            <li>
+                                              Customer should not change or customize any IP / network configuration without
+                                              informing Data center team.
+                                            </li>
+                                            <li>
+                                              While performing the hardening process, kindly exclude all cloud and monitoring
+                                              services running in the server. These cloud services must be required for the
+                                              communication between the VM and Cloud Management Portal.
+                                            </li>
+                                            <li>
+                                              As per the security policy, it is mandatory that all the Cloud applications
+                                              should undergo Security Audit by authorized agencies and present audit clearance
+                                              certificate to SDC before going live.
+                                            </li>
+                                            <li>
+                                              Customer need to provide additional request for configuring backup for the
+                                              server if required.
+                                            </li>
+                                            <li>
+                                              Data center team will not be responsible for any application related
+                                              configuration or troubleshooting process.
+                                            </li>
+                                            <li>
+                                              Upon identificaton of any security compromise from the application, SDC/JaKeGA
+                                              will have the complete right to block the application.In order to regain access
+                                              to the application software, the department will have to get the application
+                                              re-audited before going online again.
+                                            </li>
+                                            <li>
+                                              CEO JaKeGA is authorised to order de-allocation of the domain name and pull down
+                                              Government web sites if security level of the site is found to be insufficient
+                                              at any point of time.
+                                            </li>
+                                            <li>
+                                              The department is required to submit any application logs and dumps that are
+                                              required by CERT-In for any analysis.
+                                            </li>
+                                            <li>
+                                              Contents of the websites/applications shall not be against the interest and
+                                              reputation of Government of Jammu and Kashmir.
+                                            </li>
+                                            <li>
+                                              As per of application level security, it is mandatory that the Department
+                                              ensures a strict password policy. If any hacking occurs due to vulnerability
+                                              present in the application, the Department will be held responsible for
+                                              compromising the security of the server.
+                                            </li>
+                                            <li>
+                                              The expense required for any technology upgrade for the purpose of hosting at
+                                              SDC shall be met by the Department concered.
+                                            </li>
+                                            <li>
+                                              JKSDC has the rights to either suspend or terminate the website or move the
+                                              website to anotrher server without any notice if the website is found to cause
+                                              huge load on the server and thus interrupting the normal functioning of the
+                                              server or other websites.
+                                            </li>
+                                            <li>
+                                              Any change in Techincal Represenatatives must be intimated to JKSDC. Prior
+                                              approval of JKSDC must be taken for any kind of planned activities like VAPT of
+                                              the application.
+                                            </li>
+                                            <li>
+                                              JKSDC has the rights to decommision the unutilised VM's for a period of 4
+                                              Months.
+                                            </li>
+                                          </ul>
+                                          <strong>
+                                            NOTWITHSTANDING, BY USING THE SERVICES YOU ACKNOWLEDGE THAT YOU HAVE READ THIS
+                                            AGREEMENT AND AGREE TO BE BOUND BY THE TERMS AND CONDITIONS CONTAINED HEREIN
+                                            INCORPORATED BY REFERNCE.
+                                          </strong>
+                                          <div>
+                                            Signature of technical lead with seal
+                                          </div>
+                                          <div>
+                                            Signature & Seal of Approving Authority
+                                          </div>
+                                          <div>
+                                            Date:
+                                          </div>
+                                        </div>.
+                                      </div>
+                                    </div>
+                                    <div class="form-group form-check">
+                                      <input type="checkbox" class="form-check-input" id="acceptTerms">
+                                      <label class="form-check-label" for="acceptTerms">I accept the terms and
+                                        conditions</label>
+                                    </div>
+                                  </div>
+                                  <div class="card-footer">
+                                    <button type="button" class="btn btn-primary" onclick="showForm7()">Previous</button>
+                                    <input type="hidden" name="_csrf" id="_csrf" value="<%= csrfToken %>">
+                                    <button type="button" class="btn btn-primary" id="submitButton" onclick="submitForm(event)">Submit</button>
+                                  </div>
+                                </div>
+                              </div>
+      
+                              <!-- </div> -->
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+      
+      
+                    </div>
+                  </div>
+                  <!-- /.card -->
+                </div>
+              </div>
+        </form>
+      </main>
+
+<% include- ("../partials/pagesFooter") %>;
+
+
+
+</body>
+</html>

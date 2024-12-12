@@ -1,0 +1,46 @@
+  <!-- Scripts -->
+  <script src="public/plugins/jquery/jquery.min.js"> </script>
+  <!-- SweetAlert2 -->
+  <script src="public/plugins/sweetalert2/sweetalert2.min.js"> </script>
+  <!-- Toastr -->
+  <script src="public/plugins/toastr/toastr.min.js"> </script>
+
+  <script>
+
+function validateForm() {
+  const email = document.getElementById("email").value;
+  if (grecaptcha.getResponse() === "") {
+    toastr.warning("Please complete the CAPTCHA");
+    return false;
+  }
+  return true;
+}
+
+function onCaptchaSuccess() {
+  document.getElementById("sendOtpButton").disabled = false;
+}
+
+function onCaptchaExpired() {
+  document.getElementById("sendOtpButton").disabled = true;
+}
+
+    
+
+    // When OTP is submitted and server responds successfully, show verification form
+    document.getElementById("otpForm").addEventListener("submit", function() {
+      // Wait for normal form submission
+      toastr.info("Sending OTP, please wait...");
+    });
+
+    // Handle showing OTP Verification only upon successful submission
+    document.addEventListener("DOMContentLoaded", function() {
+      const verifyOtpForm = document.getElementById("verifyOtpForm");
+      // Check if server response indicates a successful email submission
+      if (window.location.href.includes("success=otp")) {
+        verifyOtpForm.style.display = "block";
+        toastr.success("OTP has been sent successfully. Please check your email.");
+      }
+    });
+    
+    
+  </script>

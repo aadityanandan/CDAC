@@ -1,0 +1,294 @@
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- Custom Script -->
+<script>
+ function showTab(index) {
+    const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+    const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+
+    // Check if the index is valid
+    if (index < 0 || index >= tabLinks.length) {
+        console.error("Tab or content with index", index, "not found");
+        return;
+    }
+
+    // Remove active class from all tabs and contents
+    tabLinks.forEach((link) => link.classList.remove('active'));
+    tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+    // Add active class to the selected tab and content
+    tabLinks[index].classList.add('active');
+    tabContents[index].classList.add('active', 'show');
+}
+
+// Function to display all tabs
+function showAllTabs() {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('invisible');
+    });
+
+    // Set the first tab as active by default
+    showTab(0);
+}
+function showTabById(tabId) {
+    const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+    const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+
+    // Remove active class from all tabs and contents
+    tabLinks.forEach((link) => link.classList.remove('active'));
+    tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+    // Find the tab link and content using the ID
+    const targetLink = Array.from(tabLinks).find(link => link.getAttribute('href') === `#${tabId}`);
+    const targetContent = document.getElementById(tabId);
+
+    if (targetLink && targetContent) {
+        targetLink.classList.add('active');
+        targetContent.classList.add('active', 'show');
+    } else {
+        console.error(`Tab or content with ID ${tabId} not found`);
+    }
+}
+
+// Functions to show specific tabs by their IDs
+function showForm1() {
+    showTabById('custom-tabs-one-landing-page');
+}
+
+function showForm2() {
+    showTabById('custom-tabs-one-hosting-page');
+}
+
+function showForm3() {
+    showTabById('custom-tabs-one-department-info');
+}
+
+function showForm4() {
+    showTabById('custom-tabs-one-contact-info');
+}
+
+function showForm5() {
+    showTabById('custom-tabs-one-additional-information');
+}
+
+function showForm6() {
+    showTabById('custom-tabs-one-vm-information');
+}
+
+function showForm7() {
+    showTabById('custom-tabs-one-terms');
+}
+
+
+
+
+// Call showAllTabs on page load or after redirection
+window.addEventListener('DOMContentLoaded', () => {
+    showAllTabs();
+});
+
+
+
+
+  
+  //  js of contact information table
+  let contactRowCount = 0;
+
+
+  function addContactRow() {
+    contactRowCount++;
+    const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${contactRowCount}.</td>
+        <td><input type="text" name="contactName[]" class="form-control" required></td>
+        <td><input type="email" name="contactEmail[]" class="form-control" required></td>
+        <td><input type="tel" name="contactPhNum[]" class="form-control" required></td>
+        <td><input type="text" name="contactDesignation[]" class="form-control" required></td>
+        <td>
+            <select class="custom-select" name="contactRole[]" required>
+                <option value="">Select Role</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Technical">Technical</option>
+                <option value="Developer">Developer</option>
+            </select>
+        </td>
+        <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>  
+    `;
+  }
+
+  function removeContactRow(button) {
+    const row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    updateContactRowNumbers();
+  }
+
+  function updateContactRowNumbers() {
+    const rows = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < rows.length; i++) {
+      rows[i].cells[0].innerText = `${i + 1}.`;
+    }
+    contactRowCount = rows.length;
+  }
+  // js of vm info table 
+  let vmRowCount = 0;
+
+  function addVmRow() {
+    vmRowCount++;
+    const table = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    newRow.innerHTML = `
+        <td>${vmRowCount}.</td>
+        <td><input type="text" name="vmName[]" class="form-control" required></td>
+        <td><input type="number" name="cpuCount[]" class="form-control" required></td>
+        <td><input type="text" name="servicesVersions[]" class="form-control" required></td>
+        <td><input type="text" name="osVersion[]" class="form-control" required></td>
+        <td><input type="text" name="storage[]" class="form-control" required></td>
+        <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
+    `;
+  }
+
+  function removeVmRow(button) {
+    const row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    updateVmRowNumbers();
+  }
+
+  function updateVmRowNumbers() {
+    const rows = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < rows.length; i++) {
+      rows[i].cells[0].innerText = `${i + 1}.`;
+    }
+    vmRowCount = rows.length;
+  }
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const submitForm = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    // Ensure terms and conditions are accepted before proceeding
+    const acceptTerms = document.getElementById('acceptTerms');
+    if (!acceptTerms.checked) {
+      alert('You must accept the terms and conditions before submitting the form.');
+      return;
+    }
+
+    // Collect data from the form
+    formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
+
+    // Hosting Form Data
+    formData.append('appName', document.getElementById('appName').value);
+    formData.append('appDetails', document.getElementById('appDetails').value);
+    formData.append('langUsed', document.getElementById('langUsed').value);
+    formData.append('dbUsed', document.getElementById('dbUsed').value);
+    formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
+    formData.append('appType', document.querySelector('input[name="appType"]:checked').value);
+
+    // Department Information
+    formData.append('deptName', document.getElementById('deptName').value);
+    formData.append('deptEmail', document.getElementById('deptEmail').value);
+    formData.append('deptPhNum', document.getElementById('deptPhNum').value);
+    formData.append('deptAddrs', document.getElementById('deptAddrs').value);
+
+    // Contact Information
+    const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
+    for (let row of contactRows) {
+      formData.append('contactName[]', row.querySelector('input[name="contactName[]"]').value);
+      formData.append('contactEmail[]', row.querySelector('input[name="contactEmail[]"]').value);
+      formData.append('contactPhNum[]', row.querySelector('input[name="contactPhNum[]"]').value);
+      formData.append('contactDesignation[]', row.querySelector('input[name="contactDesignation[]"]').value);
+      formData.append('contactRole[]', row.querySelector('select[name="contactRole[]"]').value);
+    }
+
+    // Additional Information
+    formData.append('concurrentUsers', document.getElementById('concurrentUsers').value);
+    formData.append('peakTime', document.getElementById('peakTime').value);
+    formData.append('loadBalance', document.getElementById('loadBalance').value);
+    formData.append('ipv6Compatibility', document.getElementById('ipv6Compatibility').value);
+    formData.append('tapeBackup', document.getElementById('tapeBackup').value);
+
+    // VM Information
+    const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
+    for (let row of vmRows) {
+      formData.append('vmName[]', row.querySelector('input[name="vmName[]"]').value);
+      formData.append('cpuCount[]', row.querySelector('input[name="cpuCount[]"]').value);
+      formData.append('servicesVersions[]', row.querySelector('input[name="servicesVersions[]"]').value);
+      formData.append('osVersion[]', row.querySelector('input[name="osVersion[]"]').value);
+      formData.append('storage[]', row.querySelector('input[name="storage[]"]').value);
+    }
+
+    // Log formData for debugging (optional)
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    // Submit form data
+    try {
+      const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+      }
+
+      console.log('Form submitted successfully.');
+      alert('Form submitted successfully.');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('An error occurred while submitting the form.');
+    }
+  };
+
+  document.getElementById('submitButton').addEventListener('click', submitForm);
+});
+
+
+
+  
+</script>
+
+<footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram </strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
