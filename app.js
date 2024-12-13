@@ -10,6 +10,7 @@ const otpRoutes = require('./routes/otpRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 
+
 const session = require('express-session');
 const cors = require('cors');
 require('dotenv').config();
@@ -23,6 +24,13 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(express.static('public'));
 app.set('view engine', 'ejs');
+// Middleware to check if the user is authenticated
+// function isAuthenticated(req, res, next) {
+//     if (req.session && req.session.isAuthenticated) {
+//         return next(); // User is authenticated, proceed to the next middleware
+//     }
+//     res.redirect('/public/index.html'); // Redirect to the login page if not authenticated
+// }
 
 // CSRF Protection
 app.use((err, req, res, next) => {
@@ -48,6 +56,9 @@ app.use(cors());
 // Routes
 // app.use(csrfProtection);
 app.use('/public',express.static('public'));
+// Serve secure files with authentication middleware
+// app.use('/secure', isAuthenticated, express.static('secure'));
+
 app.use('/', otpRoutes); 
 app.use('/form', formRoutes);
 // app.use('/', authRoutes);

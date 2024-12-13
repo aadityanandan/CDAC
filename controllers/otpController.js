@@ -1,4 +1,3 @@
-
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
@@ -33,13 +32,21 @@ exports.sendOtp = async (req, res) => {
         text: `Your OTP code is: ${otp}`,
       });
       // Redirect to verification page
-      res.redirect('/verificationpage.html'); // Adjust this path to your actual verification page route
+      res.redirect('/public/verificationpage.html'); // Adjust this path to your actual verification page route
     } catch (error) {
       console.error('Error sending email:', error);
       res.status(500).send('<h2 style="color: red;">Failed to send OTP. Please try again later.</h2>');
     }
   };
   
+
+
+
+
+
+
+
+
 
 // Controller to verify OTP
 exports.verifyOtp = (req, res) => {
@@ -58,13 +65,13 @@ exports.verifyOtp = (req, res) => {
           window.onload = function() {
             toastr.success('OTP verified successfully! You are now authenticated.');
             setTimeout(() => {
-              window.location.href = '/pages.html';
+              window.location.href = '/public/pages.html';
             }, 2000); // Redirect after 2 seconds
           };
         </script>
-        <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
-        <script src="/plugins/jquery/jquery.min.js"></script>
-        <script src="/plugins/toastr/toastr.min.js"></script>
+        <link rel="stylesheet" href="/public/plugins/toastr/toastr.min.css">
+        <script src="/public/plugins/jquery/jquery.min.js"></script>
+        <script src="/public/plugins/toastr/toastr.min.js"></script>
       `);
     } else {
       req.session.failedAttempts += 1;
@@ -76,13 +83,13 @@ exports.verifyOtp = (req, res) => {
             window.onload = function() {
               toastr.error('Too many failed attempts! Redirecting to the previous page.');
               setTimeout(() => {
-                window.location.href = '/index.html';s
+                window.location.href = '/public/index.html';
               }, 2000); // Redirect after 2 seconds
             };
           </script>
-          <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
-          <script src="/plugins/jquery/jquery.min.js"></script>
-          <script src="/plugins/toastr/toastr.min.js"></script>
+          <link rel="stylesheet" href="/public/plugins/toastr/toastr.min.css">
+          <script src="/public/plugins/jquery/jquery.min.js"></script>
+          <script src="/public/plugins/toastr/toastr.min.js"></script>
         `);
       } else {
         res.send(`
@@ -90,15 +97,15 @@ exports.verifyOtp = (req, res) => {
             window.onload = function() {
               toastr.error('Invalid OTP! You have ${3 - req.session.failedAttempts} attempts remaining.');
               setTimeout(() => {
-                window.location.href = '/verificationpage.html';
+                window.location.href = '/public/verificationpage.html';
               }, 2000); // Redirect after 2 seconds
             };
           </script>
-          <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
-          <script src="/plugins/jquery/jquery.min.js"></script>
-          <script src="/plugins/toastr/toastr.min.js"></script>
+          <link rel="stylesheet" href="/public/plugins/toastr/toastr.min.css">
+          <script src="/public/plugins/jquery/jquery.min.js"></script>
+          <script src="/public/plugins/toastr/toastr.min.js"></script>
         `);
       }
     }
   };
-  
+
