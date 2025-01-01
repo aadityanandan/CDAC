@@ -1,20 +1,24 @@
-exports.verifyOtp = (req, res) => {
-    const userOtp = req.body.otp;
 
-    if (userOtp === req.session.otp) {
-        req.session.isAuthenticated = true; // Set authenticated session flag
-        req.session.otp = null; // Clear OTP
-        res.json({ success: true, message: 'OTP verified successfully.' });
-    } else {
-        res.status(400).json({ success: false, message: 'Invalid OTP.' });
-    }
-};
 
+// Middleware to check if the user is authenticated
 exports.isAuthenticated = (req, res, next) => {
-    if (req.session.isAuthenticated) {
-        next(); // User is authenticated, proceed to the requested page
+    console.log('Session contents in isAuthenticated:', req.session);
+
+    if (req.session.isVerified) {
+        console.log('User is authenticated');
+        return next(); // Allow the request to proceed
     }
-    res.redirect('/'); // Redirect to login/OTP page
+
+    console.log('User is not authenticated');
+    req.session.toastrMessage = "Please authenticate yourself first.";
+    res.redirect('/'); // Redirect to the login page or another appropriate page
 };
+
+
+
+
+
+
+
 
 

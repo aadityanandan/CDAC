@@ -1,294 +1,868 @@
-
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="public/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="public/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+	$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="public/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
+<script src="public/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="public/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="public/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src="public/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="public/plugins/moment/moment.min.js"></script>
+<script src="public/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<script src="public/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src="public/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="public/dist/js/demo.js"></script>
 <!-- Custom Script -->
 <script>
- function showTab(index) {
-    const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
-    const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+	function showTab(index) {
+		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+		const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
 
-    // Check if the index is valid
-    if (index < 0 || index >= tabLinks.length) {
-        console.error("Tab or content with index", index, "not found");
-        return;
-    }
+		// Check if the index is valid
+		if (index < 0 || index >= tabLinks.length) {
+			console.error("Tab or content with index", index, "not found");
+			return;
+		}
 
-    // Remove active class from all tabs and contents
-    tabLinks.forEach((link) => link.classList.remove('active'));
-    tabContents.forEach((content) => content.classList.remove('active', 'show'));
+		// Remove active class from all tabs and contents
+		tabLinks.forEach((link) => link.classList.remove('active'));
+		tabContents.forEach((content) => content.classList.remove('active', 'show'));
 
-    // Add active class to the selected tab and content
-    tabLinks[index].classList.add('active');
-    tabContents[index].classList.add('active', 'show');
-}
+		// Add active class to the selected tab and content
+		tabLinks[index].classList.add('active');
+		tabContents[index].classList.add('active', 'show');
+	}
 
-// Function to display all tabs
-function showAllTabs() {
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.classList.remove('invisible');
-    });
+	// Function to display all tabs
+	function showAllTabs() {
+		const navItems = document.querySelectorAll('.nav-item');
+		navItems.forEach(item => {
+			item.classList.remove('invisible');
+		});
 
-    // Set the first tab as active by default
-    showTab(0);
-}
-function showTabById(tabId) {
-    const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
-    const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+		// Set the first tab as active by default
+		showTab(0);
+	}
 
-    // Remove active class from all tabs and contents
-    tabLinks.forEach((link) => link.classList.remove('active'));
-    tabContents.forEach((content) => content.classList.remove('active', 'show'));
+	function showTabById(tabId) {
+		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+		const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
 
-    // Find the tab link and content using the ID
-    const targetLink = Array.from(tabLinks).find(link => link.getAttribute('href') === `#${tabId}`);
-    const targetContent = document.getElementById(tabId);
+		// Remove active class from all tabs and contents
+		tabLinks.forEach((link) => link.classList.remove('active'));
+		tabContents.forEach((content) => content.classList.remove('active', 'show'));
 
-    if (targetLink && targetContent) {
-        targetLink.classList.add('active');
-        targetContent.classList.add('active', 'show');
-    } else {
-        console.error(`Tab or content with ID ${tabId} not found`);
-    }
-}
+		// Find the tab link and content using the ID
+		const targetLink = Array.from(tabLinks).find(link => link.getAttribute('href') === `#${tabId}`);
+		const targetContent = document.getElementById(tabId);
 
-// Functions to show specific tabs by their IDs
-function showForm1() {
-    showTabById('custom-tabs-one-landing-page');
-}
+		if (targetLink && targetContent) {
+			targetLink.classList.add('active');
+			targetContent.classList.add('active', 'show');
+		} else {
+			console.error(`Tab or content with ID ${tabId} not found`);
+		}
+	}
 
-function showForm2() {
-    showTabById('custom-tabs-one-hosting-page');
-}
+	// Functions to show specific tabs by their IDs
+	function showForm1() {
+		showTabById('custom-tabs-one-landing-page');
+	}
 
-function showForm3() {
-    showTabById('custom-tabs-one-department-info');
-}
+	function showForm2() {
+		showTabById('custom-tabs-one-hosting-page');
+	}
 
-function showForm4() {
-    showTabById('custom-tabs-one-contact-info');
-}
+	function showForm3() {
+		showTabById('custom-tabs-one-department-info');
+	}
 
-function showForm5() {
-    showTabById('custom-tabs-one-additional-information');
-}
+	function showForm4() {
+		showTabById('custom-tabs-one-contact-info');
+	}
 
-function showForm6() {
-    showTabById('custom-tabs-one-vm-information');
-}
+	function showForm5() {
+		showTabById('custom-tabs-one-additional-information');
+	}
 
-function showForm7() {
-    showTabById('custom-tabs-one-terms');
-}
+	function showForm6() {
+		showTabById('custom-tabs-one-vm-information');
+	}
+
+	function showForm7() {
+		showTabById('custom-tabs-one-terms');
+	}
 
 
 
 
-// Call showAllTabs on page load or after redirection
-window.addEventListener('DOMContentLoaded', () => {
-    showAllTabs();
+	// Call showAllTabs on page load or after redirection
+	window.addEventListener('DOMContentLoaded', () => {
+		showAllTabs();
+	});
+
+
+
+
+
+	//  js of contact information table
+    let contactRowCount = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Add the first row when the page loads
+    addContactRow(); 
 });
 
-
-
-
-  
-  //  js of contact information table
-  let contactRowCount = 0;
-
-
-  function addContactRow() {
+function addContactRow() {
     contactRowCount++;
     const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
     const newRow = table.insertRow();
+
     newRow.innerHTML = `
         <td>${contactRowCount}.</td>
-        <td><input type="text" name="contactName[]" class="form-control" required></td>
-        <td><input type="email" name="contactEmail[]" class="form-control" required></td>
-        <td><input type="tel" name="contactPhNum[]" class="form-control" required></td>
-        <td><input type="text" name="contactDesignation[]" class="form-control" required></td>
+        <td><input type="text" name="contactName[]" placeholder="Contact Name" class="form-control" ></td>
+        <td><input type="email" name="contactEmail[]" placeholder="Contact Email" class="form-control" ></td>
+        <td><input type="tel" name="contactPhNum[]" placeholder="Contact Phone number" class="form-control" ></td>
+        <td><input type="text" name="contactDesignation[]" placeholder="Contact designation" class="form-control" ></td>
         <td>
-            <select class="custom-select" name="contactRole[]" required>
+            <select class="custom-select" name="contactRole[]" >
                 <option value="">Select Role</option>
                 <option value="Administrator">Administrator</option>
                 <option value="Technical">Technical</option>
                 <option value="Developer">Developer</option>
             </select>
         </td>
-        <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>  
+        <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>
     `;
-  }
+    
+    // Update row numbers after adding a new row
+    updateContactRowNumbers();
+}
 
-  function removeContactRow(button) {
+function removeContactRow(button) {
     const row = button.parentNode.parentNode;
     row.parentNode.removeChild(row);
+    
+    // Update row numbers after removing a row
     updateContactRowNumbers();
-  }
+}
 
-  function updateContactRowNumbers() {
+function updateContactRowNumbers() {
     const rows = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0].rows;
+    
+    // Update the row numbers for all rows
     for (let i = 0; i < rows.length; i++) {
-      rows[i].cells[0].innerText = `${i + 1}.`;
+        rows[i].cells[0].innerText = `${i + 1}.`;
     }
+    
+    // Adjust contactRowCount after rows are removed
     contactRowCount = rows.length;
-  }
-  // js of vm info table 
-  let vmRowCount = 0;
+}
 
-  function addVmRow() {
+
+
+	// let contactRowCount = 0;
+	// function addContactRow() {
+	// 	contactRowCount++;
+	// 	const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+	// 	const newRow = table.insertRow();
+	// 	newRow.innerHTML = `
+	// 			 <td>${contactRowCount}.</td>
+	// 			 <td><input type="text" name="contactName[]" class="form-control" required></td>
+	// 			 <td><input type="email" name="contactEmail[]" class="form-control" required></td>
+	// 			 <td><input type="tel" name="contactPhNum[]" class="form-control" required></td>
+	// 			 <td><input type="text" name="contactDesignation[]" class="form-control" required></td>
+	// 			 <td>
+	// 					 <select class="custom-select" name="contactRole[]" required>
+	// 							 <option value="">Select Role</option>
+	// 							 <option value="Administrator">Administrator</option>
+	// 							 <option value="Technical">Technical</option>
+	// 							 <option value="Developer">Developer</option>
+	// 					 </select>
+	// 			 </td>
+	// 			 <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>  
+	// 	 `;
+	// }
+
+	// function removeContactRow(button) {
+	// 	const row = button.parentNode.parentNode;
+	// 	row.parentNode.removeChild(row);
+	// 	updateContactRowNumbers();
+	// }
+
+	// function updateContactRowNumbers() {
+	// 	const rows = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0].rows;
+	// 	for (let i = 0; i < rows.length; i++) {
+	// 		rows[i].cells[0].innerText = `${i + 1}.`;
+	// 	}
+	// 	contactRowCount = rows.length;
+	// }
+
+
+	// js of vm info table 
+    let vmRowCount = 1; // Start with 1 since we want at least one entry to begin with
+
+// Function to add a new VM row
+function addVmRow() {
+    // Increment the VM row count
     vmRowCount++;
-    const table = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
 
-    newRow.innerHTML = `
-        <td>${vmRowCount}.</td>
-        <td><input type="text" name="vmName[]" class="form-control" required></td>
-        <td><input type="number" name="cpuCount[]" class="form-control" required></td>
-        <td><input type="text" name="servicesVersions[]" class="form-control" required></td>
-        <td><input type="text" name="osVersion[]" class="form-control" required></td>
-        <td><input type="text" name="storage[]" class="form-control" required></td>
+    // Get the table body where rows will be added
+    const tbody = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0];
+
+    // Create a new row
+    const row = document.createElement('tr');
+
+    // Define the columns for the new row (You can replace these with default values)
+    row.innerHTML = `
+        <td>${vmRowCount}</td>
+        <td><input type="text" name="vmName[]" placeholder="VM Name" class="form-control"></td>
+        <td><input type="number" name="cpuCount[]" placeholder="Number of CPUs" class="form-control"></td>
+        <td><input type="text" name="servicesVersions[]" placeholder="Services and versions" class="form-control"></td>
+        <td><input type="text" name="osVersion[]" placeholder="OS Version" class="form-control"></td>
+        <td><input type="text" name="storage[]" placeholder="Storage" class="form-control"></td>
         <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
     `;
-  }
 
-  function removeVmRow(button) {
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row);
+    // Append the new row to the table body
+    tbody.appendChild(row);
+}
+
+// Function to remove a VM row
+function removeVmRow(button) {
+    // Remove the row that the button is in
+    const row = button.closest('tr');
+    row.remove();
+
+    // Update the row numbers after removal
     updateVmRowNumbers();
-  }
+}
 
-  function updateVmRowNumbers() {
-    const rows = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0].rows;
+// Function to update VM row numbers
+function updateVmRowNumbers() {
+    // Get all rows from the tbody
+    const rows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
+
+    // Update the row numbers for all rows
     for (let i = 0; i < rows.length; i++) {
-      rows[i].cells[0].innerText = `${i + 1}.`;
+        rows[i].cells[0].innerText = `${i + 1}`;
     }
+
+    // Update the global row count (you could also calculate this by rows.length)
     vmRowCount = rows.length;
-  }
+}
+
+// Function to initialize the default row on page load
+function initializeDefaultVmRow() {
+    // Add the first default row with initial values
+    addVmRow();
+}
+
+// Call this function when the page loads
+window.onload = function() {
+    initializeDefaultVmRow();
+};
 
 
-  document.addEventListener('DOMContentLoaded', () => {
-  const submitForm = async (event) => {
-    event.preventDefault();
 
+	
+
+	// function addVmRow() {
+	// 	vmRowCount++;
+	// 	const table = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0];
+	// 	const newRow = table.insertRow();
+
+	// 	newRow.innerHTML = `
+	// 			 <td>${vmRowCount}.</td>
+	// 			 <td><input type="text" name="vmName[]" class="form-control" required></td>
+	// 			 <td><input type="number" name="cpuCount[]" class="form-control" required></td>
+	// 			 <td><input type="text" name="servicesVersions[]" class="form-control" required></td>
+	// 			 <td><input type="text" name="osVersion[]" class="form-control" required></td>
+	// 			 <td><input type="text" name="storage[]" class="form-control" required></td>
+	// 			 <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
+	// 	 `;
+	// }
+
+	// function removeVmRow(button) {
+	// 	const row = button.parentNode.parentNode;
+	// 	row.parentNode.removeChild(row);
+	// 	updateVmRowNumbers();
+	// }
+
+	// function updateVmRowNumbers() {
+	// 	const rows = document.getElementById("dynamicTableVm").getElementsByTagName('tbody')[0].rows;
+	// 	for (let i = 0; i < rows.length; i++) {
+	// 		rows[i].cells[0].innerText = `${i + 1}.`;
+	// 	}
+	// 	vmRowCount = rows.length;
+	// }
+
+
+	//  document.addEventListener('DOMContentLoaded', () => {
+	// const submitForm = async (event) => {
+	// 	// event.preventDefault();
+
+	// 	const formData = new FormData();
+
+	// 	// Ensure terms and conditions are accepted before proceeding
+	// 	const acceptTerms = document.getElementById('acceptTerms');
+	// 	if (!acceptTerms.checked) {
+	// 		showAlert('You must accept the terms and conditions before submitting the form.', 'warning');
+	// 		return;
+	// 	}
+
+	// 	// Collect data from the form
+	// 	formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
+
+	// 	// Hosting info page Data
+
+	// 	if (!appName.value) {
+	// 		showAlert('You must fill the app name in Hosting info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('appName', document.getElementById('appName').value);
+
+	// 	if (!appDetails.value.trim()) {
+	// 		showAlert('You must fill the app details in Hosting info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('appDetails', document.getElementById('appDetails').value);
+
+	// 	if (!langUsed.value.trim()) {
+	// 		showAlert('You must specify the Programming language used in Hosting info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('langUsed', document.getElementById('langUsed').value);
+
+	// 	if (!dbUsed.value.trim()) {
+	// 		showAlert('You must specify the Database used in Hosting info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('dbUsed', document.getElementById('dbUsed').value);
+
+	// 	if (!frameworkUsed.value) {
+	// 		showAlert('You must specify the framwork used in Hosting info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
+
+
+	// 	const appTypeElement = document.querySelector('input[name="appType"]:checked');
+
+
+	// 	if (!appTypeElement) {
+	// 		showAlert('You must specify the app type in Hosting info tab', 'warning');
+	// 		return;
+	// 	}
+
+	// 	// Get the value of the selected radio button and append to formData
+	// 	formData.append('appType', appTypeElement.value);
+
+
+
+	// 	// Department Information
+	// 	if (!document.getElementById('deptName').value) {
+	// 		showAlert('You must fill the department name in Department info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('deptName', document.getElementById('deptName').value);
+
+
+	// 	if (!document.getElementById('deptEmail').value) {
+	// 		showAlert('You must fill the department email in Department info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('deptEmail', document.getElementById('deptEmail').value);
+
+
+	// 	if (!document.getElementById('deptPhNum').value) {
+	// 		showAlert('You must fill the department phone number in Department info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('deptPhNum', document.getElementById('deptPhNum').value);
+
+
+	// 	if (!document.getElementById('deptAddrs').value) {
+	// 		showAlert('You must fill the department address in Department info tab', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('deptAddrs', document.getElementById('deptAddrs').value);
+
+
+	// 	const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
+
+	// 	for (let i = 0; i < contactRows.length; i++) {
+	// 		const row = contactRows[i];
+
+	// 		const contactName = row.querySelector('input[name="contactName[]"]').value;
+	// 		const contactEmail = row.querySelector('input[name="contactEmail[]"]').value;
+	// 		const contactPhNum = row.querySelector('input[name="contactPhNum[]"]').value;
+	// 		const contactDesignation = row.querySelector('input[name="contactDesignation[]"]').value;
+	// 		const contactRole = row.querySelector('select[name="contactRole[]"]').value;
+
+	// 		// Validation for each field
+	// 		if (!contactName) {
+	// 			showAlert(`You must fill the contact name in row ${i + 1}`, 'warning');
+	// 			return;
+	// 		}
+
+	// 		if (!contactEmail) {
+	// 			showAlert(`You must fill the contact email in row ${i + 1}`, 'warning');
+	// 			return;
+	// 		}
+
+	// 		if (!contactPhNum) {
+	// 			showAlert(`You must fill the contact phone number in row ${i + 1}`, 'warning');
+	// 			return;
+	// 		}
+
+	// 		if (!contactDesignation) {
+	// 			showAlert(`You must fill the contact designation in row ${i + 1}`, 'warning');
+	// 			return;
+	// 		}
+
+	// 		if (!contactRole) {
+	// 			showAlert(`You must select the contact role in row ${i + 1}`, 'warning');
+	// 			return;
+	// 		}
+
+	// 		// Append validated data to formData
+	// 		formData.append('contactName[]', contactName);
+	// 		formData.append('contactEmail[]', contactEmail);
+	// 		formData.append('contactPhNum[]', contactPhNum);
+	// 		formData.append('contactDesignation[]', contactDesignation);
+	// 		formData.append('contactRole[]', contactRole);
+	// 	}
+
+
+	// 	// Additional Information
+	// 	// Validate and append concurrentUsers
+	// 	const concurrentUsers = document.getElementById('concurrentUsers').value;
+	// 	if (!concurrentUsers) {
+	// 		showAlert('You must specify the number of concurrent users', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('concurrentUsers', concurrentUsers);
+
+	// 	// Validate and append peakTime
+	// 	const peakTime = document.getElementById('peakTime').value;
+	// 	if (!peakTime) {
+	// 		showAlert('You must specify the peak time', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('peakTime', peakTime);
+
+	// 	// Validate and append loadBalance
+	// 	const loadBalance = document.getElementById('loadBalance').value;
+	// 	if (!loadBalance) {
+	// 		showAlert('You must specify the load balancing method', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('loadBalance', loadBalance);
+
+	// 	// Validate and append ipv6Compatibility
+	// 	const ipv6Compatibility = document.getElementById('ipv6Compatibility').value;
+	// 	if (!ipv6Compatibility) {
+	// 		showAlert('You must specify the IPv6 compatibility', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('ipv6Compatibility', ipv6Compatibility);
+
+	// 	// Validate and append tapeBackup
+	// 	const tapeBackup = document.getElementById('tapeBackup').value;
+	// 	if (!tapeBackup) {
+	// 		showAlert('You must specify if tape backup is enabled', 'warning');
+	// 		return;
+	// 	}
+	// 	formData.append('tapeBackup', tapeBackup);
+
+
+	// 	// VM Information
+	// 	const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
+	// 	for (let row of vmRows) {
+	// 		const vmName = row.querySelector('input[name="vmName[]"]').value;
+	// 		const cpuCount = row.querySelector('input[name="cpuCount[]"]').value;
+	// 		const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value;
+	// 		const osVersion = row.querySelector('input[name="osVersion[]"]').value;
+	// 		const storage = row.querySelector('input[name="storage[]"]').value;
+
+	// 		// Validate vmName
+	// 		if (!vmName) {
+	// 			showAlert('You must fill the VM Name in the VM table', 'warning');
+	// 			return;
+	// 		}
+	// 		formData.append('vmName[]', vmName);
+
+	// 		// Validate cpuCount
+	// 		if (!cpuCount) {
+	// 			showAlert('You must specify the CPU count in the VM table', 'warning');
+	// 			return;
+	// 		}
+	// 		formData.append('cpuCount[]', cpuCount);
+
+	// 		// Validate servicesVersions
+	// 		if (!servicesVersions) {
+	// 			showAlert('You must specify the service versions in the VM table', 'warning');
+	// 			return;
+	// 		}
+	// 		formData.append('servicesVersions[]', servicesVersions);
+
+	// 		// Validate osVersion
+	// 		if (!osVersion) {
+	// 			showAlert('You must specify the OS version in the VM table', 'warning');
+	// 			return;
+	// 		}
+	// 		formData.append('osVersion[]', osVersion);
+
+	// 		// Validate storage
+	// 		if (!storage) {
+	// 			showAlert('You must specify the storage in the VM table', 'warning');
+	// 			return;
+	// 		}
+	// 		formData.append('storage[]', storage);
+	// 	}
+
+
+	// 	// Log formData for debugging (optional)
+	// 	for (let pair of formData.entries()) {
+	// 		console.log(pair[0] + ': ' + pair[1]);
+	// 	}
+
+	// 	// Submit form data
+	// 	try {
+	// 		const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+	// 			method: 'POST',
+	// 			body: formData,
+	// 		});
+
+	// 		if (!response.ok) {
+	// 			const errorText = await response.text();
+	// 			throw new Error(`Error ${response.status}: ${errorText}`);
+	// 		}
+
+	// 		console.log('Form submitted successfully.');
+	// 		showAlert('Form submitted successfully.', 'success');
+	// 	} catch (error) {
+	// 		console.error('Form submission error:', error);
+	// 		showAlert('Please fill all the details in the form', 'error');
+	// 	}
+	// };
+
+
+    const submitForm = async (event) => {
     const formData = new FormData();
+    let hasErrors = false; // Tracks if there are validation errors
 
     // Ensure terms and conditions are accepted before proceeding
     const acceptTerms = document.getElementById('acceptTerms');
     if (!acceptTerms.checked) {
-      alert('You must accept the terms and conditions before submitting the form.');
-      return;
+        showAlert('You must accept the terms and conditions before submitting the form.', 'warning');
+        hasErrors = true;
     }
 
     // Collect data from the form
-    formData.append('deploymentType', document.querySelector('input[name="deploymentType"]:checked').value);
+    const deploymentType = document.querySelector('input[name="deploymentType"]:checked');
+    if (!deploymentType) {
+        showAlert('You must select a deployment type.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deploymentType', deploymentType.value);
+    }
 
-    // Hosting Form Data
-    formData.append('appName', document.getElementById('appName').value);
-    formData.append('appDetails', document.getElementById('appDetails').value);
-    formData.append('langUsed', document.getElementById('langUsed').value);
-    formData.append('dbUsed', document.getElementById('dbUsed').value);
-    formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
-    formData.append('appType', document.querySelector('input[name="appType"]:checked').value);
+    // Hosting Info Data
+    const appName = document.getElementById('appName');
+    if (!appName || !appName.value.trim()) {
+        showAlert('You must fill the app name in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('appName', appName.value);
+    }
+
+    const appDetails = document.getElementById('appDetails');
+    if (!appDetails || !appDetails.value.trim()) {
+        showAlert('You must fill the app details in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('appDetails', appDetails.value);
+    }
+
+    const langUsed = document.getElementById('langUsed');
+    if (!langUsed || !langUsed.value.trim()) {
+        showAlert('You must specify the Programming language used in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('langUsed', langUsed.value);
+    }
+
+    const dbUsed = document.getElementById('dbUsed');
+    if (!dbUsed || !dbUsed.value.trim()) {
+        showAlert('You must specify the Database used in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('dbUsed', dbUsed.value);
+    }
+
+    const frameworkUsed = document.getElementById('frameworkUsed');
+    if (!frameworkUsed || !frameworkUsed.value.trim()) {
+        showAlert('You must specify the framework used in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('frameworkUsed', frameworkUsed.value);
+    }
+
+    const appTypeElement = document.querySelector('input[name="appType"]:checked');
+    if (!appTypeElement) {
+        showAlert('You must specify the app type in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('appType', appTypeElement.value);
+    }
 
     // Department Information
-    formData.append('deptName', document.getElementById('deptName').value);
-    formData.append('deptEmail', document.getElementById('deptEmail').value);
-    formData.append('deptPhNum', document.getElementById('deptPhNum').value);
-    formData.append('deptAddrs', document.getElementById('deptAddrs').value);
+    const deptName = document.getElementById('deptName');
+    if (!deptName || !deptName.value.trim()) {
+        showAlert('You must fill the department name in Department info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deptName', deptName.value);
+    }
+
+    const deptEmail = document.getElementById('deptEmail');
+    if (!deptEmail || !deptEmail.value.trim()) {
+        showAlert('You must fill the department email in Department info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deptEmail', deptEmail.value);
+    }
+
+    const deptPhNum = document.getElementById('deptPhNum');
+    if (!deptPhNum || !deptPhNum.value.trim()) {
+        showAlert('You must fill the department phone number in Department info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deptPhNum', deptPhNum.value);
+    }
+
+    const deptAddrs = document.getElementById('deptAddrs');
+    if (!deptAddrs || !deptAddrs.value.trim()) {
+        showAlert('You must fill the department address in Department info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deptAddrs', deptAddrs.value);
+    }
 
     // Contact Information
     const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
-    for (let row of contactRows) {
-      formData.append('contactName[]', row.querySelector('input[name="contactName[]"]').value);
-      formData.append('contactEmail[]', row.querySelector('input[name="contactEmail[]"]').value);
-      formData.append('contactPhNum[]', row.querySelector('input[name="contactPhNum[]"]').value);
-      formData.append('contactDesignation[]', row.querySelector('input[name="contactDesignation[]"]').value);
-      formData.append('contactRole[]', row.querySelector('select[name="contactRole[]"]').value);
+    for (let i = 0; i < contactRows.length; i++) {
+        const row = contactRows[i];
+
+        const contactName = row.querySelector('input[name="contactName[]"]').value.trim();
+        const contactEmail = row.querySelector('input[name="contactEmail[]"]').value.trim();
+        const contactPhNum = row.querySelector('input[name="contactPhNum[]"]').value.trim();
+        const contactDesignation = row.querySelector('input[name="contactDesignation[]"]').value.trim();
+        const contactRole = row.querySelector('select[name="contactRole[]"]').value.trim();
+
+        if (!contactName) {
+            showAlert(`You must fill the contact name in row ${i + 1}.`, 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactName[]', contactName);
+        }
+
+        if (!contactEmail) {
+            showAlert(`You must fill the contact email in row ${i + 1}.`, 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactEmail[]', contactEmail);
+        }
+
+        if (!contactPhNum) {
+            showAlert(`You must fill the contact phone number in row ${i + 1}.`, 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactPhNum[]', contactPhNum);
+        }
+
+        if (!contactDesignation) {
+            showAlert(`You must fill the contact designation in row ${i + 1}.`, 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactDesignation[]', contactDesignation);
+        }
+
+        if (!contactRole) {
+            showAlert(`You must select the contact role in row ${i + 1}.`, 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactRole[]', contactRole);
+        }
     }
+       
+     	// Additional Information
+		// Validate and append concurrentUsers    
+        const concurrentUsers = document.getElementById('concurrentUsers');
+    if (!concurrentUsers || !concurrentUsers.value.trim()) {
+        showAlert('You must fill the number of Concurrent users in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('concurrentUsers', concurrentUsers.value);
+    }   
+        
 
-    // Additional Information
-    formData.append('concurrentUsers', document.getElementById('concurrentUsers').value);
-    formData.append('peakTime', document.getElementById('peakTime').value);
-    formData.append('loadBalance', document.getElementById('loadBalance').value);
-    formData.append('ipv6Compatibility', document.getElementById('ipv6Compatibility').value);
-    formData.append('tapeBackup', document.getElementById('tapeBackup').value);
+		// Validate and append peakTime
+		const peakTime = document.getElementById('peakTime');
+    if (!peakTime || !peakTime.value.trim()) {
+        showAlert('You must fill the Peak time in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('peakTime', peakTime.value);
+    }  
 
+		// Validate and append loadBalance
+		const loadBalance = document.getElementById('loadBalance');
+    if (!loadBalance || !loadBalance.value.trim()) {
+        showAlert('You must specify if you require Load Balancer in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('loadBalance', loadBalance.value);
+    }  
+
+		// Validate and append ipv6Compatibility
+		const ipv6Compatibility = document.getElementById('ipv6Compatibility');
+    if (!ipv6Compatibility || !ipv6Compatibility.value.trim()) {
+        showAlert('You must specify if you require ipv6Compatibility in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('ipv6Compatibility', ipv6Compatibility.value);
+    }  
+
+		// Validate and append tapeBackup
+		const tapeBackup = document.getElementById('tapeBackup');
+    if (!tapeBackup || !tapeBackup.value.trim()) {
+        showAlert('You must specify if you require Tape back in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('tapeBackup', tapeBackup.value);
+    }  
+   
+   
+
+       
     // VM Information
     const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
     for (let row of vmRows) {
-      formData.append('vmName[]', row.querySelector('input[name="vmName[]"]').value);
-      formData.append('cpuCount[]', row.querySelector('input[name="cpuCount[]"]').value);
-      formData.append('servicesVersions[]', row.querySelector('input[name="servicesVersions[]"]').value);
-      formData.append('osVersion[]', row.querySelector('input[name="osVersion[]"]').value);
-      formData.append('storage[]', row.querySelector('input[name="storage[]"]').value);
+        const vmName = row.querySelector('input[name="vmName[]"]').value.trim();
+        const cpuCount = row.querySelector('input[name="cpuCount[]"]').value.trim();
+        const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value.trim();
+        const osVersion = row.querySelector('input[name="osVersion[]"]').value.trim();
+        const storage = row.querySelector('input[name="storage[]"]').value.trim();
+
+        if (!vmName) {
+            showAlert('You must fill the VM Name in the VM table.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('vmName[]', vmName);
+        }
+
+        if (!cpuCount) {
+            showAlert('You must specify the CPU count in the VM table.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('cpuCount[]', cpuCount);
+        }
+
+        if (!servicesVersions) {
+            showAlert('You must specify the service versions in the VM table.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('servicesVersions[]', servicesVersions);
+        }
+
+        if (!osVersion) {
+            showAlert('You must specify the OS version in the VM table.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('osVersion[]', osVersion);
+        }
+
+        if (!storage) {
+            showAlert('You must specify the storage in the VM table.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('storage[]', storage);
+        }
     }
 
-    // Log formData for debugging (optional)
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
+    // Prevent submission if there are any errors
+    if (hasErrors) {
+        return;
     }
 
-    // Submit form data
+    // Submit Form Data
     try {
-      const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
-        method: 'POST',
-        body: formData,
-      });
+        const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+            method: 'POST',
+            body: formData,
+        });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Error ${response.status}: ${errorText}`);
-      }
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
 
-      console.log('Form submitted successfully.');
-      alert('Form submitted successfully.');
+        console.log('Form submitted successfully.');
+        showAlert('Form submitted successfully.', 'success');
     } catch (error) {
-      console.error('Form submission error:', error);
-      alert('An error occurred while submitting the form.');
+        console.error('Form submission error:', error);
+        showAlert('Error submitting the form. Please try again.', 'error');
     }
-  };
+};
 
-  document.getElementById('submitButton').addEventListener('click', submitForm);
-});
+	function showAlert(displayText, alertType = 'warning') {
 
+		switch (alertType) {
+			case 'info':
+				toastr.info(displayText);
+				break;
+			case 'success':
+				toastr.success(displayText);
+				break;
+			case 'warning':
+				toastr.warning(displayText);
+				break;
+			case 'error':
+				toastr.error(displayText);
+				break;
+			default:
+				toastr.warning(displayText);
+				break;
+		}
 
-
-  
+	}
+    
 </script>
 
 <footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram </strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
-    </div>
-  </footer>
+	All rights reserved.
+	<div class="float-right d-none d-sm-inline-block">
+		<b>Version</b> 1.0.0
+	</div>
+</footer>

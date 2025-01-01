@@ -198,7 +198,7 @@
                                 <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed"
                                   placeholder="Enter the name of the fraework used">
                               </div>
-                              <div class="form-group">
+                              <!-- <div class="form-group">
                                 <label for="appType">Type of Application</label>
                                 <div class="form-check">
                                   <input name="appType" class="form-check-input" type="checkbox">
@@ -208,7 +208,19 @@
                                   <input name="appType" class="form-check-input" type="checkbox" checked="">
                                   <label class="form-check-label">Mobile application</label>
                                 </div>
+                              </div> -->
+                              <div class="form-group">
+                                <label for="appType">Type of Application</label>
+                                <div class="form-check">
+                                  <input name="appType" class="form-check-input" type="checkbox" value="web">
+                                  <label class="form-check-label">Web application</label>
+                                </div>
+                                <div class="form-check">
+                                  <input name="appType" class="form-check-input" type="checkbox" value="mobile" checked="">
+                                  <label class="form-check-label">Mobile application</label>
+                                </div>
                               </div>
+                              
                               <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
                               <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
                             </div>
@@ -838,7 +850,26 @@ window.addEventListener('DOMContentLoaded', () => {
     formData.append('langUsed', document.getElementById('langUsed').value);
     formData.append('dbUsed', document.getElementById('dbUsed').value);
     formData.append('frameworkUsed', document.getElementById('frameworkUsed').value);
-    formData.append('appType', document.querySelector('input[name="appType"]:checked').value);
+
+    // formData.append('appType', document.querySelector('input[name="appType"]:checked').value);
+    // const selectedAppTypes = Array.from(document.querySelectorAll('input[name="appType"]:checked'))
+    // .map(checkbox => checkbox.value);
+    // const appTypeValue = selectedAppTypes.join(', '); // "web, mobile" if both are checked
+    // formData.append('appType', appTypeValue);
+
+    let appTypeValue = "";
+// Check if "Web" is selected
+ if (document.querySelector('input[name="appType"][value="web"]:checked')) {
+    appTypeValue += "web";
+ }
+ // Check if "Mobile" is selected
+ if (document.querySelector('input[name="appType"][value="mobile"]:checked')) {
+    appTypeValue += appTypeValue ? ", mobile" : "mobile";
+ }
+ // Append the result to formData
+   formData.append('appType', appTypeValue); 
+
+
 
     // Department Information
     formData.append('deptName', document.getElementById('deptName').value);

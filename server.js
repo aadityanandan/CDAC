@@ -1,6 +1,6 @@
 const app = require('./app');
 
-const connection = require('./config/db'); // Make sure the path is correct;
+// const connection = require('./config/db'); // Make sure the path is correct;
 
 const port = process.env.PORT || 5000;
 

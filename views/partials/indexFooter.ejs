@@ -31,7 +31,7 @@ function onCaptchaExpired() {
       // Wait for normal form submission
       toastr.info("Sending OTP, please wait...");
     });
-
+    
     // Handle showing OTP Verification only upon successful submission
     document.addEventListener("DOMContentLoaded", function() {
       const verifyOtpForm = document.getElementById("verifyOtpForm");
@@ -40,7 +40,8 @@ function onCaptchaExpired() {
         verifyOtpForm.style.display = "block";
         toastr.success("OTP has been sent successfully. Please check your email.");
       }
-    });
+    }); 
+    
     
     
   </script>

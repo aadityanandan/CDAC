@@ -18,7 +18,7 @@
 
 
                   <!-- OTP Verification Form -->
-                  <form id="verifyOtpForm" action="/verify-otp" method="post" style="display:none;">
+                  <form id="verifyOtpForm" action="/verify-otp" method="post">
                     <div class="form-group">
                       <label for="otp">Enter the OTP:</label>
                       <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter OTP" required>
@@ -33,6 +33,8 @@
       </section>
     </div>
   </main>
+
 <% include("../partials/verificationFooter"); %>
+
     </body>
     </html>

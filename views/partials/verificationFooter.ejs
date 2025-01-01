@@ -1,23 +1,51 @@
   <!-- Scripts -->
-  <script src="plugins/jquery/jquery.min.js"> </script>
+  <script src="public/plugins/jquery/jquery.min.js"> </script>
   <!-- SweetAlert2 -->
-  <script src="plugins/sweetalert2/sweetalert2.min.js"> </script>
+  <script src="public/plugins/sweetalert2/sweetalert2.min.js"> </script>
   <!-- Toastr -->
-  <script src="plugins/toastr/toastr.min.js"> </script>
+  <script src="public/plugins/toastr/toastr.min.js"> </script>
 
-  <script>
-      document.addEventListener("DOMContentLoaded", function () {
+  <!-- <script>
+         document.addEventListener("DOMContentLoaded", function () {
           // Make the OTP verification form always visible
           const verifyOtpForm = document.getElementById("verifyOtpForm");
-          verifyOtpForm.style.display = "block";
 
           // Add an event listener to display a success message after form submission
           verifyOtpForm.addEventListener("submit", function () {
               toastr.info("Verifying OTP, please wait...");
           });
       });
-  </script>
+  </script> -->
 
+    <script>
+         document.addEventListener("DOMContentLoaded", function() {
+            const verifyOtpForm = document.getElementById("verifyOtpForm");
+         });
+
+      document.getElementById("verifyOtpForm").addEventListener("submit", function() {
+        // Wait for normal form submission
+        toastr.info("Verifying OTP, please wait...");
+      });
+      
+      
+      
+    </script> 
+    
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const message = "<%= typeof message !== 'undefined' ? message : '' %>";
+      const messageType = "<%= typeof messageType !== 'undefined' ? messageType : '' %>";
+
+      if (message) {
+        if (messageType === 'success') {
+          toastr.success(message);
+        } else if (messageType === 'error') {
+          toastr.error(message);
+        }
+      }
+    });
+  </script> -->
 
   <footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram
       </strong>
