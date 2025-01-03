@@ -296,22 +296,23 @@
                               <h3 class="card-title">Details about the Virtual Machine</h3>
                             </div>
                             <div class="card-body">
-                              <table class="table table-bordered" id="dynamicTableVm">
+                              <table id="dynamicTableVm" class="table">
                                 <thead>
-                                  <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Name of the Virtual Machine</th>
-                                    <th>Number of Cpus </th>
-                                    <th>Specify all the services and versions used</th>
-                                    <th>OS Version</th>
-                                    <th>Storage</th>
-                                    <th>Actions</th>
-                                  </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>VM Name</th>
+                                        <th>Number of Cores</th>
+                                        <th>Application Services</th>
+                                        <th>OS Version</th>
+                                        <th>Storage</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                  <!-- Dynamic rows will be added here -->
+                                    <!-- Rows will be dynamically added here -->
                                 </tbody>
-                              </table>
+                            </table>
+                            
                               <button type="button" class="btn btn-primary" onclick="addVmRow()">Add VM</button>
                               <button type="button" class="btn btn-primary" onclick="showForm5()">Previous</button>
                               <button type="button" class="btn btn-primary" onclick="showForm7()">Next</button>
@@ -351,7 +352,7 @@
                                         technology used, deployment architecture, deployment configurations, revision
                                         history of document etc. Updates to the document should be versioned as separate
                                         versions and maintained. The architecture document shall be shared in print
-                                        along with the hosting request form or mauiled to...............to respective
+                                        along with the hosting request form or mailed to...............to respective
                                         SDC's email id's.
                                       </li>
                                       <li>
@@ -524,7 +525,7 @@
                               </div>
                             </div>
                             <div class="card-footer">
-                              <button type="button" class="btn btn-primary" onclick="showForm7()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm6()">Previous</button>
                               <button type="button" class="btn btn-primary" id="submitButton" onclick="submitForm()">Submit</button>
                             </div>
                           </div>

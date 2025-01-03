@@ -21,7 +21,7 @@ res.render('dashboard/index');
 //     res.render('dashboard/verificationpage', { csrfToken: req.session.csrfToken });
 // });
 
-router.get('/verificationpage', authController.isAuthenticated, (req, res) => {
+router.get('/verificationpage',(req, res) => {
     res.render('dashboard/verificationpage'); 
     });
 
@@ -30,7 +30,7 @@ router.get('/verificationpage', authController.isAuthenticated, (req, res) => {
 //     res.render('dashboard/pages', { csrfToken: req.session.csrfToken });
 // });
 
-router.get('/pages', authController.isAuthenticated, (req, res) => { 
+router.get('/pages',(req, res) => { 
     res.render('dashboard/pages'); 
     });
 
