@@ -8,6 +8,7 @@ const cors = require('cors');
 const path = require('path');
 const formRoutes = require('./routes/formRoutes');
 const otpRoutes = require('./routes/otpRoutes');
+const pdfRoutes = require('./routes/pdfRoutes');
 // const authRoutes = require('./routes/authRoutes');
 // const connection = require('./config/db');
 
@@ -83,6 +84,6 @@ app.use('/public', express.static('public')); // Serve static files
 // app.use('/form', csrfProtection, formRoutes); // Apply CSRF protection only to `/form`
 app.use('/form', formRoutes);
 app.use('/',  otpRoutes);
-
+app.use('/', pdfRoutes);
 // Export App
 module.exports = app;

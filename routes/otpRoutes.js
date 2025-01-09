@@ -43,6 +43,7 @@ router.post('/generate-otp', otpController.sendOtp);
 // Route to verify OTP
 router.post("/verify-otp", otpController.verifyOtp); 
 
-
+// Route to resend OTP
+router.post('/send-otp', otpController.sendOtp);
 
 module.exports = router;

@@ -18,34 +18,96 @@
   </script> -->
 
     <script>
-         document.addEventListener("DOMContentLoaded", function() {
-            const verifyOtpForm = document.getElementById("verifyOtpForm");
-         });
 
-      document.getElementById("verifyOtpForm").addEventListener("submit", function() {
-        // Wait for normal form submission
-        toastr.info("Verifying OTP, please wait...");
-      });
-      
-      
+
+   // Wait for the DOM to fully load
+   document.addEventListener("DOMContentLoaded", function () {
+  const verifyOtpForm = document.getElementById("verifyOtpForm");
+  const resendOtpButton = document.getElementById("resendOtpButton");
+
+  // Ensure elements exist before adding event listeners
+  if (verifyOtpForm) {
+    verifyOtpForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form submission
+      toastr.info("Verifying OTP, please wait...");
+      setTimeout(() => {
+        verifyOtpForm.submit();
+      }, 1000);
+    });
+  }
+
+  if (resendOtpButton) {
+    resendOtpButton.addEventListener("click", function (event) {
+      resendOtp(event);
+    });
+  }
+});
+
+let countdown; // Global variable to manage countdown
+function resendOtp(event) {
+  event.preventDefault();
+
+  const resendButton = document.getElementById("resendOtpButton");
+  const timerText = document.getElementById("timerText");
+  const emailInput = document.getElementById("userEmail");
+  const email = emailInput ? emailInput.value : "";
+
+  if (!email) {
+    toastr.error("Email is missing. Please reload the page.");
+    return;
+  }
+
+  // Disable button and start countdown
+  resendButton.disabled = true;
+  if (countdown) {
+    clearInterval(countdown); // Clear existing timer
+  }
+  let timeLeft = 10;
+
+  countdown = setInterval(() => {
+    timerText.textContent = `You can resend the OTP in ${timeLeft} seconds.`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(countdown);
+      timerText.textContent = "";
+      resendButton.disabled = false;
+    }
+  }, 1000);
+
+  // Make backend request to resend OTP
+  fetch("/send-otp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        toastr.success("OTP resent successfully.");
+      } else {
+        return response.json().then((data) => {
+          const errorMessage = data.message || "Failed to resend OTP.";
+          toastr.error(errorMessage);
+          throw new Error(errorMessage);
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error resending OTP:", error);
+      clearInterval(countdown);
+      timerText.textContent = "An error occurred. Please try again.";
+      resendButton.disabled = false;
+    });
+}
+
+
       
     </script> 
     
 
-<!-- <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const message = "<%= typeof message !== 'undefined' ? message : '' %>";
-      const messageType = "<%= typeof messageType !== 'undefined' ? messageType : '' %>";
 
-      if (message) {
-        if (messageType === 'success') {
-          toastr.success(message);
-        } else if (messageType === 'error') {
-          toastr.error(message);
-        }
-      }
-    });
-  </script> -->
 
   <footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram
       </strong>
