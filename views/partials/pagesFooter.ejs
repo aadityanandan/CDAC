@@ -190,6 +190,12 @@ function addVmRow() {
     row.innerHTML = `
         <td>${vmRowCount}</td>
         <td><input type="text" name="vmName[]" placeholder="VM Name" class="form-control"></td>
+        <td><select name="vmType[]" class="form-control">
+                <option value="appServer">App server</option>
+                <option value="webServer">Web server</option>
+                <option value="dbServer">DB server</option>
+                <option value="ftpServer">FTP server</option>
+            </select> </td>
         <td><input type="number" name="coresCount[]" placeholder="Number of cores" class="form-control"></td>
         <td><input type="text" name="servicesVersions[]" placeholder="Plz separate them with '/' " class="form-control"></td>
         <td><input type="text" name="osVersion[]" placeholder="OS Version" class="form-control"></td>
@@ -531,12 +537,12 @@ window.onload = function () {
 
     // Hosting Info Data
     const appName = document.getElementById('appName');
-    if (!appName || !appName.value.trim()) {
-        showAlert('You must fill the app name in Hosting info tab.', 'warning');
-        hasErrors = true;
-    } else {
-        formData.append('appName', appName.value);
-    }
+if (!appName || !appName.value.trim()) {
+    showAlert('You must fill the app name in Hosting info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('appName', appName.value.trim().toUpperCase());
+}
 
     const appDetails = document.getElementById('appDetails');
     if (!appDetails || !appDetails.value.trim()) {
@@ -580,19 +586,21 @@ window.onload = function () {
 
     // Department Information
     const deptName = document.getElementById('deptName');
-    if (!deptName || !deptName.value.trim()) {
-        showAlert('You must fill the department name in Department info tab.', 'warning');
-        hasErrors = true;
-    } else {
-        formData.append('deptName', deptName.value);
-    }
+if (!deptName || !deptName.value.trim()) {
+    showAlert('You must fill the department name in the Department info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('deptName', deptName.value.trim().toUpperCase());
+}
+
+
 
     const deptEmail = document.getElementById('deptEmail');
     if (!deptEmail || !deptEmail.value.trim()) {
         showAlert('You must fill the department email in Department info tab.', 'warning');
         hasErrors = true;
     } else {
-        formData.append('deptEmail', deptEmail.value);
+        formData.append('deptEmail', deptEmail.value); 
     }
 
     const deptPhNum = document.getElementById('deptPhNum');
@@ -608,7 +616,7 @@ window.onload = function () {
         showAlert('You must fill the department address in Department info tab.', 'warning');
         hasErrors = true;
     } else {
-        formData.append('deptAddrs', deptAddrs.value);
+        formData.append('deptAddrs', deptAddrs.value.trim().toUpperCase());
     }
 
     // Contact Information
@@ -712,6 +720,7 @@ window.onload = function () {
     const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
     for (let row of vmRows) {
         const vmName = row.querySelector('input[name="vmName[]"]').value.trim();
+        const vmType = row.querySelector('select[name="vmType[]"]').value;  // Get selected server type
         const coresCount = row.querySelector('input[name="coresCount[]"]').value.trim();
         const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value.trim();
         const osVersion = row.querySelector('input[name="osVersion[]"]').value.trim();
@@ -722,6 +731,13 @@ window.onload = function () {
             hasErrors = true;
         } else {
             formData.append('vmName[]', vmName);
+        }
+
+        if (!vmType) {
+        showAlert('You must specify the vm type in the VM details tab.', 'warning');
+        hasErrors = true;
+        } else {
+        formData.append('vmType[]', vmType);
         }
 
         if (!coresCount) {

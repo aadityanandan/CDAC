@@ -34,6 +34,7 @@ exports.submitForm = (req, res) => {
         contactDesignation = [],
         contactRole = [],
         vmName = [],
+        vmType =[],
         coresCount = [],
         servicesVersions = [],
         osVersion = [],
@@ -60,6 +61,7 @@ exports.submitForm = (req, res) => {
 
         const vmInfo = vmName.map((name, index) => ({
             vmName: name,
+            vmType: vmType[index] || null,
             coresCount: coresCount[index] || null,
             servicesVersions: servicesVersions[index] || null,
             osVersion: osVersion[index] || null,
@@ -139,12 +141,12 @@ exports.submitForm = (req, res) => {
                 });
 
                 const vminfoQuery = `
-                    INSERT INTO vm_details (vmName, coresCount, servicesVersions, osVersion, storage, uuid)
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT INTO vm_details (vmName, vmType,  coresCount, servicesVersions, osVersion, storage, uuid)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 `;
                 const vmPromises = vmInfo.map(vm => {
                     const vminfoValues = [
-                        vm.vmName, vm.coresCount, vm.servicesVersions, vm.osVersion, vm.storage, uuid
+                        vm.vmName, vm.vmType,  vm.coresCount, vm.servicesVersions, vm.osVersion, vm.storage, uuid
                     ];
                     return new Promise((resolve, reject) => {
                         connection.query(vminfoQuery, vminfoValues, (err, result) => {

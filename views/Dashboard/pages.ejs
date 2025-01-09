@@ -105,7 +105,7 @@
                               <div class="form-group">
                                 <label for="appName"> Name of the application: </label>
                                 <input type="text" name="appName" class="form-control" id="appName"
-                                  placeholder="Enter the name of the application" > 
+                                  placeholder="Enter the name of the application" oninput="this.value = this.value.toUpperCase()" > 
                               </div>
                               <div class="form-group">
                                 <label for="appDetails"> Details about the application: </label>
@@ -162,12 +162,12 @@
                               <div class="form-group">
                                 <label for="deptName">Name of the Department:</label>
                                 <input type="text" name="deptName" class="form-control" id="deptName"
-                                  placeholder="Enter the name of the department" >
+                                  placeholder="Enter the name of the department" oninput="this.value = this.value.toUpperCase()">
                               </div>
                               <div class="form-group">
                                 <label for="deptEmail">Department Email:</label>
                                 <input type="text" name="deptEmail" class="form-control" id="deptEmail"
-                                  placeholder="Enter the email address of the department" >
+                                  placeholder="Enter the email address of the department">
                               </div>
                               <div class="form-group">
                                 <label for="deptPhNum">Department Phone Number:</label>
@@ -177,7 +177,7 @@
                               <div class="form-group">
                                 <label for="deptAddrs">Department Address: </label>
                                 <input type="text" name="deptAddrs" class="form-control" id="deptAddrs"
-                                  placeholder="Enter the address of the department" >
+                                  placeholder="Enter the address of the department" oninput="this.value = this.value.toUpperCase()">
                               </div>
                               <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
                               <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
@@ -255,22 +255,22 @@
                                 <div class="form-group">
                                   <label for="loadBalance">Server Load Balancer: </label>
                                   <select name="loadBalance" class="form-control" id="loadBalance">
-                                    <option>Yes </option>
                                     <option>No </option>
+                                    <option>Yes </option>
                                   </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="ipv6Compatibility">Ipv6 Compatibility: </label>
                                   <select name="ipv6Compatibility" class="form-control" id="ipv6Compatibility">
+                                    <option>No  </option>
                                     <option>Yes </option>
-                                    <option>No </option>
                                   </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="tapeBackup">Tape backup: </label>
                                   <select name="tapeBackup" class="form-control" id="tapeBackup">
+                                    <option>No  </option>
                                     <option>Yes </option>
-                                    <option>No </option>
                                   </select>
                                 </div>
                               </div>
@@ -301,6 +301,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>VM Name</th>
+                                        <th>VM Type</th>
                                         <th>Number of Cores</th>
                                         <th>Application Services</th>
                                         <th>OS Version</th>
