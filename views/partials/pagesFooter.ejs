@@ -138,12 +138,12 @@ function addContactRow() {
 
     newRow.innerHTML = `
         <td>${contactRowCount}.</td>
-        <td><input type="text" name="contactName[]" placeholder="Contact Name" class="form-control" ></td>
-        <td><input type="email" name="contactEmail[]" placeholder="Contact Email" class="form-control" ></td>
-        <td><input type="tel" name="contactPhNum[]" placeholder="Contact Phone number" class="form-control" ></td>
-        <td><input type="text" name="contactDesignation[]" placeholder="Contact designation" class="form-control" ></td>
+        <td><input type="text" name="contactName[]" placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
+        <td><input type="email" name="contactEmail[]" placeholder="Contact Email" class="form-control"></td>
+        <td><input type="tel" name="contactPhNum[]" placeholder="Contact Phone number" class="form-control"></td>
+        <td><input type="text" name="contactDesignation[]" placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
         <td>
-            <select class="custom-select" name="contactRole[]" >
+            <select class="custom-select" name="contactRole[]">
                 <option value="">Select Role</option>
                 <option value="Administrator">Administrator</option>
                 <option value="Technical">Technical</option>
@@ -152,6 +152,7 @@ function addContactRow() {
         </td>
         <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>
     `;
+
     
     // Update row numbers after adding a new row
     updateContactRowNumbers();
@@ -182,28 +183,30 @@ function updateContactRowNumbers() {
 	// js of vm info table 
     let vmRowCount = 0;
 
-function addVmRow() {
+    function addVmRow() {
     vmRowCount++;
     const tbody = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0];
     const row = document.createElement('tr');
 
     row.innerHTML = `
         <td>${vmRowCount}</td>
-        <td><input type="text" name="vmName[]" placeholder="VM Name" class="form-control"></td>
+        <td><input type="text" name="vmName[]" placeholder="VM Name" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td><select name="vmType[]" class="form-control">
-                <option value="appServer">App server</option>
-                <option value="webServer">Web server</option>
-                <option value="dbServer">DB server</option>
-                <option value="ftpServer">FTP server</option>
+                <option value="App Server">App server</option>
+                <option value="Web Server">Web server</option>
+                <option value="DB Server">DB server</option>
+                <option value="FTP Server">FTP server</option>
             </select> </td>
         <td><input type="number" name="coresCount[]" placeholder="Number of cores" class="form-control"></td>
-        <td><input type="text" name="servicesVersions[]" placeholder="Plz separate them with '/' " class="form-control"></td>
-        <td><input type="text" name="osVersion[]" placeholder="OS Version" class="form-control"></td>
-        <td><input type="text" name="storage[]" placeholder="Storage" class="form-control"></td>
+        <td><input type="text" name="servicesVersions[]" placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><input type="text" name="osVersion[]" placeholder="OS Version" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><input type="text" name="storage[]" placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
     `;
+
     tbody.appendChild(row);
 }
+
 
 function removeVmRow(button) {
     const row = button.closest('tr');
@@ -266,7 +269,7 @@ if (!appName || !appName.value.trim()) {
         showAlert('You must fill the app details in Hosting info tab.', 'warning');
         hasErrors = true;
     } else {
-        formData.append('appDetails', appDetails.value);
+        formData.append('appDetails', appDetails.value.trim().toUpperCase());
     }
 
     const langUsed = document.getElementById('langUsed');
@@ -274,7 +277,7 @@ if (!appName || !appName.value.trim()) {
         showAlert('You must specify the Programming language used in Hosting info tab.', 'warning');
         hasErrors = true;
     } else {
-        formData.append('langUsed', langUsed.value);
+        formData.append('langUsed', langUsed.value.trim().toUpperCase());
     }
 
     const dbUsed = document.getElementById('dbUsed');
@@ -282,7 +285,7 @@ if (!appName || !appName.value.trim()) {
         showAlert('You must specify the Database used in Hosting info tab.', 'warning');
         hasErrors = true;
     } else {
-        formData.append('dbUsed', dbUsed.value);
+        formData.append('dbUsed', dbUsed.value.trim().toUpperCase());
     }
 
     const frameworkUsed = document.getElementById('frameworkUsed');
@@ -290,7 +293,7 @@ if (!appName || !appName.value.trim()) {
         showAlert('You must specify the framework used in Hosting info tab.', 'warning');
         hasErrors = true;
     } else {
-        formData.append('frameworkUsed', frameworkUsed.value);
+        formData.append('frameworkUsed', frameworkUsed.value.trim().toUpperCase());
     }
 
     const appTypeElement = document.querySelector('input[name="appType"]:checked');
@@ -341,42 +344,42 @@ if (!deptName || !deptName.value.trim()) {
     for (let i = 0; i < contactRows.length; i++) {
         const row = contactRows[i];
 
-        const contactName = row.querySelector('input[name="contactName[]"]').value.trim();
+        const contactName = row.querySelector('input[name="contactName[]"]').value.trim().toUpperCase();
         const contactEmail = row.querySelector('input[name="contactEmail[]"]').value.trim();
         const contactPhNum = row.querySelector('input[name="contactPhNum[]"]').value.trim();
-        const contactDesignation = row.querySelector('input[name="contactDesignation[]"]').value.trim();
+        const contactDesignation = row.querySelector('input[name="contactDesignation[]"]').value.trim().toUpperCase();
         const contactRole = row.querySelector('select[name="contactRole[]"]').value.trim();
 
         if (!contactName) {
-            showAlert(`You must fill the contact name in row ${i + 1}.`, 'warning');
+            showAlert('You must fill the contact name in Contact Info Tab', 'warning');
             hasErrors = true;
         } else {
             formData.append('contactName[]', contactName);
         }
 
         if (!contactEmail) {
-            showAlert(`You must fill the contact email in row ${i + 1}.`, 'warning');
+            showAlert('You must fill the contact email in Contact Info Tab', 'warning');
             hasErrors = true;
         } else {
             formData.append('contactEmail[]', contactEmail);
         }
 
         if (!contactPhNum) {
-            showAlert(`You must fill the contact phone number in row ${i + 1}.`, 'warning');
+            showAlert('You must fill the contact phone number in Contact Info Tab', 'warning');
             hasErrors = true;
         } else {
             formData.append('contactPhNum[]', contactPhNum);
         }
 
         if (!contactDesignation) {
-            showAlert(`You must fill the contact designation in row ${i + 1}.`, 'warning');
+            showAlert('You must fill the contact designation in Contact Info Tab', 'warning');
             hasErrors = true;
         } else {
             formData.append('contactDesignation[]', contactDesignation);
         }
 
         if (!contactRole) {
-            showAlert(`You must select the contact role in row ${i + 1}.`, 'warning');
+            showAlert('You must select the contact role in Contact Info Tab', 'warning');
             hasErrors = true;
         } else {
             formData.append('contactRole[]', contactRole);
@@ -436,11 +439,11 @@ if (!deptName || !deptName.value.trim()) {
     // VM Information
     const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
     for (let row of vmRows) {
-        const vmName = row.querySelector('input[name="vmName[]"]').value.trim();
+        const vmName = row.querySelector('input[name="vmName[]"]').value.trim().toUpperCase();
         const vmType = row.querySelector('select[name="vmType[]"]').value;  // Get selected server type
         const coresCount = row.querySelector('input[name="coresCount[]"]').value.trim();
-        const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value.trim();
-        const osVersion = row.querySelector('input[name="osVersion[]"]').value.trim();
+        const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value.trim().toUpperCase();
+        const osVersion = row.querySelector('input[name="osVersion[]"]').value.trim().toUpperCase();
         const storage = row.querySelector('input[name="storage[]"]').value.trim();
 
         if (!vmName) {
@@ -492,24 +495,49 @@ if (!deptName || !deptName.value.trim()) {
     }
 
     // Submit Form Data
-    try {
-        const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
-            method: 'POST',
-            body: formData,
-        });
+//     try {
+//         const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+//             method: 'POST',
+//             body: formData,
+//         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error ${response.status}: ${errorText}`);
-        }
+//         if (!response.ok) {
+//             const errorText = await response.text();
+//             throw new Error(`Error ${response.status}: ${errorText}`);
+//         }
 
-        console.log('Form submitted successfully.');
-        showAlert('Form submitted successfully.', 'success');
-    } catch (error) {
-        console.error('Form submission error:', error);
-        showAlert('Error submitting the form. Please try again.', 'error');
+//         console.log('Form submitted successfully.');
+//         showAlert('Form submitted successfully.', 'success');
+//     } catch (error) {
+//         console.error('Form submission error:', error);
+//         showAlert('Error submitting the form. Please try again.', 'error');
+//     }
+// };
+
+try {
+    const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
     }
-};
+
+    const { redirectUrl } = await response.json();
+
+    if (redirectUrl) {
+        // Redirect the user to the PDF download page
+        window.location.href = redirectUrl;
+    } else {
+        throw new Error('No redirect URL provided by the server.');
+    }
+} catch (error) {
+    console.error('Form submission error:', error);
+    showAlert('Error submitting the form. Please try again.', 'error');
+}
+    };
 
 	function showAlert(displayText, alertType = 'warning') {
 

@@ -9,6 +9,7 @@ const path = require('path');
 const formRoutes = require('./routes/formRoutes');
 const otpRoutes = require('./routes/otpRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
+const downloadPdfRoute = require('./routes/pdfRoutes'); // Adjust path as necessary
 // const authRoutes = require('./routes/authRoutes');
 // const connection = require('./config/db');
 

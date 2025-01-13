@@ -110,22 +110,22 @@
                               <div class="form-group">
                                 <label for="appDetails"> Details about the application: </label>
                                 <textarea class="form-control" id="appDetails" name="appDetails"
-                                  placeholder="Give a brief description about the application" > </textarea>
+                                  placeholder="Give a brief description about the application" oninput="this.value = this.value.toUpperCase()" > </textarea>
                               </div>
                               <div class="form-group">
                                 <label for="langUsed"> Programming Languages used: </label>
                                 <textarea class="form-control" id="langUsed" name="langUsed"
-                                  placeholder="Enter the programming languages used with their versions" > </textarea>
+                                  placeholder="Enter the programming languages used with their versions" oninput="this.value = this.value.toUpperCase()" > </textarea>
                               </div>
                               <div class="form-group">
                                 <label for="dbUsed"> Databases used: </label>
                                 <textarea class="form-control" id="dbUsed" name="dbUsed"
-                                  placeholder="Enter the databases used with their versions" > </textarea>
+                                  placeholder="Enter the databases used with their versions" oninput="this.value = this.value.toUpperCase()"> </textarea>
                               </div>
                               <div class="form-group">
                                 <label for="frameworkUsed"> Any framwork used: </label>
                                 <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed"
-                                  placeholder="Enter the name of the fraework used" >
+                                  placeholder="Enter the name of the fraework used" oninput="this.value = this.value.toUpperCase()" >
                               </div>
                               <div class="form-group">
                                 <label for="appType">Type of Application</label>
@@ -250,7 +250,7 @@
                                 <div class="form-group">
                                   <label for="peakTime">Any peak time of the application: </label>
                                   <input type="varchar" name="peakTime" class="form-control" id="peakTime"
-                                    placeholder="(any particular time during the month/year)">
+                                    placeholder="(Pls separate the month and time with '/')">
                                 </div>
                                 <div class="form-group">
                                   <label for="loadBalance">Server Load Balancer: </label>
@@ -305,7 +305,7 @@
                                         <th>Number of Cores</th>
                                         <th>Application Services</th>
                                         <th>OS Version</th>
-                                        <th>Storage</th>
+                                        <th>Storage (GB)</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
