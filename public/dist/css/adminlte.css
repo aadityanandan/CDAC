@@ -47,6 +47,14 @@
   box-sizing: border-box;
 }
 
+.required-field::after {
+  content: '*';
+  color: red;
+  margin-left: 4px;
+  font-weight: bold;
+  font-size: 1.2em; /* Adjust size as needed */
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

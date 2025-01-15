@@ -17,22 +17,48 @@
               <div class="card-body">
   
                 <!-- OTP Verification Form -->
-                <form id="verifyOtpForm" action="/verify-otp" method="post">
+                <!-- <form id="verifyOtpForm" action="/verify-otp" method="post">
                   <div class="form-group">
                     <label for="otp">Enter the OTP:</label>
                     <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter OTP" required>
                     
-                    <!-- Button Group -->
+                    
                     <div style="display: flex; justify-content: flex-start; align-items: center; gap: 10px; margin-top: 10px;">
                       <button type="submit" class="btn btn-success btn-sm">Verify OTP</button>
                       <button id="resendOtpButton" type="button" class="btn btn-primary btn-sm">Resend OTP</button>
                     </div>
                     
-                    <!-- Timer Text -->
+                    
                     <p id="timerText" style="margin-top: 10px; color: gray; font-size: 14px;"></p>
                   </div>
-                </form>
-  
+              </form> -->
+                       <!-- OTP Verification Form -->
+
+<form id="verifyOtpForm" action="/verify-otp" method="post">
+  <div class="form-group">
+    <label for="otp">Enter the OTP:</label>
+    <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter OTP" required />
+
+    <!-- Button Group -->
+    <div style="display: flex; justify-content: flex-start; align-items: center; gap: 10px; margin-top: 10px;">
+      <button type="submit" class="btn btn-success btn-sm">Verify OTP</button>
+    </div>
+  </div>
+</form>
+
+<!-- Resend OTP Form -->
+<form id="resendOtpForm" action="/send-otp" method="post" style="margin-top: 15px;">
+  <input type="hidden" name="email" value="<%= userEmail %>" />
+  <button type="submit" id="resendOtpButton" class="btn btn-primary btn-sm" disabled>Resend OTP</button>
+  <p id="timerText" style="margin-top: 10px; color: gray; font-size: 14px;"></p>                     
+</form>
+              
+ 
+
+ 
+
+
+
               </div>
             </div>
           </div>

@@ -6,33 +6,32 @@ const authController = require('../controllers/authController');
 // var csrf = require('csurf');
 
 
-// router.get('/', (req, res) => {
-//     console.log('CSRF Token for /:', req.session.csrfToken);
-//     res.render('dashboard/index', { csrfToken: req.session.csrfToken });
-// });
-
 router.get('/', (req, res) => {
 res.render('dashboard/index'); 
 });
 
 
-// router.get('/verificationpage', authController.isAuthenticated, (req, res) => {
-//     console.log('CSRF Token for /verificationpage:', req.session.csrfToken);
-//     res.render('dashboard/verificationpage', { csrfToken: req.session.csrfToken });
-// });
 
-router.get('/verificationpage',(req, res) => {
-    res.render('dashboard/verificationpage'); 
-    });
 
-// router.get('/pages', authController.isAuthenticated, (req, res) => {
-//     console.log('CSRF Token for /pages:', req.session.csrfToken);
-//     res.render('dashboard/pages', { csrfToken: req.session.csrfToken });
-// });
+// router.get('/verificationpage',authController.isAuthenticated, (req, res) => {
+//     res.render('dashboard/verificationpage'); 
+//     });
 
-router.get('/pages',(req, res) => { 
-    res.render('dashboard/pages'); 
-    });
+    router.get('/verificationpage', (req, res) => {
+        res.render('dashboard/verificationpage'); 
+        });
+    
+
+
+
+// router.get('/pages',authController.isAuthenticated,(req, res) => { 
+//     res.render('dashboard/pages'); 
+//     });
+
+    router.get('/pages',(req, res) => { 
+        res.render('dashboard/pages'); 
+        });
+    
 
 
 
@@ -46,4 +45,4 @@ router.post("/verify-otp", otpController.verifyOtp);
 // Route to resend OTP
 router.post('/send-otp', otpController.sendOtp);
 
-module.exports = router;
+module.exports = router; 

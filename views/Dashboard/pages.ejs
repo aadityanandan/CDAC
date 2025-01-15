@@ -104,7 +104,7 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="appName"> Name of the application: </label>
-                                <input type="text" name="appName" class="form-control" id="appName"
+                                <input type="text" name="appName" class="form-control" id="appName" aria-required = "true"
                                   placeholder="Enter the name of the application" oninput="this.value = this.value.toUpperCase()" > 
                               </div>
                               <div class="form-group">
@@ -171,8 +171,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="deptPhNum">Department Phone Number:</label>
-                                <input type="tel" name="deptPhNum" class="form-control" id="deptPhNum"
-                                  placeholder="Enter the phone number of the department" >
+                                <input type="tel" id="deptPhNum" name="deptPhNum" placeholder="Department Phone Number" class="form-control" maxlength="10" pattern="^[0-9]{10}$">
                               </div>
                               <div class="form-group">
                                 <label for="deptAddrs">Department Address: </label>
@@ -205,11 +204,11 @@
                                 <thead>
                                   <tr>
                                     <th style="width: 10px">#</th>
+                                    <th>Role</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone Number</th>
                                     <th>Designation</th>
-                                    <th>Role</th>
                                     <th>Actions</th>
                                   </tr>
                                 </thead>
@@ -302,7 +301,7 @@
                                         <th>#</th>
                                         <th>VM Name</th>
                                         <th>VM Type</th>
-                                        <th>Number of Cores</th>
+                                        <th>Number of Cores required</th>
                                         <th>Application Services</th>
                                         <th>OS Version</th>
                                         <th>Storage (GB)</th>

@@ -41,10 +41,11 @@
          
              
 const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const path = require('path'); // Import the path module
 const connection = require('../config/db');
 
 exports.generatePdfFromUuid = (uuid, res) => {
-    // Create a new PDF document
     const doc = new PDFDocument();
 
     // Write the PDF to a response stream
@@ -53,9 +54,12 @@ exports.generatePdfFromUuid = (uuid, res) => {
 
     doc.pipe(res);  // Pipe the PDF to the response
 
+    // Path to the static page
+    const staticPagePath = path.join(__dirname, '../views/dashboard/termsandconditions.html');
+
     // Query to fetch the form data using the uuid
     connection.query(
-        `SELECT * FROM hosting_details WHERE uuid = ?`, [uuid], 
+        `SELECT * FROM hosting_details WHERE uuid = ?`, [uuid],
         (err, hostingResults) => {
             if (err || hostingResults.length === 0) {
                 console.error('Error fetching hosting details:', err);
@@ -66,7 +70,7 @@ exports.generatePdfFromUuid = (uuid, res) => {
 
             // Fetch department details
             connection.query(
-                `SELECT * FROM department_details WHERE uuid = ?`, [uuid], 
+                `SELECT * FROM department_details WHERE uuid = ?`, [uuid],
                 (err, departmentResults) => {
                     if (err || departmentResults.length === 0) {
                         console.error('Error fetching department details:', err);
@@ -77,14 +81,14 @@ exports.generatePdfFromUuid = (uuid, res) => {
 
                     // Fetch contact info
                     connection.query(
-                        `SELECT * FROM contact_details WHERE uuid = ?`, [uuid], 
+                        `SELECT * FROM contact_details WHERE uuid = ?`, [uuid],
                         (err, contactResults) => {
                             if (err) {
                                 console.error('Error fetching contact details:', err);
                                 return res.status(500).send('Error fetching form data.');
                             }
 
-                            // Fetch vm info
+                            // Fetch VM info
                             connection.query(
                                 `SELECT * FROM vm_details WHERE uuid = ?`, [uuid],
                                 (err, vmResults) => {
@@ -136,8 +140,21 @@ exports.generatePdfFromUuid = (uuid, res) => {
                                         doc.moveDown();
                                     });
 
-                                    // Finalize the PDF document
-                                    doc.end();
+                                    // Read the static HTML page and add its content
+                                    fs.readFile(staticPagePath, 'utf8', (readErr, staticContent) => {
+                                        if (readErr) {
+                                            console.error('Error reading static page:', readErr);
+                                            return res.status(500).send('Error including static page.');
+                                        }
+
+                                        // Add a new page and the static content
+                                        doc.addPage().fontSize(14).text('Static Page Content', { underline: true });
+                                        doc.moveDown();
+                                        doc.fontSize(10).text(staticContent);
+
+                                        // Finalize the PDF document
+                                        doc.end();
+                                    });
                                 }
                             );
                         }
@@ -147,5 +164,6 @@ exports.generatePdfFromUuid = (uuid, res) => {
         }
     );
 };
+
 
 

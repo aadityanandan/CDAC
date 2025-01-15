@@ -138,10 +138,6 @@ function addContactRow() {
 
     newRow.innerHTML = `
         <td>${contactRowCount}.</td>
-        <td><input type="text" name="contactName[]" placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
-        <td><input type="email" name="contactEmail[]" placeholder="Contact Email" class="form-control"></td>
-        <td><input type="tel" name="contactPhNum[]" placeholder="Contact Phone number" class="form-control"></td>
-        <td><input type="text" name="contactDesignation[]" placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
         <td>
             <select class="custom-select" name="contactRole[]">
                 <option value="">Select Role</option>
@@ -150,6 +146,10 @@ function addContactRow() {
                 <option value="Developer">Developer</option>
             </select>
         </td>
+        <td><input type="text" name="contactName[]" placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
+        <td><input type="email" name="contactEmail[]" placeholder="Contact Email" class="form-control"></td>
+        <td><input type="tel" name="contactPhNum[]" placeholder="Contact Phone number" pattern="^[0-9]{10}$" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="form-control"></td>
+        <td><input type="text" name="contactDesignation[]" placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
         <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>
     `;
 
@@ -197,9 +197,17 @@ function updateContactRowNumbers() {
                 <option value="DB Server">DB server</option>
                 <option value="FTP Server">FTP server</option>
             </select> </td>
-        <td><input type="number" name="coresCount[]" placeholder="Number of cores" class="form-control"></td>
+        <td><input type="number" name="coresCount[]" placeholder="Number of cores in mutiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
         <td><input type="text" name="servicesVersions[]" placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
-        <td><input type="text" name="osVersion[]" placeholder="OS Version" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td>
+        <select name="osVersion[]" class="form-control os-version-select" onchange="handleOsVersionChange(this)">
+        <option value="" disabled selected>Select OS Version</option>
+        <option value="Windows 2022">Windows 2022</option>
+        <option value="REHL-9">REHL-9</option>
+        <option value="other">If any other, please specify</option>
+        </select>
+        <input type="text" name="osVersion[]" placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
+        </td>
         <td><input type="text" name="storage[]" placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
     `;
@@ -230,11 +238,29 @@ function initializeDefaultVmRow() {
 window.onload = function () {
     initializeDefaultVmRow();
 };
+ 
+function handleOsVersionChange(selectElement) {
+    const textInput = selectElement.nextElementSibling;
 
+    if (selectElement.value === "other") {
+      textInput.style.display = "block";
+      textInput.required = true;
+      textInput.value = ""; // Clear any existing value
+      textInput.focus();
+    } else {
+      textInput.style.display = "none";
+      textInput.required = false;
+      textInput.value = selectElement.value; // Set the value directly for the backend
+    }
+  }
 
+  function syncOsVersionInput(inputElement) {
+    const selectElement = inputElement.previousElementSibling;
+    selectElement.value = "other"; // Ensure "other" remains selected if user is typing
+  }
+ 
+ 
 
-
-	
     const submitForm = async (event) => {
     const formData = new FormData();
     let hasErrors = false; // Tracks if there are validation errors
@@ -256,6 +282,7 @@ window.onload = function () {
     }
 
     // Hosting Info Data
+
     const appName = document.getElementById('appName');
 if (!appName || !appName.value.trim()) {
     showAlert('You must fill the app name in Hosting info tab.', 'warning');
@@ -324,12 +351,15 @@ if (!deptName || !deptName.value.trim()) {
     }
 
     const deptPhNum = document.getElementById('deptPhNum');
-    if (!deptPhNum || !deptPhNum.value.trim()) {
-        showAlert('You must fill the department phone number in Department info tab.', 'warning');
-        hasErrors = true;
+    const deptPhNumRegex = /^[0-9]{10}$/;
+
+    if (!deptPhNum || !deptPhNum.value.trim() || !deptPhNumRegex.test(deptPhNum.value)) {
+    showAlert('You must fill the department phone number with a valid 10-digit number in Department Info tab.', 'warning');
+    hasErrors = true;
     } else {
-        formData.append('deptPhNum', deptPhNum.value);
+    formData.append('deptPhNum', deptPhNum.value);
     }
+
 
     const deptAddrs = document.getElementById('deptAddrs');
     if (!deptAddrs || !deptAddrs.value.trim()) {
@@ -343,12 +373,19 @@ if (!deptName || !deptName.value.trim()) {
     const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
     for (let i = 0; i < contactRows.length; i++) {
         const row = contactRows[i];
-
+        
+        const contactRole = row.querySelector('select[name="contactRole[]"]').value.trim();
         const contactName = row.querySelector('input[name="contactName[]"]').value.trim().toUpperCase();
         const contactEmail = row.querySelector('input[name="contactEmail[]"]').value.trim();
         const contactPhNum = row.querySelector('input[name="contactPhNum[]"]').value.trim();
         const contactDesignation = row.querySelector('input[name="contactDesignation[]"]').value.trim().toUpperCase();
-        const contactRole = row.querySelector('select[name="contactRole[]"]').value.trim();
+        
+        if (!contactRole) {
+            showAlert('You must select the contact role in Contact Info Tab', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactRole[]', contactRole);
+        }
 
         if (!contactName) {
             showAlert('You must fill the contact name in Contact Info Tab', 'warning');
@@ -376,13 +413,6 @@ if (!deptName || !deptName.value.trim()) {
             hasErrors = true;
         } else {
             formData.append('contactDesignation[]', contactDesignation);
-        }
-
-        if (!contactRole) {
-            showAlert('You must select the contact role in Contact Info Tab', 'warning');
-            hasErrors = true;
-        } else {
-            formData.append('contactRole[]', contactRole);
         }
     }
        
@@ -563,9 +593,11 @@ try {
     
 </script>
 
-<footer class="main-footer"> <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram </strong>
-	All rights reserved.
-	<div class="float-right d-none d-sm-inline-block">
-		<b>Version</b> 1.0.0
-	</div>
-</footer>
+<footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
+    <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+  
