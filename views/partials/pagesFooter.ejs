@@ -139,17 +139,17 @@ function addContactRow() {
     newRow.innerHTML = `
         <td>${contactRowCount}.</td>
         <td>
-            <select class="custom-select" name="contactRole[]">
+            <select class="custom-select" name="contactRole[]" required>
                 <option value="">Select Role</option>
                 <option value="Administrator">Administrator</option>
                 <option value="Technical">Technical</option>
                 <option value="Developer">Developer</option>
             </select>
         </td>
-        <td><input type="text" name="contactName[]" placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
-        <td><input type="email" name="contactEmail[]" placeholder="Contact Email" class="form-control"></td>
-        <td><input type="tel" name="contactPhNum[]" placeholder="Contact Phone number" pattern="^[0-9]{10}$" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="form-control"></td>
-        <td><input type="text" name="contactDesignation[]" placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
+        <td><input type="text" name="contactName[]" required placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
+        <td><input type="email" name="contactEmail[]" required placeholder="Contact Email" class="form-control"></td>
+        <td><input type="tel" name="contactPhNum[]" required placeholder="Contact Phone number" pattern="^[0-9]{10}$" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="form-control"></td>
+        <td><input type="text" name="contactDesignation[]" required placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
         <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>
     `;
 
@@ -190,25 +190,25 @@ function updateContactRowNumbers() {
 
     row.innerHTML = `
         <td>${vmRowCount}</td>
-        <td><input type="text" name="vmName[]" placeholder="VM Name" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
-        <td><select name="vmType[]" class="form-control">
+        <td><input type="text" name="vmName[]" required placeholder="VM Name" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><select name="vmType[]" required class="form-control">
                 <option value="App Server">App server</option>
                 <option value="Web Server">Web server</option>
                 <option value="DB Server">DB server</option>
                 <option value="FTP Server">FTP server</option>
             </select> </td>
-        <td><input type="number" name="coresCount[]" placeholder="Number of cores in mutiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
-        <td><input type="text" name="servicesVersions[]" placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><input type="number" name="coresCount[]" required placeholder="Number of cores in mutiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
+        <td><input type="text" name="servicesVersions[]" required placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td>
-        <select name="osVersion[]" class="form-control os-version-select" onchange="handleOsVersionChange(this)">
+        <select name="osVersion[]" required class="form-control os-version-select" onchange="handleOsVersionChange(this)">
         <option value="" disabled selected>Select OS Version</option>
-        <option value="Windows 2022">Windows 2022</option>
-        <option value="REHL-9">REHL-9</option>
+        <option value="WINDOWS 2022">WINDOWS 2022</option>
+        <option value="REHL-9">REHL-9</option>           
         <option value="other">If any other, please specify</option>
         </select>
-        <input type="text" name="osVersion[]" placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
+        <input type="text" name="osVersion[]" required placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
         </td>
-        <td><input type="text" name="storage[]" placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><input type="text" name="storage[]"required placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
     `;
 
@@ -284,12 +284,12 @@ function handleOsVersionChange(selectElement) {
     // Hosting Info Data
 
     const appName = document.getElementById('appName');
-if (!appName || !appName.value.trim()) {
+    if (!appName || !appName.value.trim()) {
     showAlert('You must fill the app name in Hosting info tab.', 'warning');
     hasErrors = true;
-} else {
+    } else {
     formData.append('appName', appName.value.trim().toUpperCase());
-}
+    } 
 
     const appDetails = document.getElementById('appDetails');
     if (!appDetails || !appDetails.value.trim()) {

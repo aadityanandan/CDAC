@@ -103,32 +103,32 @@
                             </div>
                             <div class="card-body">
                               <div class="form-group">
-                                <label for="appName"> Name of the application: </label>
-                                <input type="text" name="appName" class="form-control" id="appName" aria-required = "true"
-                                  placeholder="Enter the name of the application" oninput="this.value = this.value.toUpperCase()" > 
+                                <label for="appName"> Name of the application: <span class="required">*</span> </label>
+                                <input type="text" name="appName" class="form-control" id="appName"
+                                  placeholder="Enter the name of the application" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$" > 
                               </div>
                               <div class="form-group">
-                                <label for="appDetails"> Details about the application: </label>
-                                <textarea class="form-control" id="appDetails" name="appDetails"
+                                <label for="appDetails"> Details about the application: <span class="required">*</span></label>
+                                <textarea class="form-control" id="appDetails" name="appDetails" required
                                   placeholder="Give a brief description about the application" oninput="this.value = this.value.toUpperCase()" > </textarea>
                               </div>
                               <div class="form-group">
-                                <label for="langUsed"> Programming Languages used: </label>
-                                <textarea class="form-control" id="langUsed" name="langUsed"
+                                <label for="langUsed"> Programming Languages used: <span class="required">*</span> </label>
+                                <textarea class="form-control" id="langUsed" name="langUsed" required
                                   placeholder="Enter the programming languages used with their versions" oninput="this.value = this.value.toUpperCase()" > </textarea>
                               </div>
                               <div class="form-group">
-                                <label for="dbUsed"> Databases used: </label>
-                                <textarea class="form-control" id="dbUsed" name="dbUsed"
+                                <label for="dbUsed"> Databases used: <span class="required">*</span> </label>
+                                <textarea class="form-control" id="dbUsed" name="dbUsed" required
                                   placeholder="Enter the databases used with their versions" oninput="this.value = this.value.toUpperCase()"> </textarea>
                               </div>
                               <div class="form-group">
-                                <label for="frameworkUsed"> Any framwork used: </label>
-                                <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed"
+                                <label for="frameworkUsed"> Any framwork used: <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed" required
                                   placeholder="Enter the name of the fraework used" oninput="this.value = this.value.toUpperCase()" >
                               </div>
-                              <div class="form-group">
-                                <label for="appType">Type of Application</label>
+                              <div class="form-group" required>
+                                <label for="appType">Type of Application <span class="required">*</span></label>
                                 <div class="radio-group">
                                   <label> <input type="radio" name="appType" value="web" checked> Web
                                   </label> <br>
@@ -160,22 +160,22 @@
                             </div>
                             <div class="card-body">
                               <div class="form-group">
-                                <label for="deptName">Name of the Department:</label>
-                                <input type="text" name="deptName" class="form-control" id="deptName"
-                                  placeholder="Enter the name of the department" oninput="this.value = this.value.toUpperCase()">
+                                <label for="deptName">Name of the Department: <span class="required">*</span></label>
+                                <input type="text" name="deptName" class="form-control" id="deptName" required
+                                  placeholder="Enter the name of the department" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$">
                               </div>
                               <div class="form-group">
-                                <label for="deptEmail">Department Email:</label>
-                                <input type="text" name="deptEmail" class="form-control" id="deptEmail"
+                                <label for="deptEmail">Department Email: <span class="required">*</span></label>
+                                <input type="text" name="deptEmail" class="form-control" id="deptEmail" required
                                   placeholder="Enter the email address of the department">
                               </div>
                               <div class="form-group">
-                                <label for="deptPhNum">Department Phone Number:</label>
-                                <input type="tel" id="deptPhNum" name="deptPhNum" placeholder="Department Phone Number" class="form-control" maxlength="10" pattern="^[0-9]{10}$">
+                                <label for="deptPhNum">Department Phone Number: <span class="required">*</span></label>
+                                <input type="tel" id="deptPhNum" name="deptPhNum" placeholder="Department Phone Number" class="form-control" required maxlength="10" pattern="^[0-9]{10}$">
                               </div>
                               <div class="form-group">
-                                <label for="deptAddrs">Department Address: </label>
-                                <input type="text" name="deptAddrs" class="form-control" id="deptAddrs"
+                                <label for="deptAddrs">Department Address: <span class="required">*</span></label>
+                                <input type="text" name="deptAddrs" class="form-control" id="deptAddrs" required
                                   placeholder="Enter the address of the department" oninput="this.value = this.value.toUpperCase()">
                               </div>
                               <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
@@ -204,11 +204,11 @@
                                 <thead>
                                   <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Role</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone Number</th>
-                                    <th>Designation</th>
+                                    <th>Role <span class="required">*</span></th>
+                                    <th>Name <span class="required">*</span></th>
+                                    <th>Email <span class="required">*</span></th>
+                                    <th>Phone Number <span class="required">*</span></th>
+                                    <th>Designation <span class="required">*</span></th>
                                     <th>Actions</th>
                                   </tr>
                                 </thead>
@@ -242,32 +242,32 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <div class="form-group">
-                                  <label for="concurrentUsers">Total number of concurrent connections: </label>
-                                  <input type="text" name="concurrentUsers" class="form-control" id="concurrentUsers"
+                                  <label for="concurrentUsers">Total number of concurrent connections: <span class="required">*</span></label>
+                                  <input type="text" name="concurrentUsers" class="form-control" id="concurrentUsers" required
                                     placeholder="Enter the estimated total number of concurrent connections">
                                 </div>
                                 <div class="form-group">
-                                  <label for="peakTime">Any peak time of the application: </label>
-                                  <input type="varchar" name="peakTime" class="form-control" id="peakTime"
+                                  <label for="peakTime">Any peak time of the application: <span class="required">*</span></label>
+                                  <input type="varchar" name="peakTime" class="form-control" id="peakTime" required
                                     placeholder="(Pls separate the month and time with '/')">
                                 </div>
                                 <div class="form-group">
-                                  <label for="loadBalance">Server Load Balancer: </label>
-                                  <select name="loadBalance" class="form-control" id="loadBalance">
+                                  <label for="loadBalance">Server Load Balancer: <span class="required">*</span> </label>
+                                  <select name="loadBalance" class="form-control" required id="loadBalance">
                                     <option>No </option>
                                     <option>Yes </option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="ipv6Compatibility">Ipv6 Compatibility: </label>
-                                  <select name="ipv6Compatibility" class="form-control" id="ipv6Compatibility">
+                                  <label for="ipv6Compatibility">Ipv6 Compatibility: <span class="required">*</span></label>
+                                  <select name="ipv6Compatibility" class="form-control" required id="ipv6Compatibility">
                                     <option>No  </option>
                                     <option>Yes </option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="tapeBackup">Tape backup: </label>
-                                  <select name="tapeBackup" class="form-control" id="tapeBackup">
+                                  <label for="tapeBackup">Tape backup: <span class="required">*</span></label>
+                                  <select name="tapeBackup" class="form-control" required id="tapeBackup">
                                     <option>No  </option>
                                     <option>Yes </option>
                                   </select>
@@ -299,12 +299,12 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>VM Name</th>
-                                        <th>VM Type</th>
-                                        <th>Number of Cores required</th>
-                                        <th>Application Services</th>
-                                        <th>OS Version</th>
-                                        <th>Storage (GB)</th>
+                                        <th>VM Name <span class="required">*</span></th>
+                                        <th>VM Type <span class="required">*</span></th>
+                                        <th>Number of Cores required <span class="required">*</span></th>
+                                        <th>Application Services <span class="required">*</span></th>
+                                        <th>OS Version <span class="required">*</span></th>
+                                        <th>Storage (GB) <span class="required">*</span></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -328,7 +328,7 @@
                 <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel"
                   aria-labelledby="custom-tabs-one-terms-tab">
                   <section id="form7" class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid"> 
                       <div class="row">
                         <div class="col-md-12">
                           <div class="card card-primary">
@@ -337,8 +337,8 @@
                             </div>
                             <div class="card-body">
                               <div class="form-group">
-                                <label for="termsConditions">Please read and accept the terms and conditions:</label>
-                                <div class="form-control" id="termsConditions" style="overflow-y: auto; height: 400px;"
+                                <label for="termsConditions">Please read and accept the terms and conditions: <span class="required">*</span></label>
+                                <div class="form-control" required id="termsConditions" style="overflow-y: auto; height: 400px;"
                                   readonly>
                                   <!-- <div class="form-control" id="termsConditions" rows="10" readonly> -->
                                   <h1>Terms and Conditions for the Virtual-Hosting</h1>
