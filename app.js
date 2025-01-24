@@ -53,6 +53,7 @@ app.use(express.json());
 
 // Static Routes for public files
 app.use('/public', express.static('public')); // Serve static files
+app.use('/public', express.static(path.join(__dirname, 'public')));
 // app.use(csrfProtection);
 
 

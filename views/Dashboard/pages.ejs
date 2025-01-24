@@ -16,11 +16,7 @@
           <div class="card card-primary card-tabs">
             <div class="card-header p-0 pt-1">
               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                <li class="nav-item invisible">
-                  <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                    href="#custom-tabs-one-landing-page" role="tab" aria-controls="custom-tabs-one-profile"
-                    aria-selected="false">Landing Page</a>
-                </li>
+
                 <li class="nav-item invisible">
                   <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                     href="#custom-tabs-one-hosting-page" role="tab" aria-controls="custom-tabs-one-profile"
@@ -59,38 +55,6 @@
 
 
 
-                <div class="tab-pane fade" id="custom-tabs-one-landing-page" role="tabpanel"
-                  aria-labelledby="custom-tabs-one-profile-tab">
-                  <section id="form1" class="content">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="card card-primary">
-                            <div class="card-header">
-                              <h3 class="card-title">Landing Page</h3>
-                            </div>
-                            <div class="card-body">
-                              <div class="content active">
-                                <div class="form-group">
-                                  <label for="deploymentType">Is your application from the department is already hosted
-                                    in SDC ?</label>
-                                  <div class="radio-group">
-                                    <label> <input type="radio" name="deploymentType" value="New" checked>
-                                      Yes</label>
-                                    <label><input type="radio" name="deploymentType" value="Existing" > No</label>
-                                  </div>
-                                </div>
-                                <button type="button" class="btn btn-primary" onclick="showForm2()">Next</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </div>
-
-
                 <div class="tab-pane fade" id="custom-tabs-one-hosting-page" role="tabpanel"
                   aria-labelledby="custom-tabs-one-profile-tab">
                   <section id="form2" class="content">
@@ -110,17 +74,17 @@
                               <div class="form-group">
                                 <label for="appDetails"> Details about the application: <span class="required">*</span></label>
                                 <textarea class="form-control" id="appDetails" name="appDetails" required
-                                  placeholder="Give a brief description about the application" oninput="this.value = this.value.toUpperCase()" > </textarea>
+                                  placeholder="Give a brief description about the application" oninput="this.value = this.value.toUpperCase()" ></textarea>
                               </div>
                               <div class="form-group">
                                 <label for="langUsed"> Programming Languages used: <span class="required">*</span> </label>
                                 <textarea class="form-control" id="langUsed" name="langUsed" required
-                                  placeholder="Enter the programming languages used with their versions" oninput="this.value = this.value.toUpperCase()" > </textarea>
+                                  placeholder="Enter the programming languages used with their versions" oninput="this.value = this.value.toUpperCase()" ></textarea>
                               </div>
                               <div class="form-group">
                                 <label for="dbUsed"> Databases used: <span class="required">*</span> </label>
                                 <textarea class="form-control" id="dbUsed" name="dbUsed" required
-                                  placeholder="Enter the databases used with their versions" oninput="this.value = this.value.toUpperCase()"> </textarea>
+                                  placeholder="Enter the databases used with their versions" oninput="this.value = this.value.toUpperCase()"></textarea>
                               </div>
                               <div class="form-group">
                                 <label for="frameworkUsed"> Any framwork used: <span class="required">*</span></label>
@@ -159,15 +123,68 @@
                               <h3 class="card-title">Department Information</h3>
                             </div>
                             <div class="card-body">
+                              
                               <div class="form-group">
                                 <label for="deptName">Name of the Department: <span class="required">*</span></label>
-                                <input type="text" name="deptName" class="form-control" id="deptName" required
-                                  placeholder="Enter the name of the department" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$">
-                              </div>
+                                <select name="deptName" class="form-control" id="deptName" required>
+                                    <option value="">Select a department</option>
+                                    <option value="Department of ARI, Trainings & Grievances, J&K">Department of ARI, Trainings & Grievances, J&K </option>
+                                    <option value="Department of Agriculture Production and Farmers Welfare, J&K">Department of Agriculture Production and Farmers Welfare, J&K</option>
+                                    <option value="Department of Anti Corruption Bureau, J&K">Department of Anti Corruption Bureau, J&K</option>
+                                    <option value="Department of Cooperatives, J&K">Department of Cooperatives, J&K</option>
+                                    <option value="Department of Culture Development, J&K">Department of Culture Development, J&K</option>
+                                    <option value="Department of Disaster Management, Relief, Rehabilitation & Reconstruction, J&K">Department of Disaster Management, Relief, Rehabilitation & Reconstruction, J&K</option>
+                                    <option value="Department of Ecology, Environment and Remote Sensing, J&K">Department of Ecology, Environment and Remote Sensing, J&K</option>
+                                    <option value="Department of Environment and Biodiversity, J&K">Department of Environment and Biodiversity, J&K</option>
+                                    <option value="Department of Estate, Civil Secretariat, J&K">Department of Estate, Civil Secretariat, J&K</option>
+                                    <option value="Department of Excise and Taxation, J&K">Department of Excise and Taxation, J&K</option>
+                                    <option value="Department of Excise, Ladakh">Department of Excise, Ladakh</option>
+                                    <option value="Department of Finance, Accounts and Treasuries, J&K">Department of Finance, Accounts and Treasuries, J&K</option>
+                                    <option value="Department of Fire and Emergency Services, J&K">Department of Fire and Emergency Services, J&K</option>
+                                    <option value="Department of Floriculture, J&K">Department of Floriculture, J&K</option>
+                                    <option value="Department of Forensic Science Laboratory, J&K">Department of Forensic Science Laboratory, J&K</option>
+                                    <option value="Department of Forest and Biodiversity Council, J&K">Department of Forest and Biodiversity Council, J&K</option>
+                                    <option value="Department of General Administration, J&K">Department of General Administration, J&K</option>
+                                    <option value="Department of General Administration, Ladakh">Department of General Administration, Ladakh</option>
+                                    <option value="Department of Geology and Mining, J&K">Department of Geology and Mining, J&K</option>
+                                    <option value="Department of Handicrafts & Handloom, J&K">Department of Handicrafts & Handloom, J&K</option>
+                                    <option value="Department of Health & Family Welfare, J&K">Department of Health & Family Welfare, J&K</option>
+                                    <option value="Department of Health & Medical Education, J&K">Department of Health & Medical Education, J&K</option>
+                                    <option value="Department of Higher education, J&K">Department of Higher education, J&K</option>
+                                    <option value="Department of Home, J&K">Department of Home, J&K</option>
+                                    <option value="Department of Horticulture, J&K">Department of Horticulture, J&K</option>
+                                    <option value="Department of Hospitality and Protocol, J&K">Department of Hospitality and Protocol, J&K</option>
+                                    <option value="Department of Housing & Urban development, J&K">Department of Housing & Urban development, J&K</option>
+                                    <option value="Department of IT, J&K">Department of IT, J&K</option>
+                                    <option value="Department of IT, Ladakh">Department of IT, Ladakh</option>
+                                    <option value="Department of Information & Public Relation, Ladakh">Department of Information & Public Relation, Ladakh</option>
+                                    <option value="Department of Information and Public Relations, J&K">Department of Information and Public Relations, J&K</option>
+                                    <option value="Department of J&K Evacuees Property, J&K">Department of J&K Evacuees Property, J&K</option>
+                                    <option value="Department of Labor Commission, J&K">Department of Labor Commission, J&K</option>
+                                    <option value="Department of Law, Justice And Parliamentary Affair, J&K">Department of Law, Justice And Parliamentary Affair, J&K</option>
+                                    <option value="Department of Legal Metrology, J&K">Department of Legal Metrology, J&K</option>
+                                    <option value="Department of Personnel and Administrative Reforms, J&K">Department of Personnel and Administrative Reforms, J&K</option>
+                                    <option value="Department of Planning Development & Monitoring, J&K">Department of Planning Development & Monitoring, J&K</option>
+                                    <option value="Department of Power & Development, J&K">Department of Power & Development, J&K</option>
+                                    <option value="Department of Public works, J&K">Department of Public works, J&K</option>
+                                    <option value="Department of Real Estate Regulation and Development, J&K">Department of Real Estate Regulation and Development, J&K</option>
+                                    <option value="Department of Registrations, Ladakh">Department of Registrations, Ladakh</option>
+                                    <option value="Department of Rural Development and Panchayat Raj,J&K">Department of Rural Development and Panchayat Raj, J&K</option>
+                                    <option value="Department of Rural Livelihood Mission, J&K">Department of Rural Livelihood Mission, J&K</option>
+                                    <option value="Department of School Education, J&K">Department of School Education, J&K</option>
+                                    <option value="Department of Science and Technology, J&K">Department of Science and Technology, J&K</option>
+                                    <option value="Department of Skill Development, J&K">Department of Skill Development, J&K</option>
+                                    <option value="Department of Social Welfare,J&K">Department of Social Welfare, J&K</option>
+                                    <option value="Department of Town Planning organization, Jammu">Department of Town Planning organization, Jammu</option>
+                                    <option value="Department of Tribal Affairs, J&K">Department of Tribal Affairs, J&K</option>
+                                    <option value="Department of Urban Local Bodies,J&K">Department of Urban Local Bodies, J&K</option>
+                                    <option value="Jammu and Kashmir e-Governance Agency">Jammu and Kashmir e-Governance Agency</option>
+                                </select>
+                            </div>
+                            
                               <div class="form-group">
                                 <label for="deptEmail">Department Email: <span class="required">*</span></label>
-                                <input type="text" name="deptEmail" class="form-control" id="deptEmail" required
-                                  placeholder="Enter the email address of the department">
+                                <input type="email" name="deptEmail" class="form-control" id="deptEmail" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(cdac\.in|nic\.in|gov\.in)$" title="Please enter a valid email address ending with cdac.in, nic.in, or gov.in" placeholder="Enter the email address of the department">
                               </div>
                               <div class="form-group">
                                 <label for="deptPhNum">Department Phone Number: <span class="required">*</span></label>
@@ -175,9 +192,9 @@
                               </div>
                               <div class="form-group">
                                 <label for="deptAddrs">Department Address: <span class="required">*</span></label>
-                                <input type="text" name="deptAddrs" class="form-control" id="deptAddrs" required
-                                  placeholder="Enter the address of the department" oninput="this.value = this.value.toUpperCase()">
-                              </div>
+                                <textarea name="deptAddrs" class="form-control" id="deptAddrs" required rows="3"
+                                    placeholder="Enter the address of the department" oninput="this.value = this.value.toUpperCase()"></textarea>
+                            </div>                            
                               <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
                               <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button>
                             </div>
@@ -247,32 +264,59 @@
                                     placeholder="Enter the estimated total number of concurrent connections">
                                 </div>
                                 <div class="form-group">
-                                  <label for="peakTime">Any peak time of the application: <span class="required">*</span></label>
-                                  <input type="varchar" name="peakTime" class="form-control" id="peakTime" required
-                                    placeholder="(Pls separate the month and time with '/')">
-                                </div>
-                                <div class="form-group">
-                                  <label for="loadBalance">Server Load Balancer: <span class="required">*</span> </label>
-                                  <select name="loadBalance" class="form-control" required id="loadBalance">
-                                    <option>No </option>
-                                    <option>Yes </option>
+                                  <label for="peakTime">Any peak month of the application: <span class="required">*</span></label>
+                                  <select name="peakTime" class="form-control" id="peakTime" required>
+                                    <option value="" disabled selected>Select a month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="ipv6Compatibility">Ipv6 Compatibility: <span class="required">*</span></label>
-                                  <select name="ipv6Compatibility" class="form-control" required id="ipv6Compatibility">
-                                    <option>No  </option>
-                                    <option>Yes </option>
-                                  </select>
+                                  <label>Server Load Balancer: <span class="required">*</span></label>
+                                  <div>
+                                    <label>
+                                      <input type="radio" name="loadBalance" value="No" required> No
+                                    </label>
+                                    <label>
+                                      <input type="radio" name="loadBalance" value="Yes" required> Yes
+                                    </label>
+                                  </div>
                                 </div>
+                                
                                 <div class="form-group">
-                                  <label for="tapeBackup">Tape backup: <span class="required">*</span></label>
-                                  <select name="tapeBackup" class="form-control" required id="tapeBackup">
-                                    <option>No  </option>
-                                    <option>Yes </option>
-                                  </select>
+                                  <label>Ipv6 Compatibility: <span class="required">*</span></label>
+                                  <div>
+                                    <label>
+                                      <input type="radio" name="ipv6Compatibility" value="No" required> No
+                                    </label>
+                                    <label>
+                                      <input type="radio" name="ipv6Compatibility" value="Yes" required> Yes
+                                    </label>
+                                  </div>
                                 </div>
-                              </div>
+                                
+                                <div class="form-group">
+                                  <label>Tape Backup: <span class="required">*</span></label>
+                                  <div>
+                                    <label>
+                                      <input type="radio" name="tapeBackup" value="No" required> No
+                                    </label>
+                                    <label>
+                                      <input type="radio" name="tapeBackup" value="Yes" required> Yes
+                                    </label>
+                                  </div>
+                                </div>
+                                
                               <button type="button" class="btn btn-primary" onclick="showForm4()">Previous</button>
                               <button type="button" class="btn btn-primary" onclick="showForm6()">Next</button>
                             </div>
@@ -301,7 +345,7 @@
                                         <th>#</th>
                                         <th>VM Name <span class="required">*</span></th>
                                         <th>VM Type <span class="required">*</span></th>
-                                        <th>Number of Cores required <span class="required">*</span></th>
+                                        <th>Number of Virtual Cores<span class="required">*</span></th>
                                         <th>Application Services <span class="required">*</span></th>
                                         <th>OS Version <span class="required">*</span></th>
                                         <th>Storage (GB) <span class="required">*</span></th>

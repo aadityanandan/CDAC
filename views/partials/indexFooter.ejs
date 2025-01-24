@@ -7,48 +7,45 @@
 
   <script>
 
+
+// Form validation function
 function validateForm() {
   const email = document.getElementById("email").value;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@(nic\.in|gov\.in|cdac\.in)$/;
+
+  // Validate CAPTCHA response
   if (grecaptcha.getResponse() === "") {
-    toastr.warning("Please complete the CAPTCHA");
-    return false;
+    toastr.warning("Please complete the CAPTCHA"); // Show warning if CAPTCHA is not completed
+    return false; // Prevent form submission
   }
-  return true;
+
+  // Validate email format using regex
+  if (!emailPattern.test(email)) {
+    toastr.error("Please use an official government email id."); // Show error for invalid email
+    return false; // Prevent form submission
+  }
+
+  toastr.success("OTP has been sent successfully, please check you email"); // Show success message if form is valid
+  return true; // Allow form submission if everything is correct
 }
 
+// Function called when CAPTCHA is successfully completed
 function onCaptchaSuccess() {
-  document.getElementById("sendOtpButton").disabled = false;
+  document.getElementById("sendOtpButton").disabled = false; // Enable the OTP button
 }
 
+// Function called when CAPTCHA is expired
 function onCaptchaExpired() {
-  document.getElementById("sendOtpButton").disabled = true;
+  document.getElementById("sendOtpButton").disabled = true; // Disable the OTP button
 }
 
-    
 
-    // When OTP is submitted and server responds successfully, show verification form
-    document.getElementById("otpForm").addEventListener("submit", function() {
-      // Wait for normal form submission
-      toastr.info("Sending OTP, please wait...");
-    });
-    
-    // Handle showing OTP Verification only upon successful submission
-    document.addEventListener("DOMContentLoaded", function() {
-      const verifyOtpForm = document.getElementById("verifyOtpForm");
-      // Check if server response indicates a successful email submission
-      if (window.location.href.includes("success=otp")) {
-        verifyOtpForm.style.display = "block";
-        toastr.success("OTP has been sent successfully. Please check your email.");
-      }
-    }); 
-    
-    
-    
+     
   </script>
 
 
 <footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
-  <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
+  <strong>&copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
   All rights reserved.
   <div class="float-right d-none d-sm-inline-block">
     <b>Version</b> 1.0.0

@@ -103,12 +103,25 @@
 // }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Check if there's a message to display
+  const message = '<%= message %>'; // Assuming you're using EJS templating
+  const messageType = '<%= messageType %>'; // Assuming you're using EJS templating
+
+  // Display the toastr message based on messageType
+  if (message && messageType) {
+    if (messageType === 'success') {
+      toastr.success(message); // Show success message
+    } else if (messageType === 'error') {
+      toastr.error(message); // Show error message
+    }
+  }
+
   const resendButton = document.getElementById("resendOtpButton");
   const timerText = document.getElementById("timerText");
 
   // Initialize the resend button state
   resendButton.disabled = true;
-  let timeLeft = 10; // 10-second cooldown
+  let timeLeft = 60; // 60-second cooldown
 
   // Start the timer
   const countdown = setInterval(() => {
@@ -131,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     <footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
-      <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
+      <strong>&copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0

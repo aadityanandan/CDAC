@@ -23,7 +23,8 @@
 					  <form id="otpForm" action="/generate-otp" method="post" onsubmit="return validateForm()">
 						<div class="form-group" id="mailBox"> 
 						  <label for="email">Enter your email address:</label>
-						  <input type="email" class="form-control" name="email" id="email" placeholder="Email must be an official id ending with .nic.in or .gov.in" required>
+						  <!-- <input type="email" class="form-control" name="email" id="email" placeholder="Email must be an official id ending with nic.in or gov.in or cdac.in" required> -->
+						  <input type="email" class="form-control" name="email" id="email" placeholder="Email must be an official ID ending with nic.in or gov.in or cdac.in" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\(nic\.in|gov\.in|cdac\.in)$" required>
 						  <!-- CAPTCHA Widget -->
 						  <div id="captcha-check" class="g-recaptcha" data-sitekey="6LfFuWkqAAAAABEqRzDpdLf6pvkl7Tf8yWnUlZmv" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
 						  <!-- Generate OTP Submit Button -->

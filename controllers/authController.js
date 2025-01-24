@@ -1,5 +1,3 @@
-
-
 // Middleware to check if the user is authenticated
 exports.isAuthenticated = (req, res, next) => {
     console.log('Session contents in isAuthenticated:', req.session);

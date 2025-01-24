@@ -127,11 +127,13 @@
     let contactRowCount = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Add the first row when the page loads
-    addContactRow(); 
+    // Add three preloaded rows with specific roles and disable their remove buttons
+    addContactRow('Administrator', true);
+    addContactRow('Developer', true);
+    addContactRow('Technical', true);
 });
 
-function addContactRow() {
+function addContactRow(preselectedRole = '', isNonRemovable = false) {
     contactRowCount++;
     const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
     const newRow = table.insertRow();
@@ -141,19 +143,20 @@ function addContactRow() {
         <td>
             <select class="custom-select" name="contactRole[]" required>
                 <option value="">Select Role</option>
-                <option value="Administrator">Administrator</option>
-                <option value="Technical">Technical</option>
-                <option value="Developer">Developer</option>
+                <option value="Administrator" ${preselectedRole === 'Administrator' ? 'selected' : ''}>Administrator</option>
+                <option value="Technical" ${preselectedRole === 'Technical' ? 'selected' : ''}>Technical</option>
+                <option value="Developer" ${preselectedRole === 'Developer' ? 'selected' : ''}>Developer</option>
             </select>
         </td>
         <td><input type="text" name="contactName[]" required placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
         <td><input type="email" name="contactEmail[]" required placeholder="Contact Email" class="form-control"></td>
         <td><input type="tel" name="contactPhNum[]" required placeholder="Contact Phone number" pattern="^[0-9]{10}$" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="form-control"></td>
         <td><input type="text" name="contactDesignation[]" required placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
-        <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>
+        <td>
+            <button type="button" class="btn btn-danger" onclick="removeContactRow(this)" ${isNonRemovable ? 'disabled' : ''}>Remove</button>
+        </td>
     `;
 
-    
     // Update row numbers after adding a new row
     updateContactRowNumbers();
 }
@@ -161,29 +164,31 @@ function addContactRow() {
 function removeContactRow(button) {
     const row = button.parentNode.parentNode;
     row.parentNode.removeChild(row);
-    
+
     // Update row numbers after removing a row
     updateContactRowNumbers();
 }
 
 function updateContactRowNumbers() {
     const rows = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0].rows;
-    
+
     // Update the row numbers for all rows
     for (let i = 0; i < rows.length; i++) {
         rows[i].cells[0].innerText = `${i + 1}.`;
     }
-    
+
     // Adjust contactRowCount after rows are removed
     contactRowCount = rows.length;
 }
 
 
 
+
+
 	// js of vm info table 
     let vmRowCount = 0;
 
-    function addVmRow() {
+function addVmRow() {
     vmRowCount++;
     const tbody = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0];
     const row = document.createElement('tr');
@@ -197,35 +202,37 @@ function updateContactRowNumbers() {
                 <option value="DB Server">DB server</option>
                 <option value="FTP Server">FTP server</option>
             </select> </td>
-        <td><input type="number" name="coresCount[]" required placeholder="Number of cores in mutiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
+        <td><input type="number" name="coresCount[]" required placeholder="Number of cores in multiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
         <td><input type="text" name="servicesVersions[]" required placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td>
-        <select name="osVersion[]" required class="form-control os-version-select" onchange="handleOsVersionChange(this)">
-        <option value="" disabled selected>Select OS Version</option>
-        <option value="WINDOWS 2022">WINDOWS 2022</option>
-        <option value="REHL-9">REHL-9</option>           
-        <option value="other">If any other, please specify</option>
-        </select>
-        <input type="text" name="osVersion[]" required placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
+            <select name="osVersion[]" required class="form-control os-version-select" onchange="handleOsVersionChange(this)">
+                <option value="" disabled selected>Select OS Version</option>
+                <option value="WINDOWS 2022">WINDOWS 2022</option>
+                <option value="REHL-9">REHL-9</option>           
+                <option value="other">If any other, please specify</option>
+            </select>
+            <input type="text" name="osVersion[]" required placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
         </td>
-        <td><input type="text" name="storage[]"required placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
-        <td><button type="button" class="btn btn-danger" onclick="removeVmRow(this)">Remove</button></td>
+        <td><input type="text" name="storage[]" required placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td>
+            <button type="button" class="btn btn-danger remove-btn" onclick="removeVmRow(this)" ${vmRowCount === 1 ? 'disabled' : ''}>Remove</button>
+        </td>
     `;
-
     tbody.appendChild(row);
 }
 
-
 function removeVmRow(button) {
     const row = button.closest('tr');
-    row.remove();
+    row.parentNode.removeChild(row);
+
+    // Update row count and numbers
     updateVmRowNumbers();
 }
 
 function updateVmRowNumbers() {
     const rows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
     for (let i = 0; i < rows.length; i++) {
-        rows[i].cells[0].innerText = i + 1;
+        rows[i].cells[0].textContent = i + 1;
     }
     vmRowCount = rows.length;
 }
@@ -272,14 +279,7 @@ function handleOsVersionChange(selectElement) {
         hasErrors = true;
     }
 
-    // Collect data from the form
-    const deploymentType = document.querySelector('input[name="deploymentType"]:checked');
-    if (!deploymentType) {
-        showAlert('You must select a deployment type.', 'warning');
-        hasErrors = true;
-    } else {
-        formData.append('deploymentType', deploymentType.value);
-    }
+   
 
     // Hosting Info Data
 
@@ -342,13 +342,21 @@ if (!deptName || !deptName.value.trim()) {
 
 
 
-    const deptEmail = document.getElementById('deptEmail');
-    if (!deptEmail || !deptEmail.value.trim()) {
-        showAlert('You must fill the department email in Department info tab.', 'warning');
+const deptEmail = document.getElementById('deptEmail');
+
+if (!deptEmail || !deptEmail.value.trim()) {
+    showAlert('You must fill the department email in the Department info tab.', 'warning');
+    hasErrors = true;
+} else {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(cdac\.in|nic\.in|gov\.in)$/;
+    if (!emailRegex.test(deptEmail.value.trim())) {
+        showAlert('Please enter an official email ending with cdac.in, nic.in, or gov.in. in Department info tab', 'warning');
         hasErrors = true;
     } else {
-        formData.append('deptEmail', deptEmail.value); 
+        formData.append('deptEmail', deptEmail.value);
     }
+}
+
 
     const deptPhNum = document.getElementById('deptPhNum');
     const deptPhNumRegex = /^[0-9]{10}$/;
@@ -436,32 +444,32 @@ if (!deptName || !deptName.value.trim()) {
         formData.append('peakTime', peakTime.value);
     }  
 
-		// Validate and append loadBalance
-		const loadBalance = document.getElementById('loadBalance');
-    if (!loadBalance || !loadBalance.value.trim()) {
-        showAlert('You must specify if you require Load Balancer in Additional info tab.', 'warning');
-        hasErrors = true;
-    } else {
-        formData.append('loadBalance', loadBalance.value);
-    }  
+	// Validate and append loadBalance
+const loadBalance = document.querySelector('input[name="loadBalance"]:checked');
+if (!loadBalance) {
+    showAlert('You must specify if you require Load Balancer in the Additional info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('loadBalance', loadBalance.value);
+}
 
 		// Validate and append ipv6Compatibility
-		const ipv6Compatibility = document.getElementById('ipv6Compatibility');
-    if (!ipv6Compatibility || !ipv6Compatibility.value.trim()) {
-        showAlert('You must specify if you require ipv6Compatibility in Additional info tab.', 'warning');
-        hasErrors = true;
-    } else {
-        formData.append('ipv6Compatibility', ipv6Compatibility.value);
-    }  
+const ipv6Compatibility = document.querySelector('input[name="ipv6Compatibility"]:checked');
+if (!ipv6Compatibility) {
+    showAlert('You must specify if you require ipv6Compatibility in the Additional info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('ipv6Compatibility', ipv6Compatibility.value);
+}
 
 		// Validate and append tapeBackup
-		const tapeBackup = document.getElementById('tapeBackup');
-    if (!tapeBackup || !tapeBackup.value.trim()) {
-        showAlert('You must specify if you require Tape back in Additional info tab.', 'warning');
-        hasErrors = true;
-    } else {
-        formData.append('tapeBackup', tapeBackup.value);
-    }  
+const tapeBackup = document.querySelector('input[name="tapeBackup"]:checked');
+if (!tapeBackup) {
+    showAlert('You must specify if you require Load Balancer in the Additional info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('tapeBackup', tapeBackup.value);
+}  
    
    
 
@@ -544,6 +552,7 @@ if (!deptName || !deptName.value.trim()) {
 //     }
 // };
 
+
 try {
     const response = await fetch('http://localhost:5000/form/submit-form-endpoint', {
         method: 'POST',
@@ -558,8 +567,13 @@ try {
     const { redirectUrl } = await response.json();
 
     if (redirectUrl) {
-        // Redirect the user to the PDF download page
-        window.location.href = redirectUrl;
+        // Display a success message
+        showAlert('Form submitted successfully! Redirecting to the PDF download page...', 'success');
+
+        // Add a slight delay before redirecting
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 2000); // 2-second delay for the user to see the success message
     } else {
         throw new Error('No redirect URL provided by the server.');
     }
@@ -567,6 +581,8 @@ try {
     console.error('Form submission error:', error);
     showAlert('Error submitting the form. Please try again.', 'error');
 }
+
+
     };
 
 	function showAlert(displayText, alertType = 'warning') {
@@ -594,7 +610,7 @@ try {
 </script>
 
 <footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
-    <strong>Copyright &copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
+    <strong>&copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0

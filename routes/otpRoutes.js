@@ -13,24 +13,24 @@ res.render('dashboard/index');
 
 
 
-// router.get('/verificationpage',authController.isAuthenticated, (req, res) => {
-//     res.render('dashboard/verificationpage'); 
-//     });
+router.get('/verificationpage',authController.isAuthenticated, (req, res) => {
+    res.render('dashboard/verificationpage'); 
+    });
 
-    router.get('/verificationpage', (req, res) => {
-        res.render('dashboard/verificationpage'); 
-        });
+    // router.get('/verificationpage', (req, res) => {
+    //     res.render('dashboard/verificationpage'); 
+    //     });
     
 
 
 
-// router.get('/pages',authController.isAuthenticated,(req, res) => { 
-//     res.render('dashboard/pages'); 
-//     });
+router.get('/pages',authController.isAuthenticated,(req, res) => { 
+    res.render('dashboard/pages'); 
+    });
 
-    router.get('/pages',(req, res) => { 
-        res.render('dashboard/pages'); 
-        });
+    // router.get('/pages',(req, res) => { 
+    //     res.render('dashboard/pages'); 
+    //     });
     
 
 

@@ -1,262 +1,10 @@
-// const PDFDocument = require('pdfkit');
-// const fs = require('fs');
-// const path = require('path'); // Import the path module
-// const connection = require('../config/db');
-
-// exports.generatePdfFromUuid = (uuid, res) => {
-//     const doc = new PDFDocument();
-
-//     // Write the PDF to a response stream
-//     res.setHeader('Content-Type', 'application/pdf');
-//     res.setHeader('Content-Disposition', `attachment; filename=form_${uuid}.pdf`);
-
-//     doc.pipe(res);  // Pipe the PDF to the response
-
-//     // Path to the static page
-//     const staticPagePath = path.join(__dirname, '../views/dashboard/termsandconditions.html');
-
-//     // Query to fetch the form data using the uuid
-//     connection.query(
-//         `SELECT * FROM hosting_details WHERE uuid = ?`, [uuid],
-//         (err, hostingResults) => {
-//             if (err || hostingResults.length === 0) {
-//                 console.error('Error fetching hosting details:', err);
-//                 return res.status(500).send('Error fetching form data.');
-//             }
-
-//             const hostingDetails = hostingResults[0];
-
-//             // Fetch department details
-//             connection.query(
-//                 `SELECT * FROM department_details WHERE uuid = ?`, [uuid],
-//                 (err, departmentResults) => {
-//                     if (err || departmentResults.length === 0) {
-//                         console.error('Error fetching department details:', err);
-//                         return res.status(500).send('Error fetching form data.');
-//                     }
-
-//                     const departmentDetails = departmentResults[0];
-
-//                     // Fetch contact info
-//                     connection.query(
-//                         `SELECT * FROM contact_details WHERE uuid = ?`, [uuid],
-//                         (err, contactResults) => {
-//                             if (err) {
-//                                 console.error('Error fetching contact details:', err);
-//                                 return res.status(500).send('Error fetching form data.');
-//                             }
-
-//                             // Fetch VM info
-//                             connection.query(
-//                                 `SELECT * FROM vm_details WHERE uuid = ?`, [uuid],
-//                                 (err, vmResults) => {
-//                                     if (err) {
-//                                         console.error('Error fetching VM details:', err);
-//                                         return res.status(500).send('Error fetching form data.');
-//                                     }
-
-//                                     const vmDetails = vmResults;
-
-//                                     // Add Hosting Details
-//                                     doc.fontSize(16).text('Application Form', { align: 'center' });
-//                                     doc.moveDown();
-//                                     doc.fontSize(12).text(`Deployment Type: ${hostingDetails.deploymentType}`);
-//                                     doc.text(`App Name: ${hostingDetails.appName}`);
-//                                     doc.text(`App Details: ${hostingDetails.appDetails}`);
-//                                     doc.text(`Languages Used: ${hostingDetails.langUsed}`);
-//                                     doc.text(`DB Used: ${hostingDetails.dbUsed}`);
-//                                     doc.text(`Framework Used: ${hostingDetails.frameworkUsed}`);
-//                                     doc.text(`App Type: ${hostingDetails.appType}`);
-//                                     doc.moveDown();
-
-//                                     // Add Department Details
-//                                     doc.text(`Department Name: ${departmentDetails.deptName}`);
-//                                     doc.text(`Department Email: ${departmentDetails.deptEmail}`);
-//                                     doc.text(`Department Phone: ${departmentDetails.deptPhNum}`);
-//                                     doc.text(`Department Address: ${departmentDetails.deptAddrs}`);
-//                                     doc.moveDown();
-
-//                                     // Add Contact Info
-//                                     contactResults.forEach(contact => {
-//                                         doc.text(`Contact Name: ${contact.contactName}`);
-//                                         doc.text(`Email: ${contact.contactEmail}`);
-//                                         doc.text(`Phone: ${contact.contactPhNum}`);
-//                                         doc.text(`Designation: ${contact.contactDesignation}`);
-//                                         doc.text(`Role: ${contact.contactRole}`);
-//                                         doc.moveDown();
-//                                     });
-
-//                                     // Add VM Details
-//                                     doc.text('VM Details:', { underline: true });
-//                                     vmDetails.forEach(vm => {
-//                                         doc.text(`VM Name: ${vm.vmName}`);
-//                                         doc.text(`VM Type: ${vm.vmType}`);
-//                                         doc.text(`Cores Count: ${vm.coresCount}`);
-//                                         doc.text(`Services Versions: ${vm.servicesVersions}`);
-//                                         doc.text(`OS Version: ${vm.osVersion}`);
-//                                         doc.text(`Storage: ${vm.storage}`);
-//                                         doc.moveDown();
-//                                     });
-
-//                                     // Read the static HTML page and add its content
-//                                     fs.readFile(staticPagePath, 'utf8', (readErr, staticContent) => {
-//                                         if (readErr) {
-//                                             console.error('Error reading static page:', readErr);
-//                                             return res.status(500).send('Error including static page.');
-//                                         }
-
-//                                         // Add a new page and the static content
-//                                         doc.addPage().fontSize(14).text('Static Page Content', { underline: true });
-//                                         doc.moveDown();
-//                                         doc.fontSize(10).text(staticContent);
-
-//                                         // Finalize the PDF document
-//                                         doc.end();
-//                                     });
-//                                 }
-//                             );
-//                         }
-//                     );
-//                 }
-//             );
-//         }
-//     );
-// };
-
-
-
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path'); // Import the path module
 const connection = require('../config/db');
+const imageToBase64 = require('image-to-base64');
 
-exports.generatePdfFromUuid = async (uuid, res) => {
-    try {
-        // Fetching hosting details
-        const hostingResults = await queryDatabase(
-            `SELECT * FROM hosting_details WHERE uuid = ?`,
-            [uuid]
-        );
-        if (hostingResults.length === 0) {
-            return res.status(404).send('Hosting details not found.');
-        }
-        const hostingDetails = hostingResults[0];
-
-        // Fetching department details
-        const departmentResults = await queryDatabase(
-            `SELECT * FROM department_details WHERE uuid = ?`,
-            [uuid]
-        );
-        if (departmentResults.length === 0) {
-            return res.status(404).send('Department details not found.');
-        }
-        const departmentDetails = departmentResults[0];
-
-        // Fetching contact and VM details
-        const contactResults = await queryDatabase(
-            `SELECT * FROM contact_details WHERE uuid = ?`,
-            [uuid]
-        );
-        const vmResults = await queryDatabase(
-            `SELECT * FROM vm_details WHERE uuid = ?`,
-            [uuid]
-        );
-
-        // Reading static content for terms and conditions
-        const staticPagePath = path.join(__dirname, '../views/dashboard/termsandconditions.html');
-        const staticContent = fs.readFileSync(staticPagePath, 'utf8');
-
-        // Constructing HTML content for the PDF
-        const htmlContent = `
-            <html>
-            <head>
-                <title>Application Form</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.5; }
-                    h1 { text-align: center; }
-                    .section { margin-bottom: 20px; }
-                    .section-title { font-weight: bold; text-decoration: underline; margin-bottom: 10px; }
-                </style>
-            </head>
-            <body>
-                <h1>Application Form</h1>
-                <div class="section">
-                    <div class="section-title">Hosting Details</div>
-                    <p>Deployment Type: ${hostingDetails.deploymentType}</p>
-                    <p>App Name: ${hostingDetails.appName}</p>
-                    <p>App Details: ${hostingDetails.appDetails}</p>
-                    <p>Languages Used: ${hostingDetails.langUsed}</p>
-                    <p>DB Used: ${hostingDetails.dbUsed}</p>
-                    <p>Framework Used: ${hostingDetails.frameworkUsed}</p>
-                    <p>App Type: ${hostingDetails.appType}</p>
-                </div>
-                <div class="section">
-                    <div class="section-title">Department Details</div>
-                    <p>Department Name: ${departmentDetails.deptName}</p>
-                    <p>Department Email: ${departmentDetails.deptEmail}</p>
-                    <p>Department Phone: ${departmentDetails.deptPhNum}</p>
-                    <p>Department Address: ${departmentDetails.deptAddrs}</p>
-                </div>
-                <div class="section">
-                    <div class="section-title">Contact Details</div>
-                    ${contactResults.map(contact => `
-                        <p>Contact Name: ${contact.contactName}</p>
-                        <p>Email: ${contact.contactEmail}</p>
-                        <p>Phone: ${contact.contactPhNum}</p>
-                        <p>Designation: ${contact.contactDesignation}</p>
-                        <p>Role: ${contact.contactRole}</p>
-                    `).join('')}
-                </div>
-                <div class="section">
-                    <div class="section-title">VM Details</div>
-                    ${vmResults.map(vm => `
-                        <p>VM Name: ${vm.vmName}</p>
-                        <p>VM Type: ${vm.vmType}</p>
-                        <p>Cores Count: ${vm.coresCount}</p>
-                        <p>Services Versions: ${vm.servicesVersions}</p>
-                        <p>OS Version: ${vm.osVersion}</p>
-                        <p>Storage: ${vm.storage}</p>
-                    `).join('')}
-                </div>
-                <div class="section">
-                    <div class="section-title">Terms and Conditions</div>
-                    ${staticContent}
-                </div>
-            </body>
-            </html>
-        `;
-
-        // Using Puppeteer to generate PDF
-        const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'], // Add this for environments like Docker
-        });
-        const page = await browser.newPage();
-
-        // Setting content and generating the PDF
-        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            printBackground: true, // Ensures the background colors/images are included
-        });
-
-        // Sending the PDF as a response
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', `attachment; filename=form_${uuid}.pdf`);
-        res.setHeader('Content-Length', pdfBuffer.length); // Add content length
-        res.end(pdfBuffer); // Use res.end() for sending the buffer
-        console.log('PDF Buffer Length:', pdfBuffer.length);
-        console.log('HTML Content Preview:', htmlContent.substring(0, 500));
-        // Closing the browser
-        await browser.close();
-    } catch (error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('Error generating the PDF.');
-    }
-};
-
-// Helper function to query the database
+// Define the queryDatabase function here
 function queryDatabase(query, params) {
     return new Promise((resolve, reject) => {
         connection.query(query, params, (err, results) => {
@@ -265,6 +13,310 @@ function queryDatabase(query, params) {
         });
     });
 }
+
+exports.generatePdfFromUuid = async (uuid, res) => {
+    try {
+                // Fetching hosting details
+                const hostingResults = await queryDatabase(
+                    `SELECT * FROM hosting_details WHERE uuid = ?`,
+                    [uuid]
+                );
+                if (hostingResults.length === 0) {
+                    return res.status(404).send('Hosting details not found.');
+                }
+                const hostingDetails = hostingResults[0];
+        
+                // Fetching department details
+                const departmentResults = await queryDatabase(
+                    `SELECT * FROM department_details WHERE uuid = ?`,
+                    [uuid]
+                );
+                if (departmentResults.length === 0) {
+                    return res.status(404).send('Department details not found.');
+                }
+                const departmentDetails = departmentResults[0];
+                
+                // Fetching additional info details
+                const additionalResults = await queryDatabase(
+                    `SELECT * FROM additional_info WHERE uuid = ?` ,
+                    [uuid]
+                );
+                if (additionalResults.length ===0) {
+                    return res.status(404).send('Additional details not found.');
+                }
+                const additionalDetails = additionalResults[0];
+                
+                // Fetching contact and VM details
+                const contactResults = await queryDatabase(
+                    `SELECT * FROM contact_details WHERE uuid = ?`,
+                    [uuid]
+                );
+                const vmResults = await queryDatabase(
+                    `SELECT * FROM vm_details WHERE uuid = ?`,
+                    [uuid]
+                );
+
+        // Fetching terms and conditions static content
+        const staticPagePath = path.join(__dirname, '../views/dashboard/termsandconditions.html');
+        const staticContent = fs.readFileSync(staticPagePath, 'utf8');
+
+        // Convert images to base64 (if required for inline display)
+        const cdacLogoBase64 = await imageToBase64(path.resolve(__dirname, '../public/pics/cdac-logo.png'));
+        const jakegaLogoBase64 = await imageToBase64(path.resolve(__dirname, '../public/pics/logo.png'));
+
+        // Construct the main content for the PDF
+        const htmlContent = `
+<html>
+<head>
+    <title>Hosting Form</title>
+    <style>
+    <style>
+    body { 
+        font-family: Arial, sans-serif; 
+        margin: 20px; 
+        line-height: 1.5; 
+    }
+    h2 { 
+        text-align: center; 
+        margin-bottom: 20px; 
+    }
+    .section { 
+        margin-bottom: 40px; 
+    }
+    .section-title { 
+        font-size:20px;
+        font-weight: bold; 
+        text-decoration: underline; 
+        margin-bottom: 10px; 
+    }
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-bottom: 20px; 
+        table-layout: auto; /* Allow columns to auto-adjust */
+    }
+    th, td { 
+        border: 1px solid #ddd; 
+        padding: 10px; 
+        text-align: left; 
+        word-wrap: break-word; /* Break long words */
+        word-break: break-word; /* Break long unbroken strings */
+        white-space: pre-wrap; /* Preserve spacing and wrap text properly */
+        /*font-weight: bold;  Bold content */
+        vertical-align: top; /* Align content to the top */
+    }
+    th { 
+        background-color: #f4f4f4; 
+    }
+    img { 
+        max-height: 70px; 
+    }
+    li {
+        margin: 10px 0;
+    }
+        
+
+</style>
+
+    </style>
+</head>
+<body>
+    <h2>Application Form</h2>
+        <!-- Hosting Details Section -->
+        <div class="section">
+            <div class="section-title">Hosting Details</div>
+            <table>
+                <tr>
+                    <td style="width:170px";>Application Name:</td>
+                    <td>${hostingDetails.appName}</td>
+                </tr>
+                <tr>
+                    <td>Application Details:</td>
+                    <td>${hostingDetails.appDetails}</td>
+                </tr>
+                <tr>
+                    <td>Programming Languages Used:</td>
+                    <td>${hostingDetails.langUsed}</td>
+                </tr>
+                <tr>
+                    <td>Database Used:</td>
+                    <td>${hostingDetails.dbUsed}</td>
+                </tr>
+                <tr>
+                    <td>Programming Framework Used:</td>
+                    <td>${hostingDetails.frameworkUsed}</td>
+                </tr>
+                <tr>
+                    <td>Application Type:</td>
+                    <td>${hostingDetails.appType}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Department Details Section -->
+        <div class="section">
+            <div class="section-title">Department Details</div>
+            <table>
+                <tr>
+                    <td style="width:170px";>Department Name:</td>
+                    <td>${departmentDetails.deptName}</td>
+                </tr>
+                <tr>
+                    <td>Department Email:</td>
+                    <td>${departmentDetails.deptEmail}</td>
+                </tr>
+                <tr>
+                    <td>Department Phone:</td>
+                    <td>${departmentDetails.deptPhNum}</td>
+                </tr>
+                <tr>
+                    <td>Department Address:</td>
+                    <td>${departmentDetails.deptAddrs}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Contact Details Section -->
+        <div class="section">
+            <div class="section-title">Contact Details</div>
+            <table>
+                <tr>
+                    <th>Contact's Role:</th>
+                    <th>Contact's Name:</th>
+                    <th>Contact's Email:</th>
+                    <th>Contact's Phone number:</th>
+                    <th>Contact's Designation:</th>
+                </tr>
+                ${contactResults.map(contact => `
+                    <tr> 
+                        <td style="width:170px";>${contact.contactRole}</td>
+                        <td>${contact.contactName}</td>
+                        <td>${contact.contactEmail}</td>
+                        <td>${contact.contactPhNum}</td>
+                        <td>${contact.contactDesignation}</td>  
+                    </tr>
+                `).join('')}
+            </table>
+        </div>
+         <br></br>
+        <!-- Additional Information Section -->
+        <div class="section">
+            <div class="section-title">Additional Information</div>
+            <table>   
+                <tr>
+                    <td style="width:230px;">Total Concurrent Connections:</td>
+                    <td>${additionalDetails.concurrentUsers}</td>
+                </tr>
+                <tr>
+                    <td>Peak Month of the application:</td>
+                    <td>${additionalDetails.peakTime}</td>
+                </tr>
+                <tr>
+                    <td>Server Load Balancer requirement:</td>
+                    <td>${additionalDetails.loadBalance}</td>
+                </tr>
+                <tr>
+                    <td>IPv6 Compatibility requirement :</td>
+                    <td>${additionalDetails.ipv6Compatibility}</td>
+                </tr>
+                <tr>
+                    <td>Tape Backup requirement:</td>
+                    <td>${additionalDetails.tapeBackup}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- VM Details Section -->
+        <div class="section">
+            <div class="section-title">VM Details</div>
+            <table>
+                <tr>
+                    <th>Virtual Machine Name:</th>
+                    <th>Virtual Machine Type:</th>
+                    <th>Number of Virtual Cores required:</th>
+                    <th>Services Versions used:</th>
+                    <th>Operating System Version:</th>
+                    <th>Storage required:</th>
+                </tr>
+                ${vmResults.map(vm => `
+                    <tr>
+                        <td>${vm.vmName}</td>
+                        <td>${vm.vmType}</td>
+                        <td>${vm.coresCount}</td>
+                        <td>${vm.servicesVersions}</td>
+                        <td>${vm.osVersion}</td>
+                        <td>${vm.storage}</td>
+                    </tr>
+                `).join('')}
+            </table>
+        </div>
+
+        <!-- Terms and Conditions Section -->
+        <div class="section">
+            <div class="section-title">Terms and Conditions</div>
+            <p>${staticContent}</p>
+        </div>
+</body>
+</html>
+`;
+
+
+        // Puppeteer setup
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        });
+        const page = await browser.newPage();
+
+        // Set content for the PDF
+        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+
+        // Generate the PDF with header and footer
+        const pdfBuffer = await page.pdf({
+            format: 'A4',
+            printBackground: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+    <div style="font-size:10px; color:#555; width:100%; padding:0 50px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <img src="data:image/png;base64,${cdacLogoBase64}" style="height:40px; margin-right:auto;" />
+            <img src="data:image/png;base64,${jakegaLogoBase64}" style="height:42px; margin-left:auto;" />
+        </div>
+    </div>
+`,
+
+            footerTemplate: `
+    <div style="font-size:10px; color:#555; width:100%; padding:0 50px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="text-align:left;">
+            <strong>&copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong><br>
+            All rights reserved.<br>
+        </div>
+        <div style="text-align:right; margin-right:10px">
+            Page <span class="pageNumber"></span> of <span class="totalPages"></span>
+        </div>
+    </div>
+`,
+            margin: {
+                top: '70px',
+                bottom: '50px',
+                right: '30px',
+                left: '40px',
+            },
+        });
+
+        // Send the PDF as a response
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename=form_${uuid}.pdf`);
+        res.setHeader('Content-Length', pdfBuffer.length);
+        res.end(pdfBuffer);
+
+        // Close the browser
+        await browser.close();
+    } catch (error) {
+        console.error('Error generating PDF:', error);
+        res.status(500).send('Error generating the PDF.');
+    }
+};
 
 
 
