@@ -6,7 +6,6 @@ const connection = mysql.createConnection({
     user: 'root',    
     password: '',   
     database: 'mydb',
-    connectTimeout: 10000,
 });
 
 // Connect to the MySQL database

@@ -1,0 +1,361 @@
+<!-- jQuery -->
+<script src="public/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="public/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+	$.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="public/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="public/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="public/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="public/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="public/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="public/plugins/moment/moment.min.js"></script>
+<script src="public/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="public/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="public/dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="public/dist/js/demo.js"></script>
+<!-- Custom Script -->
+<script>
+	function showTab(index) {
+		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+		const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+
+		// Check if the index is valid
+		if (index < 0 || index >= tabLinks.length) {
+			console.error("Tab or content with index", index, "not found");
+			return;
+		}
+
+		// Remove active class from all tabs and contents
+		tabLinks.forEach((link) => link.classList.remove('active'));
+		tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+		// Add active class to the selected tab and content
+		tabLinks[index].classList.add('active');
+		tabContents[index].classList.add('active', 'show');
+	}
+
+	// Function to display all tabs
+	function showAllTabs() {
+		const navItems = document.querySelectorAll('.nav-item');
+		navItems.forEach(item => {
+			item.classList.remove('invisible');
+		});
+
+		// Set the first tab as active by default
+		showTab(0);
+	}
+
+	function showTabById(tabId) {
+		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+		const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+
+		// Remove active class from all tabs and contents
+		tabLinks.forEach((link) => link.classList.remove('active'));
+		tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+		// Find the tab link and content using the ID
+		const targetLink = Array.from(tabLinks).find(link => link.getAttribute('href') === `#${tabId}`);
+		const targetContent = document.getElementById(tabId);
+
+		if (targetLink && targetContent) {
+			targetLink.classList.add('active');
+			targetContent.classList.add('active', 'show');
+		} else {
+			console.error(`Tab or content with ID ${tabId} not found`);
+		}
+	}
+
+	// Functions to show specific tabs by their IDs
+	function showForm1() {
+		showTabById('custom-tabs-one-primary-contact-info');
+	}
+
+	function showForm2() {
+		showTabById('custom-tabs-one-office-info');
+	}
+
+	function showForm3() {
+		showTabById('custom-tabs-one-server-info');
+    }
+
+    function showForm4() {
+        showTabById('custom-tabs-one-terms');
+    }
+
+
+
+	// Call showAllTabs on page load or after redirection
+	window.addEventListener('DOMContentLoaded', () => {
+		showAllTabs();
+	});
+
+
+    let serverRowCount = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Add a default row if needed
+    addServerRow();
+});
+
+function addServerRow() {
+    serverRowCount++;
+    const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    newRow.innerHTML = `
+        <td>${serverRowCount}.</td>
+        <td><input type="text" name="serverIP[]" required placeholder="Server IP" class="form-control"></td>
+        <td><input type="text" name="serverLocation[]" required placeholder="Location of the Server" class="form-control"></td>
+        <td><input type="text" name="serverPort[]" required placeholder="Port" class="form-control"></td>
+        <td><input type="text" name="serverDescription[]" required placeholder="Description of the Server" class="form-control"></td>
+        <td>
+            <button type="button" class="btn btn-danger" onclick="removeServerRow(this)">Remove</button>
+        </td>
+    `;
+
+    updateServerRowNumbers();
+}
+
+function removeServerRow(button) {
+    const row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    
+    updateServerRowNumbers();
+}
+
+function updateServerRowNumbers() {
+    const rows = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0].rows;
+    
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[0].innerText = `${i + 1}.`;
+    }
+    
+    serverRowCount = rows.length;
+}
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    try {
+        await fetch('/logout', { method: 'GET', credentials: 'include' });
+        window.location.href = '/'; // Redirect to login page
+    } catch (error) {
+        console.error('Logout failed:', error);
+    }
+
+});
+
+
+
+async function submitVpnForm() {
+    const formData = new FormData();
+    let hasErrors = false;
+
+    // Validate and append Name
+    const Name = document.getElementById("Name");
+    if (!Name || !Name.value.trim()) {
+        showAlert("You must fill in the Name field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("Name", Name.value.trim().toUpperCase());
+    }
+
+    // Validate and append Designation
+    const Designation = document.getElementById("Designation");
+    if (!Designation || !Designation.value.trim()) {
+        showAlert("You must fill in the Designation field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("Designation", Designation.value.trim().toUpperCase());
+    }
+
+    // Validate and append Email
+    const Email = document.getElementById("Email");
+    if (!Email || !Email.value.trim()) {
+        showAlert("You must fill in the Email field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("Email", Email.value.trim());
+    }
+
+    // Validate and append Phone Number
+    const phoneNumber = document.getElementById("phoneNumber");
+    if (!phoneNumber || !phoneNumber.value.trim()) {
+        showAlert("You must fill in the Phone Number field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("phoneNumber", phoneNumber.value.trim());
+    }
+
+    // Validate and append Department Name
+    const deptName = document.getElementById("deptName");
+    if (!deptName || !deptName.value.trim()) {
+        showAlert("You must fill in the Department Name field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("deptName", deptName.value.trim());
+    }
+
+    // Validate and append Department State
+    const deptState = document.getElementById("deptState");
+    if (!deptState || !deptState.value.trim()) {
+        showAlert("You must fill in the Department State field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("deptState", deptState.value.trim());
+    }
+
+    // Validate and append Department Phone Number
+    const deptPhNum = document.getElementById("deptPhNum");
+    if (!deptPhNum || !deptPhNum.value.trim()) {
+        showAlert("You must fill in the Department Phone Number field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("deptPhNum", deptPhNum.value.trim());
+    }
+
+    // Validate and append Department Address
+    const deptAddrs = document.getElementById("deptAddrs");
+    if (!deptAddrs || !deptAddrs.value.trim()) {
+        showAlert("You must fill in the Department Address field.", "warning");
+        hasErrors = true;
+    } else {
+        formData.append("deptAddrs", deptAddrs.value.trim());
+    }
+
+    // Validate and append multiple Server Details
+    const serverRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < serverRows.length; i++) {
+        const row = serverRows[i];
+
+        const serverIP = row.querySelector('input[name="serverIP[]"]').value.trim();
+        const serverLocation = row.querySelector('input[name="serverLocation[]"]').value.trim();
+        const serverPort = row.querySelector('input[name="serverPort[]"]').value.trim();
+        const serverDescription = row.querySelector('input[name="serverDescription[]"]').value.trim();
+
+        if (!serverIP) {
+            showAlert("You must fill in the Server IP in Server Details.", "warning");
+            hasErrors = true;
+        } else {
+            formData.append("serverIP[]", serverIP);
+        }
+
+        if (!serverLocation) {
+            showAlert("You must fill in the Server Location in Server Details.", "warning");
+            hasErrors = true;
+        } else {
+            formData.append("serverLocation[]", serverLocation);
+        }
+
+        if (!serverPort) {
+            showAlert("You must fill in the Server Port in Server Details.", "warning");
+            hasErrors = true;
+        } else {
+            formData.append("serverPort[]", serverPort);
+        }
+
+        if (!serverDescription) {
+            showAlert("You must fill in the Server Description in Server Details.", "warning");
+            hasErrors = true;
+        } else {
+            formData.append("serverDescription[]", serverDescription);
+        }
+    }
+      // Ensure terms and conditions are accepted before proceeding
+      const acceptTerms = document.getElementById('acceptTerms');
+    if (!acceptTerms.checked) {
+        showAlert('You must accept the terms and conditions before submitting the form.', 'warning');
+        hasErrors = true;
+    }
+
+
+    // Stop submission if errors exist
+    if (hasErrors) return;
+
+
+    try {
+    const response = await fetch('http://localhost:5000/submit-vpn-endpoint', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+    }
+
+    // Parse response JSON
+    const responseData = await response.json();
+
+    if (responseData.redirectUrl) {
+    // Show success message first
+    showAlert("VPN Form submitted successfully! Redirecting...", "success");
+
+    // Delay redirect for 2 seconds
+    setTimeout(() => {
+        window.location.href = responseData.redirectUrl;
+    }, 2000); // 2000ms = 2 seconds
+} else {
+    showAlert("VPN Form submitted successfully!", "success");
+}
+
+
+} catch (error) {
+    console.error("VPN Form submission error:", error);
+    showAlert("Error submitting the VPN form. Please try again.", "error");
+}
+
+}
+
+  
+   
+
+    
+
+	function showAlert(displayText, alertType = 'warning') {
+
+		switch (alertType) {
+			case 'info':
+				toastr.info(displayText);
+				break;
+			case 'success':
+				toastr.success(displayText);
+				break;
+			case 'warning':
+				toastr.warning(displayText);
+				break;
+			case 'error':
+				toastr.error(displayText);
+				break;
+			default:
+				toastr.warning(displayText);
+				break;
+		}
+
+	}
+    
+
+</script>
+<footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
+    <strong>&copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+  

@@ -6,7 +6,22 @@
   <script src="public/plugins/toastr/toastr.min.js"> </script>
 
   <script>
+    
 
+    document.getElementById("showLogin").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("signupForm").parentNode.parentNode.style.display = "none";
+    document.getElementById("loginForm").parentNode.parentNode.style.display = "block";
+  });
+
+  document.getElementById("showSignup").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("loginForm").parentNode.parentNode.style.display = "none";
+    document.getElementById("signupForm").parentNode.parentNode.style.display = "block";
+  });
+
+  // Initially, show only the signup form
+  document.getElementById("loginForm").parentNode.parentNode.style.display = "none";
 
 // Form validation function
 function validateForm() {
@@ -38,6 +53,8 @@ function onCaptchaSuccess() {
 function onCaptchaExpired() {
   document.getElementById("sendOtpButton").disabled = true; // Disable the OTP button
 }
+
+
 
 
      

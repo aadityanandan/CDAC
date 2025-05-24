@@ -9,14 +9,13 @@ const path = require('path');
 const formRoutes = require('./routes/formRoutes');
 const otpRoutes = require('./routes/otpRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
-const downloadPdfRoute = require('./routes/pdfRoutes'); // Adjust path as necessary
-// const authRoutes = require('./routes/authRoutes');
-// const connection = require('./config/db');
-
-// const csrfProtection = csrf({
-//   cookie: true
-// }); // Use cookies for CSRF tokens
-
+const signupRoutes = require('./routes/signupRoutes');
+const detailsRoutes = require('./routes/detailsRoutes');
+const vpnRoutes = require('./routes/vpnRoutes');
+const firewallRoutes = require('./routes/firewallRoutes');
+const vpnPdfRoutes = require('./routes/vpnPdfRoutes');
+const firewallPdfRoutes = require('./routes/firewallPdfRoutes');
+const landingPageRoutes = require('./routes/landingPageRoutes');
 
 require('dotenv').config();
 
@@ -49,43 +48,28 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(express.json());
 
-// app.use(express.static('public'));
+
 
 // Static Routes for public files
 app.use('/public', express.static('public')); // Serve static files
 app.use('/public', express.static(path.join(__dirname, 'public')));
-// app.use(csrfProtection);
 
 
-// ** CSRF Protection Middleware **
-
-// app.use((req, res, next) => {
-//   if (!req.session.csrfToken) {
-// req.session.csrfToken = req.csrfToken(); // Generate and store token in session
-//   }
-//   res.locals.csrfToken = req.session.csrfToken; // Make it available to all views
-// next();
-// });
-
-// app.use(csrfProtection, (req, res, next) => {
-//   console.log(req.csrfToken());
-//   next();
-// });
-
-// Handle CSRF errors globally
-// app.use((err, req, res, next) => {
-// if (err.code === 'EBADCSRFTOKEN') {
-//   res.status(403).send('Invalid CSRF token.');
-// } else {
-//   next(err);
-// }
-// });
 
 
-// ** Apply CSRF Middleware on Specific Routes **
-// app.use('/form', csrfProtection, formRoutes); // Apply CSRF protection only to `/form`
-app.use('/form', formRoutes);
-app.use('/',  otpRoutes);
+
+app.use('/', formRoutes);
+app.use('/', otpRoutes);
 app.use('/', pdfRoutes);
+app.use('/signup', signupRoutes);
+app.use('/', detailsRoutes);
+app.use('/', vpnRoutes);
+app.use('/', firewallRoutes);
+app.use('/', vpnPdfRoutes);
+app.use('/', firewallPdfRoutes);
+app.use('/', landingPageRoutes);
+
+
+
 // Export App
 module.exports = app;

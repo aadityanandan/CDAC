@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../partials/header"); %>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+  <main>
+
+    <form id="form" action="/form/submit-form-endpoint" method="post" >
+      <div class="row">
+        <div class="col-12 col-sm-12">
+          <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                     
+                <li class="nav-item invisible">
+                  <a class="nav-link"  data-toggle="pill"
+                    href="#custom-tabs-one-general-details" role="tab" aria-controls="custom-tabs-one-general-details"
+                    aria-selected="false">General Details</a>
+                </li>
+                <li class="nav-item invisible">
+                  <a class="nav-link"  data-toggle="pill"
+                    href="#custom-tabs-one-requestor-details" role="tab" aria-controls="custom-tabs-one-requestor-details"
+                    aria-selected="false">Requestor Details</a>
+                </li>
+                <li class="nav-item invisible">
+                  <a class="nav-link"  data-toggle="pill"
+                    href="#custom-tabs-one-firewall-details" role="tab" aria-controls="custom-tabs-one-firewall-details"
+                    aria-selected="false">Firewall Details</a>
+                </li>
+                <li class="nav-item invisible">
+                  <a class="nav-link" data-toggle="pill"
+                   href="#custom-tabs-one-terms" role="tab" aria-controls="custom-tabs-one-terms" 
+                   aria-selected="false">Terms and Conditions</a>
+                </li>
+                <li class="nav-item invisible">
+                  <button style="margin-left: 780px;" type="button" class="btn btn-primary"  id="logoutBtn"> Logout </button>
+                </li>
+              </ul> 
+              
+             
+
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-one-tabContent">
+
+
+
+
+                <div class="tab-pane fade" id="custom-tabs-one-general-details" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-general-details">
+                  <section id="form1" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">General Details: </h3>
+                            </div>
+                            <div class="card-body">
+                              <div class="form-group">
+                                <label for="appName">Application Name: <span class="required">*</span> </label>
+                                <input type="text" name="appName" class="form-control" id="appName"
+                                  placeholder="Enter the Application Name" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$"> 
+                              </div>
+                              <div class="form-group">
+                                <label for="url"> URL: <span class="required">*</span> </label>
+                                <input type="text" name="url" class="form-control" id="url"
+                                  placeholder="Please enter the URL starting with https://" required> 
+                              </div>
+                              <div class="form-group">
+                                <label for="privateIpAddrss"> Private IP Address: <span class="required">*</span> </label>
+                                <input type="text" name="privateIpAddrss" class="form-control" id="privateIpAddrss"
+                                  placeholder="Please enter only the valid IPs starting from either 192.168. or 10.192." required> 
+                              </div>
+                              <div class="form-group">
+                                <label for="publicIpAddrss"> Public IP Address: <span class="required">*</span> </label>
+                                <input type="text" name="publicIpAddrss" class="form-control" id="publicIpAddrss"
+                                  placeholder="Please enter only the valid IP starting from 164.100.223." required> 
+                              </div>
+                          
+
+                              <button type="button" class="btn btn-primary" onclick="showForm2()">Next</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+
+                <div class="tab-pane fade" id="custom-tabs-one-requestor-details" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-requestor-details">
+                  <section id="form2" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Requestor Details: </h3>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="name">Name of the Requestor:  <span class="required">*</span> </label>
+                                    <input type="text" name="name" class="form-control" id="name"
+                                      placeholder="Enter the Name of the Requestor" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$"> 
+                                  </div>
+                             
+                          
+                                  <div class="form-group">
+                                    <label for="email">Email: <span class="required">*</span> </label>
+                                    <input type="email" name="email" class="form-control" id="email"
+                                      placeholder="Enter the email" required> 
+                                  </div>
+
+                              <div class="form-group">
+                                <label for="contactNum">Contact Number: <span class="required">*</span></label>
+                                <input type="tel" id="contactNum" name="contactNum" placeholder="Contact Number" class="form-control" required maxlength="10" pattern="^[0-9]{10}$">
+                              </div>
+
+
+                              
+                              <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+
+                <div class="tab-pane fade" id="custom-tabs-one-firewall-details" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-firewall-details">
+                  <section id="form3" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Firewall Details: </h3>
+                            </div>
+                            <div class="card-body">
+                              <table class="table table-bordered" id="dynamicTable">
+                                <thead>
+                                  <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>From (Source) <span class="required">*</span></th>
+                                    <th>To (Destination) <span class="required">*</span></th>
+                                    <th>Port Number <span class="required">*</span></th>
+                                    <th>Service Required <span class="required">*</span></th>
+                                    <th>Requirement Details </th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <!-- Dynamic rows will be added here -->
+                                </tbody>
+                              </table>
+                              <button type="button" class="btn btn-primary" onclick="addRow()">Add new Row</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+                <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-terms">
+                  <section id="form4" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Declaration:</h3>
+                            </div>
+                            <div class="card-body">
+                              <label for="termsConditions">Please read and accept the terms and conditions: <span class="required">*</span></label>
+                              <div>
+                                I hereby declare that the above information furnished by me is correct to the best of my knowledge and belief. I owe responsibility if any issue occurs beacause of above firewall rule implementation.
+                              </div> <br>
+                              <div>
+                               <strong> Signature of technical lead with seal </strong> 
+                              </div> <br>
+                              <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="acceptTerms" id="acceptTerms">
+                                <label class="form-check-label" for="acceptTerms">I accept the terms and
+                                  conditions</label>
+                              </div>
+                              <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
+                              <button type="button" class="btn btn-primary" id="submitFirewallButton" onclick="submitFirewallForm()">Submit</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+              
+
+                
+
+
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+    </form>
+
+    
+  </main>
+
+  <%- include ("../partials/firewallFooter") %>;
+
+
+</body>
+
+</html>

@@ -1,15 +1,3 @@
-// routes/pdfRoutes.js
-
-// const express = require('express');
-// const router = express.Router();
-// const pdfController = require('../controllers/pdfController');
-
-// router.post('/download-pdf', pdfController.generatePdfFromUuid);
-
-// module.exports = router;
-
-
-
 const express = require('express');
 const pdfController = require('../controllers/pdfController'); // Update path as needed
 const router = express.Router();

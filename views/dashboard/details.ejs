@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/header") %>
+    <style>
+        .view-more-btn {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;" >Submitted Hosting Forms</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>UUID</th>
+                <th>Department Name</th>
+                <th>App Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (forms.length > 0) { %>
+                <% forms.forEach((form, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td> <!-- Auto-incremented serial number -->
+                        <td><%= form.uuid %></td>
+                        <td><%= form.deptName %></td>
+                        <td><%= form.appName %></td>
+                        <td>
+                            <span class="view-more-btn" onclick="openPdf('<%= form.uuid %>')">
+                                View More
+                            </span>
+                        </td>
+                    </tr>
+                <% }); %> 
+            <% } else { %>
+                <tr>
+                    <td colspan="7">No submitted forms found</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <script>
+        function openPdf(uuid) {
+            window.open(`/generate-pdf/${uuid}`, "_blank");
+        }
+    </script>
+    
+
+    <%- include("../partials/footer") %>
+</body>
+</html>
+
+
+
+

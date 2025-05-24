@@ -260,7 +260,6 @@ exports.generatePdfFromUuid = async (uuid, res) => {
 </html>
 `;
 
-
         // Puppeteer setup
         const browser = await puppeteer.launch({
             headless: true,
@@ -305,10 +304,17 @@ exports.generatePdfFromUuid = async (uuid, res) => {
         });
 
         // Send the PDF as a response
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', `attachment; filename=form_${uuid}.pdf`);
-        res.setHeader('Content-Length', pdfBuffer.length);
-        res.end(pdfBuffer);
+        // res.setHeader('Content-Type', 'application/pdf');
+        // res.setHeader('Content-Disposition', `attachment; filename=form_${uuid}.pdf`);
+        // res.setHeader('Content-Length', pdfBuffer.length);
+        // res.end(pdfBuffer);
+
+        // Send the PDF as a response (for online viewing)
+       res.setHeader('Content-Type', 'application/pdf');
+       res.setHeader('Content-Disposition', 'inline'); // View in browser instead of downloading
+       res.setHeader('Content-Length', pdfBuffer.length);
+       res.end(pdfBuffer);
+
 
         // Close the browser
         await browser.close();

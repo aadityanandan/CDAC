@@ -1,8 +1,23 @@
-const { v4: uuidv4 } = require('uuid');
 const connection = require('../config/db');
+const uuid = generateCustomUUID();
+
+
+function generateCustomUUID() {
+    const now = new Date();
+
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Ensure two digits
+    const year = now.getFullYear();
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return `${day}${month}${year}-${hours}${minutes}${seconds}`;
+}
+
 
 exports.submitForm = async (req) => {
-    const uuid = uuidv4();
 
     if (!req.body) {
         throw new Error('Request body is missing');

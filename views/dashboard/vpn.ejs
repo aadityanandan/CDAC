@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../partials/header"); %>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+  <main>
+
+    <form id="form" action="/form/submit-form-endpoint" method="post" >
+      <div class="row">
+        <div class="col-12 col-sm-12">
+          <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                     
+                <li class="nav-item invisible">
+                  <a class="nav-link"  data-toggle="pill"
+                    href="#custom-tabs-one-primary-contact-info" role="tab" aria-controls="custom-tabs-one-profile"
+                    aria-selected="false">Primary Contact Info</a>
+                </li>
+                <li class="nav-item invisible">
+                  <a class="nav-link"  data-toggle="pill"
+                    href="#custom-tabs-one-office-info" role="tab" aria-controls="custom-tabs-one-messages"
+                    aria-selected="false">Office Info</a>
+                </li>
+                <li class="nav-item invisible">
+                  <a class="nav-link"  data-toggle="pill"
+                    href="#custom-tabs-one-server-info" role="tab" aria-controls="custom-tabs-one-settings"
+                    aria-selected="false">Server Info</a>
+                </li>
+                <li class="nav-item invisible">
+                  <a class="nav-link" data-toggle="pill" href="#custom-tabs-one-terms"
+                    role="tab" aria-controls="custom-tabs-one-terms" aria-selected="false">Terms and Conditions</a>
+                </li>
+                <li class="nav-item invisible">
+                  <button style="margin-left: 850px;" type="button" class="btn btn-primary"  id="logoutBtn">Logout</button>
+                </li>
+              </ul> 
+              
+             
+
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-one-tabContent">
+
+
+
+
+                <div class="tab-pane fade" id="custom-tabs-one-primary-contact-info" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-profile-tab">
+                  <section id="form1" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Personal Details: </h3>
+                            </div>
+                            <div class="card-body">
+                              <div class="form-group">
+                                <label for="Name"> Name: <span class="required">*</span> </label>
+                                <input type="text" name="Name" class="form-control" id="Name"
+                                  placeholder="Enter the Name" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$"> 
+                              </div>
+                              <div class="form-group">
+                                <label for="Designation"> Designation: <span class="required">*</span> </label>
+                                <input type="text" name="Designation" class="form-control" id="Designation"
+                                  placeholder="Enter the Designation" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$"> 
+                              </div>
+                              <div class="form-group">
+                                <label for="Email"> Email ID: <span class="required">*</span> </label>
+                                <input type="email" name="Email" class="form-control" id="Email"
+                                  placeholder="Enter the Email" required> 
+                              </div>
+                              <div class="form-group">
+                                <label for="phoneNumber"> Phone Number: <span class="required">*</span> </label>
+                                <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber"
+                                  placeholder="Enter the Phone Number" required maxlength="10" pattern="^[0-9]{10}$"> 
+                              </div>
+                          
+
+                              <button type="button" class="btn btn-primary" onclick="showForm2()">Next</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+
+                <div class="tab-pane fade" id="custom-tabs-one-office-info" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-messages-tab">
+                  <section id="form2" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Office Details: </h3>
+                            </div>
+                            <div class="card-body">
+
+                              <div class="form-group">
+                                <label for="deptName">Name of the Department: <span class="required">*</span></label>
+                                <select name="deptName" class="form-control" id="deptName" required>
+                                    <option value="">Select a department</option>
+                                    <option value="Department of ARI, Trainings & Grievances, J&K">Department of ARI, Trainings & Grievances, J&K </option>
+                                    <option value="Department of Agriculture Production and Farmers Welfare, J&K">Department of Agriculture Production and Farmers Welfare, J&K</option>
+                                    <option value="Department of Anti Corruption Bureau, J&K">Department of Anti Corruption Bureau, J&K</option>
+                                    <option value="Department of Cooperatives, J&K">Department of Cooperatives, J&K</option>
+                                    <option value="Department of Culture Development, J&K">Department of Culture Development, J&K</option>
+                                    <option value="Department of Disaster Management, Relief, Rehabilitation & Reconstruction, J&K">Department of Disaster Management, Relief, Rehabilitation & Reconstruction, J&K</option>
+                                    <option value="Department of Ecology, Environment and Remote Sensing, J&K">Department of Ecology, Environment and Remote Sensing, J&K</option>
+                                    <option value="Department of Environment and Biodiversity, J&K">Department of Environment and Biodiversity, J&K</option>
+                                    <option value="Department of Estate, Civil Secretariat, J&K">Department of Estate, Civil Secretariat, J&K</option>
+                                    <option value="Department of Excise and Taxation, J&K">Department of Excise and Taxation, J&K</option>
+                                    <option value="Department of Excise, Ladakh">Department of Excise, Ladakh</option>
+                                    <option value="Department of Finance, Accounts and Treasuries, J&K">Department of Finance, Accounts and Treasuries, J&K</option>
+                                    <option value="Department of Fire and Emergency Services, J&K">Department of Fire and Emergency Services, J&K</option>
+                                    <option value="Department of Floriculture, J&K">Department of Floriculture, J&K</option>
+                                    <option value="Department of Forensic Science Laboratory, J&K">Department of Forensic Science Laboratory, J&K</option>
+                                    <option value="Department of Forest and Biodiversity Council, J&K">Department of Forest and Biodiversity Council, J&K</option>
+                                    <option value="Department of General Administration, J&K">Department of General Administration, J&K</option>
+                                    <option value="Department of General Administration, Ladakh">Department of General Administration, Ladakh</option>
+                                    <option value="Department of Geology and Mining, J&K">Department of Geology and Mining, J&K</option>
+                                    <option value="Department of Handicrafts & Handloom, J&K">Department of Handicrafts & Handloom, J&K</option>
+                                    <option value="Department of Health & Family Welfare, J&K">Department of Health & Family Welfare, J&K</option>
+                                    <option value="Department of Health & Medical Education, J&K">Department of Health & Medical Education, J&K</option>
+                                    <option value="Department of Higher education, J&K">Department of Higher education, J&K</option>
+                                    <option value="Department of Home, J&K">Department of Home, J&K</option>
+                                    <option value="Department of Horticulture, J&K">Department of Horticulture, J&K</option>
+                                    <option value="Department of Hospitality and Protocol, J&K">Department of Hospitality and Protocol, J&K</option>
+                                    <option value="Department of Housing & Urban development, J&K">Department of Housing & Urban development, J&K</option>
+                                    <option value="Department of IT, J&K">Department of IT, J&K</option>
+                                    <option value="Department of IT, Ladakh">Department of IT, Ladakh</option>
+                                    <option value="Department of Information & Public Relation, Ladakh">Department of Information & Public Relation, Ladakh</option>
+                                    <option value="Department of Information and Public Relations, J&K">Department of Information and Public Relations, J&K</option>
+                                    <option value="Department of J&K Evacuees Property, J&K">Department of J&K Evacuees Property, J&K</option>
+                                    <option value="Department of Labor Commission, J&K">Department of Labor Commission, J&K</option>
+                                    <option value="Department of Law, Justice And Parliamentary Affair, J&K">Department of Law, Justice And Parliamentary Affair, J&K</option>
+                                    <option value="Department of Legal Metrology, J&K">Department of Legal Metrology, J&K</option>
+                                    <option value="Department of Personnel and Administrative Reforms, J&K">Department of Personnel and Administrative Reforms, J&K</option>
+                                    <option value="Department of Planning Development & Monitoring, J&K">Department of Planning Development & Monitoring, J&K</option>
+                                    <option value="Department of Power & Development, J&K">Department of Power & Development, J&K</option>
+                                    <option value="Department of Public works, J&K">Department of Public works, J&K</option>
+                                    <option value="Department of Real Estate Regulation and Development, J&K">Department of Real Estate Regulation and Development, J&K</option>
+                                    <option value="Department of Registrations, Ladakh">Department of Registrations, Ladakh</option>
+                                    <option value="Department of Rural Development and Panchayat Raj,J&K">Department of Rural Development and Panchayat Raj, J&K</option>
+                                    <option value="Department of Rural Livelihood Mission, J&K">Department of Rural Livelihood Mission, J&K</option>
+                                    <option value="Department of School Education, J&K">Department of School Education, J&K</option>
+                                    <option value="Department of Science and Technology, J&K">Department of Science and Technology, J&K</option>
+                                    <option value="Department of Skill Development, J&K">Department of Skill Development, J&K</option>
+                                    <option value="Department of Social Welfare,J&K">Department of Social Welfare, J&K</option>
+                                    <option value="Department of Town Planning organization, Jammu">Department of Town Planning organization, Jammu</option>
+                                    <option value="Department of Tribal Affairs, J&K">Department of Tribal Affairs, J&K</option>
+                                    <option value="Department of Urban Local Bodies,J&K">Department of Urban Local Bodies, J&K</option>
+                                    <option value="Jammu and Kashmir e-Governance Agency">Jammu and Kashmir e-Governance Agency</option>
+                                </select>
+                            </div>
+                             
+                          
+                          <div class="form-group">
+                            <label for="deptState">Name of the State: <span class="required">*</span></label>
+                            <select name="deptState" class="form-control" id="deptState" required>
+                                <option value="">Select the name of State: </option>
+                                <option value="Andhra Pradesh">Andhra Pradesh </option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Dadra and Nagar Haveli and Daman and Diu ">Dadra and Nagar Haveli and Daman and Diu </option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                            </select>
+                        </div>
+
+                              <div class="form-group">
+                                <label for="deptPhNum">Department Phone Number: <span class="required">*</span></label>
+                                <input type="tel" id="deptPhNum" name="deptPhNum" placeholder="Department Phone Number" class="form-control" required maxlength="10" pattern="^[0-9]{10}$">
+                              </div>
+
+                              <div class="form-group">
+                                <label for="deptAddrs">Department Address: <span class="required">*</span></label>
+                                <textarea name="deptAddrs" class="form-control" id="deptAddrs" required rows="3"
+                                    placeholder="Enter the address of the department" oninput="this.value = this.value.toUpperCase()"></textarea>
+                            </div>                    
+                              <button type="button" class="btn btn-primary" onclick="showForm1()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm3()">Next</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+
+                <div class="tab-pane fade" id="custom-tabs-one-server-info" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-settings-tab">
+                  <section id="form3" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Server Information: </h3>
+                            </div>
+                            <div class="card-body">
+                              <table class="table table-bordered" id="dynamicTable">
+                                <thead>
+                                  <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Server IP <span class="required">*</span></th>
+                                    <th>Loaction of the Server <span class="required">*</span></th>
+                                    <th>Port <span class="required">*</span></th>
+                                    <th>Description of the Server <span class="required">*</span></th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <!-- Dynamic rows will be added here -->
+                                </tbody>
+                              </table>
+                              <button type="button" class="btn btn-primary" onclick="addServerRow()">Add new Row</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm2()">Previous</button>
+                              <button type="button" class="btn btn-primary" onclick="showForm4()">Next</button> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+                <div class="tab-pane fade" id="custom-tabs-one-terms" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-terms">
+                  <section id="form4" class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card card-primary">
+                            <div class="card-header">
+                              <h3 class="card-title">Declaration:</h3>
+                            </div>
+                            <div class="card-body">
+                              <label for="termsConditions">Please read and accept the terms and conditions: <span class="required">*</span></label>
+                              <div>
+                                I hereby declare that
+                                <ol>
+                                  <li>The information provided is correct to the best of my knowledge.</li>
+                                  <li>I am responsible for the safety of Username and Password issued for accessing VPN Services.</li>
+                                  <li>I undertake to surrender the VPN account on transfer/leaving the division and initiate the DCO accordingly.</li>
+                                  <li>The VPN account issued will be used only for accessing the SDC VPN Service as per the list provided in 1.3</li>
+                                  <li>I will not indulge in any un-authorised acitivity or attempt to gain unauthorised access to other SDC Websites and facilities.</li>
+                                  <li>I am responsible for the content/data uploaded to the servers through VPN connection</li>
+                                </ol>
+                                I have read the terms and conditions of J&K SDC VPN Services and will comply with. If at a later stage any information is found to be incorrect or non-compliant with the terms and conditions, it will result in the cancellation of the VPN account issued by SDC VPN service.
+                              </div> <br>
+                              <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="acceptTerms">
+                                <label class="form-check-label" for="acceptTerms">I accept the terms and
+                                  conditions</label>
+                              </div>
+                              <div> <br> 
+                                <strong> Signature of technical lead with seal: </strong>
+                              </div> 
+                              <div><br>
+                                <strong> Signature & Seal of Approving Authority: </strong>
+                              </div>
+                              <div><br>
+                               <strong> Date: </strong> 
+                              </div> <br>
+                              <button type="button" class="btn btn-primary" onclick="showForm3()">Previous</button>
+                              <button type="button" class="btn btn-primary" id="submitVpnButton" onclick="submitVpnForm()">Submit</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+              
+
+                
+
+
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+    </form>
+
+    
+  </main>
+
+  <%- include ("../partials/vpnFooter") %>;
+
+
+</body>
+
+</html>

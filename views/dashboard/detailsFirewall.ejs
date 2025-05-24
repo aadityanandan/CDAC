@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/header") %>
+    <style>
+        .view-more-btn {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Submitted Firewall Forms</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>UUID</th>
+                <th>Application Name</th>
+                <th>URL</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (firewallForms.length > 0) { %>
+                <% firewallForms.forEach((form, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td> <!-- Auto-incremented serial number -->
+                        <td><%= form.uuid %></td>
+                        <td><%= form.appName %></td>
+                        <td><%= form.url %></td>
+                        <td>
+                            <span class="view-more-btn" onclick="openFirewallPdf('<%= form.uuid %>')">
+                                View More
+                            </span>
+                        </td>
+                    </tr>
+                <% }); %> 
+            <% } else { %>
+                <tr>
+                    <td colspan="7">No submitted forms found</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <script>
+        function openFirewallPdf(uuid) {
+            // This will call your controller via /vpn-forms/:uuid route
+            window.open(`/generate-firewall-pdf/${uuid}`, "_blank");
+        }
+    </script>
+    
+
+    <%- include("../partials/footer") %>
+</body>
+</html>
+
+
+
+
