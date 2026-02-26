@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/landPageHeader") %>
+  
+ 
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container">
+        <h1 class="m-0 text-dark text-center"><strong>Welcome to the JK State Data Center</strong></h1>
+        <p class="text-center">Please choose an application form:</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="container">
+
+        <!-- Application Forms Box -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Application Forms</h3>
+          </div>
+          <div class="card-body d-flex flex-column flex-md-row justify-content-around align-items-center">
+            <a href="/pages" class="btn btn-outline-primary m-2">Apply for Hosting Form</a>
+            <a href="/firewall" class="btn btn-outline-danger m-2">Apply for Firewall Access Form</a>
+            <a href="/vpn" class="btn btn-outline-success m-2">Apply for VPN Access Form</a>
+          </div>
+        </div>
+
+        <!-- Saved Forms Section -->
+        <div class="card card-secondary mt-4">
+          <div class="card-header">
+            <h3 class="card-title">Submitted Forms</h3>
+          </div>
+          <div class="card-body">
+            <p class="text-center">Choose the form type to view submitted requests:</p>
+        
+            <div class="row text-center">
+              <div class="col-md-4 mb-3">
+                <div class="info-box bg-light">
+                  <span class="info-box-icon bg-primary"><i class="fas fa-server"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Hosting Submissions</span>
+                    <a href="/hosting-forms" class="btn btn-outline-primary mt-2">View Hosting Forms</a>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-md-4 mb-3">
+                <div class="info-box bg-light">
+                  <span class="info-box-icon bg-danger"><i class="fas fa-shield-alt"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Firewall Submissions</span>
+                    <a href="/firewall-forms" class="btn btn-outline-danger mt-2">View Firewall Forms</a>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-md-4 mb-3">
+                <div class="info-box bg-light">
+                  <span class="info-box-icon bg-success"><i class="fas fa-network-wired"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">VPN Submissions</span>
+                    <a href="/vpn-forms" class="btn btn-outline-success mt-2">View VPN Forms</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%- include("../partials/landPageFooter") %>
+
+</div>
+
+<!-- AdminLTE JS and dependencies (if not already included) -->
+<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/adminlte/js/adminlte.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

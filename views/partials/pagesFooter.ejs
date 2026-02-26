@@ -1,36 +1,36 @@
 <!-- jQuery -->
-<script src="public/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="public/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
 	$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="public/plugins/chart.js/Chart.min.js"></script>
+<script src="/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="public/plugins/sparklines/sparkline.js"></script>
+<script src="/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<script src="public/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="public/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
-<script src="public/plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="public/plugins/moment/moment.min.js"></script>
-<script src="public/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-<script src="public/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="public/dist/js/adminlte.js"></script>
+<script src="/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="public/dist/js/demo.js"></script>
-<!-- Custom Script -->
+<script src="/dist/js/demo.js"></script>
+
 <script>
 	function showTab(index) {
 		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add three preloaded rows with specific roles and disable their remove buttons
     addContactRow('Administrator', true);
     addContactRow('Developer', true);
-    addContactRow('Technical', true);
+    addContactRow('Technical',);
 });
 
 function addContactRow(preselectedRole = '', isNonRemovable = false) {
@@ -185,8 +185,9 @@ function updateContactRowNumbers() {
 
 
 
-	// js of vm info table 
-    let vmRowCount = 0;
+
+// js of vm info table 
+let vmRowCount = 0;
 
 function addVmRow() {
     vmRowCount++;
@@ -196,14 +197,16 @@ function addVmRow() {
     row.innerHTML = `
         <td>${vmRowCount}</td>
         <td><input type="text" name="vmName[]" required placeholder="VM Name" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
-        <td><select name="vmType[]" required class="form-control">
+        <td>
+            <select name="vmType[]" required class="form-control">
                 <option value="App Server">App server</option>
                 <option value="Web Server">Web server</option>
                 <option value="DB Server">DB server</option>
                 <option value="FTP Server">FTP server</option>
-            </select> </td>
+            </select>
+        </td>
         <td><input type="number" name="coresCount[]" required placeholder="Number of cores in multiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
-        <td><input type="text" name="servicesVersions[]" required placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><input type="text" name="servicesVersions[]" required placeholder="Separate with '/'" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
         <td>
             <select name="osVersion[]" required class="form-control os-version-select" onchange="handleOsVersionChange(this)">
                 <option value="" disabled selected>Select OS Version</option>
@@ -211,9 +214,11 @@ function addVmRow() {
                 <option value="RHEL-9">RHEL-9</option>           
                 <option value="other">If any other, please specify</option>
             </select>
-            <input type="text" name="osVersion[]" required placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
+            <input type="text" name="osVersion[]" placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
         </td>
+        <td><input type="number" name="ram[]" required placeholder="RAM (in GB)" class="form-control" min="0"></td>
         <td><input type="text" name="storage[]" required placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><input type="number" name="expectedGrowth[]" required placeholder="Expected Growth in 1 Year (GB)" class="form-control" min="0"></td>
         <td>
             <button type="button" class="btn btn-danger remove-btn" onclick="removeVmRow(this)" ${vmRowCount === 1 ? 'disabled' : ''}>Remove</button>
         </td>
@@ -224,8 +229,6 @@ function addVmRow() {
 function removeVmRow(button) {
     const row = button.closest('tr');
     row.parentNode.removeChild(row);
-
-    // Update row count and numbers
     updateVmRowNumbers();
 }
 
@@ -245,26 +248,28 @@ function initializeDefaultVmRow() {
 window.onload = function () {
     initializeDefaultVmRow();
 };
- 
+
 function handleOsVersionChange(selectElement) {
     const textInput = selectElement.nextElementSibling;
 
     if (selectElement.value === "other") {
-      textInput.style.display = "block";
-      textInput.required = true;
-      textInput.value = ""; // Clear any existing value
-      textInput.focus();
+        textInput.style.display = "block";
+        textInput.required = true;
+        textInput.value = ""; 
+        textInput.focus();
     } else {
-      textInput.style.display = "none";
-      textInput.required = false;
-      textInput.value = selectElement.value; // Set the value directly for the backend
+        textInput.style.display = "none";
+        textInput.required = false;
+        textInput.value = selectElement.value; 
     }
-  }
+}
 
-  function syncOsVersionInput(inputElement) {
+function syncOsVersionInput(inputElement) {
     const selectElement = inputElement.previousElementSibling;
-    selectElement.value = "other"; // Ensure "other" remains selected if user is typing
-  }
+    selectElement.value = "other";
+}
+
+
  
  
 
@@ -290,6 +295,14 @@ function handleOsVersionChange(selectElement) {
     } else {
     formData.append('appName', appName.value.trim().toUpperCase());
     } 
+
+    const domainName = document.getElementById('domainName');
+    if (!domainName || !domainName.value.trim()) {
+    showAlert('You must fill the domain name in Hosting info tab.', 'warning');
+    hasErrors = true;
+    } else {
+    formData.append('domainName', domainName.value.trim());
+    }
 
     const appDetails = document.getElementById('appDetails');
     if (!appDetails || !appDetails.value.trim()) {
@@ -344,13 +357,13 @@ if (!deptName || !deptName.value.trim()) {
 
 const deptEmail = document.getElementById('deptEmail');
 
-if (!deptEmail || !deptEmail.value.trim()) {
+if (!deptEmail || deptEmail.value === "") {
     showAlert('You must fill the department email in the Department info tab.', 'warning');
     hasErrors = true;
 } else {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@(cdac\.in|nic\.in|jk.gov\.in)$/;
-    if (!emailRegex.test(deptEmail.value.trim())) {
-        showAlert('Please enter an official email ending with cdac.in, nic.in, or gov.in. in Department info tab', 'warning');
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)*(cdac\.in|nic\.in|gov\.in)$/;
+    if (!emailRegex.test(deptEmail.value)) {
+        showAlert('Please enter an official email ending with cdac.in, nic.in, or gov.in in Department info tab.', 'warning');
         hasErrors = true;
     } else {
         formData.append('deptEmail', deptEmail.value);
@@ -359,10 +372,10 @@ if (!deptEmail || !deptEmail.value.trim()) {
 
 
     const deptPhNum = document.getElementById('deptPhNum');
-    const deptPhNumRegex = /^[0-9]{10}$/;
+    
 
-    if (!deptPhNum || !deptPhNum.value.trim() || !deptPhNumRegex.test(deptPhNum.value)) {
-    showAlert('You must fill the department phone number with a valid 10-digit number in Department Info tab.', 'warning');
+    if (!deptPhNum || deptPhNum.value === "") {
+    showAlert('You must fill the department phone number in Department Info tab.', 'warning');
     hasErrors = true;
     } else {
     formData.append('deptPhNum', deptPhNum.value);
@@ -474,7 +487,7 @@ if (!tapeBackup) {
    
 
        
-    // VM Information
+// VM Information
     const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
     for (let row of vmRows) {
         const vmName = row.querySelector('input[name="vmName[]"]').value.trim().toUpperCase();
@@ -482,7 +495,9 @@ if (!tapeBackup) {
         const coresCount = row.querySelector('input[name="coresCount[]"]').value.trim();
         const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value.trim().toUpperCase();
         const osVersion = row.querySelector('input[name="osVersion[]"]').value.trim().toUpperCase();
+        const ram = row.querySelector('input[name="ram[]"]').value.trim().toUpperCase();
         const storage = row.querySelector('input[name="storage[]"]').value.trim();
+        const expectedGrowth = row.querySelector('input[name="expectedGrowth[]"]').value.trim().toUpperCase();
 
         if (!vmName) {
             showAlert('You must fill the VM Name in the VM details tab.', 'warning');
@@ -519,11 +534,25 @@ if (!tapeBackup) {
             formData.append('osVersion[]', osVersion);
         }
 
+        if (!ram) {
+    showAlert('You must specify the RAM in the VM details tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('ram[]', ram);
+}
+
+
         if (!storage) {
             showAlert('You must specify the storage in the VM details tab.', 'warning');
             hasErrors = true;
         } else {
             formData.append('storage[]', storage);
+        }
+        if (!expectedGrowth) {
+            showAlert('You must specify the expected growth in the VM details tab.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('expectedGrowth[]', expectedGrowth);
         }
     }
 
@@ -533,9 +562,8 @@ if (!tapeBackup) {
     }
 
 
-
 try {
-    const response = await fetch('http://localhost:5000/submit-form-endpoint', {
+    const response = await fetch('http://192.168.177.79:3000/form/submit-form-endpoint', {
         method: 'POST',
         body: formData,
     });
@@ -562,8 +590,6 @@ try {
     console.error('Form submission error:', error);
     showAlert('Error submitting the form. Please try again.', 'error');
 }
-
-
     };
 
 	function showAlert(displayText, alertType = 'warning') {

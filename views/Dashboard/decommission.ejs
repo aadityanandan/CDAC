@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/decommissionHeader"); %>
+  
+  <title>Cloud VM Request Form</title>
+
+ 
+</head>
+
+<body>
+
+
+<div class="container">
+<h4 class="text-center text-secondary">State Data Center Jammu</h4>
+<h2 class="mb-4 text-center">
+Application for Decommissioning or Revision of Cloud VM
+</h2>
+
+<form id="decomForm">
+
+<div class="mb-4">
+<h5 class="mb-2 text-primary">Select the Action to be Performed</h5>
+<select id="actionSelect" class="form-control" name="action" required>
+<option value="">-- Select an Option --</option>
+<option value="decommission">Decommissioning of VM</option>
+<option value="increase">Increasing Resources of VM</option>
+<option value="decrease">Decreasing Resources of VM</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Name of the Department/Organization</label>
+<input type="text" class="form-control" name="department" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Official Address</label>
+<textarea class="form-control" name="address" required></textarea>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Administrative Head (Name & Phone)</label>
+<input type="text" class="form-control" name="adminHead" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Reason for Decommission/Revision</label>
+<textarea class="form-control" name="reason" rows="3"></textarea>
+</div>
+
+<div class="info-box">
+<div class="section-title">Public IP Address</div> 
+<p>
+All Virtual Machines created under the Cloud have been assigned internal IPs.
+When decommissioning, these IPs will be reclaimed into the IP pool.
+</p>
+</div>
+
+<div class="info-box">
+<div class="section-title">Backup Services</div>
+<p>
+All backup services related to the VM will be removed.
+</p>
+</div>
+
+<div id="decommissionFields" class="hidden">
+<h5 class="mt-3">Decommissioning of VM</h5>
+
+<div class="alert alert-warning">
+Entire data on the VM will be destroyed permanently.
+</div>
+
+<div class="mb-3">
+<label class="form-label">VM Name</label>
+<input type="text" class="form-control" name="vmName_decom">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Private IP</label>
+<input type="text" class="form-control" name="privateIp_decom">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Public IP</label>
+<input type="text" class="form-control" name="publicIp_decom">
+</div>
+</div>
+
+<div id="increaseFields" class="hidden">
+<h5 class="mt-3">Increasing Resources of VM</h5>
+
+<div class="mb-3">
+<label class="form-label">VM Name</label>
+<input type="text" class="form-control" name="vmName_increase">
+</div>
+
+<div class="mb-3">
+<label class="form-label">VCPUs to Increase</label>
+<input type="number" class="form-control" name="vcpus_increase">
+</div>
+
+<div class="mb-3">
+<label class="form-label">RAM (GB) to Increase</label>
+<input type="number" class="form-control" name="ram_increase">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Storage (GB) to Increase</label>
+<input type="number" class="form-control" name="storage_increase">
+</div>
+</div>
+
+<div id="decreaseFields" class="hidden">
+<h5 class="mt-3">Decreasing Resources of VM</h5>
+
+<div class="mb-3">
+<label class="form-label">VM Name</label>
+<input type="text" class="form-control" name="vmName_decrease">
+</div>
+
+<div class="mb-3">
+<label class="form-label">VCPUs to Decrease</label>
+<input type="number" class="form-control" name="vcpus_decrease">
+</div>
+
+<div class="mb-3">
+<label class="form-label">RAM (GB) to Decrease</label>
+<input type="number" class="form-control" name="ram_decrease">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Storage (GB) to Decrease</label>
+<input type="number" class="form-control" name="storage_decrease">
+</div>
+</div>
+
+<div class="info-box mt-3">
+<div class="section-title">Terms & Conditions</div>
+<p>
+Departments must back up data before decommissioning.
+</p>
+</div>
+
+<div class="d-grid">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+</form>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const actionSelect = document.getElementById('actionSelect');
+    const decommissionFields = document.getElementById('decommissionFields');
+    const increaseFields = document.getElementById('increaseFields');
+    const decreaseFields = document.getElementById('decreaseFields');
+
+    if (actionSelect) {
+        actionSelect.addEventListener('change', function () {
+            decommissionFields.classList.add('hidden');
+            increaseFields.classList.add('hidden');
+            decreaseFields.classList.add('hidden');
+
+            if (this.value === 'decommission')
+                decommissionFields.classList.remove('hidden');
+
+            if (this.value === 'increase')
+                increaseFields.classList.remove('hidden');
+
+            if (this.value === 'decrease')
+                decreaseFields.classList.remove('hidden');
+        });
+    }
+
+    const form = document.getElementById("decomForm");
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new URLSearchParams(new FormData(this));
+
+        try {
+            const res = await fetch('/decommission/submit-decom-request', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData
+            });
+
+            const text = await res.text();
+
+            if (text === "success") {
+                alert("Form submitted successfully");
+                window.location.href = "/decommission";
+            } else {
+                alert("Submission failed");
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("Submission failed");
+        }
+    });
+
+});
+
+</script>
+
+
+
+
+    <script src="/dist/js/global.js"> </script>
+
+ <%- include("../partials/footer") %>
+</body>
+  
+  
+  
+</html>

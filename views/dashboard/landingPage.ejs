@@ -2,96 +2,1106 @@
 <html lang="en">
 <head>
   <%- include("../partials/landPageHeader") %>
-  
- 
+<style>
+#galleryCarousel {
+  height: 520px;
+  background: #f5f5f5; /* light neutral background */
+}
+
+#galleryCarousel .carousel-inner,
+#galleryCarousel .carousel-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-box {
+  margin-bottom: 15px;
+}
+
+.gallery-box-inner {
+  height: 200px;
+  background: #f4f6f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-box-inner img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+/* Exact 5-column layout */
+.leader-row {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.leader-col {
+  width: 20%; /* 100 / 5 = exact */
+  padding: 0 8px;
+}
+
+/* Image box */
+.leader-img {
+  height: 160px;
+  background: #f4f6f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.leader-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.leader-text {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Responsive fallback */
+@media (max-width: 992px) {
+  .leader-row {
+    flex-wrap: wrap;
+  }
+  .leader-col {
+    width: 33.33%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .leader-col {
+    width: 50%;
+  }
+}
+
+    .page-header-fixed {
+      background: #f4f6f9;
+      border-bottom: 1px solid #dee2e6;
+      padding: 14px 20px;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* Sidebar open */
+    body:not(.sidebar-collapse) .page-header-fixed {
+      margin-left: 250px;
+    }
+
+    /* Sidebar collapsed */
+    body.sidebar-collapse .page-header-fixed {
+      margin-left: 80px;
+    }
+
+    /* Mobile */
+    @media (max-width: 991.98px) {
+      .page-header-fixed {
+        margin-left: 0 !important;
+      }
+    }
+
+    .page-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      width: 70px;
+      height: auto;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0;
+      color: #343a40;
+      text-transform: uppercase;
+    }
+
+/* Hide logo when sidebar collapses */
+.sidebar-collapse .bottom-logo {
+    display: none;
+}
+   </style>
+
 </head>
-<body class="hold-transition layout-top-nav">
-<div class="wrapper">
+
+<body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
+
+<div class="wrapper"> 
+  <!-- PAGE TITLE HEADER -->
+   
+<div class="page-header-fixed">
+  <div class="page-header-inner">
+
+    <!-- LEFT LOGO (Logo B) -->
+    <img src="/pics/logob.png" alt="Left Logo" class="header-logo left-logo">
+
+   <div class="header-text">
+      <h1 class="header-title">STATE DATA CENTER JAMMU</h1>
+      <h2 class="header-title">Civil Secretariat (180001)</h2>
+    </div>
+
+    <!-- RIGHT LOGO (Logo A) -->
+    <img src="/pics/logo.png" alt="State Data Centre Logo" class="header-logo right-logo">
+
+  </div>
+</div>
 
 
 
-  <!-- Content Wrapper -->
+  <!-- ================= NAVBAR ================= -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#">
+          <i class="fas fa-bars"></i>
+        </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <span class="navbar-text font-weight-bold">
+          JK State Data Center
+        </span>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a class="brand-link text-center">
+      <span class="brand-text font-weight-bold">JK SDC</span>
+    </a>
+
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+
+          <li class="nav-item">
+            <a href="#info" class="nav-link">
+              <i class="nav-icon fas fa-info-circle"></i>
+              <p>Info</p>
+            </a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="#aboutus" class="nav-link">
+              <i class="nav-icon fas fa-landmark"></i>
+              <p>About Us</p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="#highlights" class="nav-link">
+              <i class="nav-icon fas fa-star"></i>
+              <p>Highlights</p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="#benefits" class="nav-link">
+              <i class="nav-icon fas fa-check-circle"></i>
+              <p>Key Benefits</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#gallery" class="nav-link">
+              <i class="nav-icon fas fa-images"></i>
+              <p>Gallery</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#onlineForms" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>Online Forms</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#other" class="nav-link">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p>Other</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">
+            <i class="nav-icon fas fa-envelope"></i>
+            <p>Contact Us</p>
+          </a>
+         </li>
+
+
+        </ul>
+      </nav>
+       <!-- Logo at Bottom -->
+    <div class="mt-auto text-center pb-3 bottom-logo">
+      <img src="/pics/cdac-logo-rwd.png"
+           alt="CDAC Logo" style="max-height:125px;">
+    </div>
+    </div>
+  </aside>
+
+  <!-- ================= CONTENT ================= -->
   <div class="content-wrapper">
-    <div class="content-header">
-      <div class="container">
-        <h1 class="m-0 text-dark text-center"><strong>Welcome to the State Data Center</strong></h1>
-        <p class="text-center">Please choose an application form:</p>
+
+    <section class="content" id="leadership">
+  <div class="container-fluid">
+
+    <div class="card card-primary">
+      
+
+      <div class="card-body">
+
+        <div class="leader-row">
+
+          <div class="leader-col">
+            <div class="leader-box">
+              <div class="leader-img">
+                <img src="gallery/Leaders/lg_jk.jpg" alt="">
+              </div>
+              <div class="leader-text">
+                <strong>Shri Manoj Sinha</strong><br>
+                <span>Hon’ble Lieutenant Governor</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leader-col">
+            <div class="leader-box">
+              <div class="leader-img">
+                <img src="gallery/Leaders/omarsir.jpg" alt="">
+              </div>
+              <div class="leader-text">
+                <strong>Jenab Omar Abdullah</strong><br>
+                <span>Hon’ble Chief Minister</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leader-col">
+            <div class="leader-box">
+              <div class="leader-img">
+                <img src="gallery/Leaders/itminister.jpg" alt="">
+              </div>
+              <div class="leader-text">
+                <strong>Shri Satish Sharma</strong><br>
+                <span>Hon’ble IT Minister</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leader-col">
+            <div class="leader-box">
+              <div class="leader-img">
+                <img src="gallery/Leaders/CS.jpg" alt="">
+              </div>
+              <div class="leader-text">
+                <strong>Shri Atal Dulloo</strong><br>
+                <span>Hon’ble Chief Secretary</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leader-col">
+            <div class="leader-box">
+              <div class="leader-img">
+                <img src="gallery/Leaders/Mahima.jpg" alt="">
+              </div>
+              <div class="leader-text">
+                <strong>Ms. Mahima Madan (IAS)</strong><br>
+                <span>CEO, JaKeGA</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
 
-    <div class="content">
-      <div class="container">
+  </div>
+</section>
 
-        <!-- Application Forms Box -->
+
+   
+    <!-- Marquee -->
+    <section class="content pt-3">
+      <div class="container-fluid">
+        <div class="alert alert-info text-center">
+          <marquee>
+            <strong>This is the State Data Center Jammu's website</strong>
+          </marquee>
+        </div>
+      </div>
+    </section>
+   
+     <!-- Image Carousel Section -->
+<section class="content pt-3">
+  <div class="container-fluid">
+
+    <div id="sdcCarousel" class="carousel slide" data-ride="carousel" data-interval="4000">
+      
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#sdcCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#sdcCarousel" data-slide-to="1"></li>
+      </ol>
+
+      <!-- Slides -->
+      <div class="carousel-inner">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <img
+            src="/pics/sdc-building.jpg"
+            class="crop-top-20 d-block w-100"
+            style="max-height: 420px; object-fit: cover;"
+            alt="State Data Centre Building">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>JK State Data Centre</h5>
+            <p>Modern Tier-III Data Centre Infrastructure</p>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <img
+            src="/pics/sdc-inauguration.jpg"
+            class="crop-bottom-20 d-block w-100"
+           style="max-height: 420px; object-fit: cover;"
+            alt="SDC Inauguration">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Inauguration Ceremony</h5>
+            <p>State Data Centre Jammu & Kashmir</p>
+          </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <img
+            src="/pics/Picture13.jpg"
+            class="crop-bottom-20 d-block w-100"
+           style="max-height: 420px; object-fit: cover;"
+            alt="SDC Inauguration">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Inauguration Ceremony</h5>
+            <p>State Data Centre Jammu & Kashmir</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <a class="carousel-control-prev" href="#sdcCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#sdcCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+       <a class="carousel-control-next" href="#sdcCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+    <!-- ================= INFO ================= -->
+    <section class="content" id="info">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Information</h3>
+          </div>
+
+          <div class="card-body">
+            <h4 class="font-weight-bold">Modernized Tier III State Data Centre</h4>
+
+            <p>
+              A state-of-the-art, future-ready Data Centre providing cloud computing,
+              storage, networking, and lifecycle automation services to the
+              Jammu & Kashmir Government.
+            </p>
+
+            <p>
+              The Data Centre is modernized and managed by
+              <strong>Centre for Development of Advanced Computing (C-DAC)</strong>,
+              a premier R&D organization under MeitY.
+            </p>
+
+            <ul>
+              <li>Uptime: <strong>99.982%</strong></li>
+              <li>Downtime per year: <strong>&lt; 1.6 hours</strong></li>
+              <li>Component Redundancy: <strong>Full</strong></li>
+              <li>N+1 fault tolerant with 72-hour power outage protection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+     
+<!-- ================= About US ================= -->
+    <section class="content" id="aboutus">
+  <div class="container-fluid">
+
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">About Us</h3>
+      </div>
+
+      <div class="card-body">
+
+        <h4 class="font-weight-bold">
+          State Data Centre (SDC), Jammu
+        </h4>
+
+        <p>
+          The <strong>State Data Centre (SDC) of Jammu & Kashmir</strong> was
+          commissioned in <strong>March 2013</strong> under the
+          <strong>National e-Governance Plan (NeGP)</strong>. It serves as a
+          centralized, secure, and reliable repository for hosting departmental
+          applications and databases of the Government of Jammu & Kashmir.
+        </p>
+
+        <p>
+          The SDC acts as a key integration platform connecting the secured
+          <strong>Government Intranet</strong>, <strong>State Wide Area Network (SWAN)</strong>,
+          and <strong>Common Service Centres (CSCs)</strong>, thereby enabling
+          seamless delivery of electronic services to citizens, businesses,
+          and government departments. Several mission-critical applications
+          from various departments are currently hosted at the data centre.
+        </p>
+
+        <p>
+          The primary objective of the Jammu SDC is to consolidate IT infrastructure,
+          applications, and services to ensure efficient and reliable delivery of:
+        </p>
+
+        <ul>
+          <li><strong>Government-to-Government (G2G)</strong> services</li>
+          <li><strong>Government-to-Citizen (G2C)</strong> services</li>
+          <li><strong>Government-to-Business (G2B)</strong> services</li>
+        </ul>
+
+        <p>
+          To meet the growing e-Governance requirements, the SDC is being positioned
+          as a <strong>modern, cloud-enabled platform</strong> that supports
+          scalability, security, and operational efficiency.
+        </p>
+
+        <h5 class="font-weight-bold mt-4">
+          Modernization and Technology Framework
+        </h5>
+
+        <p>
+          The upgraded State Data Centre is designed using contemporary technologies
+          to provide:
+        </p>
+
+        <ul>
+          <li>On-premise and privately hosted <strong>self-service environments</strong> for departments and developers</li>
+          <li>Rapid deployment, operation, and management of <strong>virtualized environments</strong></li>
+          <li><strong>Backward compatibility</strong> with existing applications while enabling future upgrades</li>
+          <li>A <strong>standardized and extensible toolset</strong> for management, deployment, orchestration, and monitoring</li>
+          <li><strong>Automation, self-service provisioning</strong>, and dynamic capacity scaling</li>
+          <li>
+            <strong>Cloud-like service delivery</strong> within a secure,
+            government-controlled IT infrastructure
+          </li>
+        </ul>
+
+        <h5 class="font-weight-bold mt-4">
+          SDC Modernization Project
+        </h5>
+
+        <p>
+          The <strong>Jammu & Kashmir e-Governance Agency (JaKeGA)</strong>, under
+          the Department of Information Technology, Government of Jammu & Kashmir,
+          awarded the State Data Centre modernization project to
+          <strong>C-DAC, Thiruvananthapuram</strong>.
+        </p>
+
+        <p>
+          C-DAC undertook the comprehensive modernization of the legacy State Data Centre,
+          assuming operational responsibility in <strong>June 2020</strong> and
+          successfully completing the modernization and implementation by
+          <strong>June 2022</strong>.
+        </p>
+
+        <p>
+          The upgraded <strong>Tier III State Data Centre</strong> has been fully
+          operational since June 2022 and complies with international best practices.
+          The data centre is certified under
+          <strong>ISO/IEC 27001</strong> for Information Security Management and
+          <strong>ISO/IEC 20000</strong> for IT Service Management.
+        </p>
+
+        <h5 class="font-weight-bold mt-4">
+          Stakeholders and Beneficiaries
+        </h5>
+
+        <p>
+          The State Data Centre serves the <strong>Jammu & Kashmir e-Governance Agency</strong>
+          and all departments of the Government of Jammu & Kashmir. Applications hosted
+          at SDC support the delivery of electronic services to citizens and businesses
+          across the Union Territories of <strong>Jammu & Kashmir</strong> and
+          <strong>Ladakh</strong>.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+   
+
+      
+
+  
+    <!-- ================= HIGHLIGHTS ================= -->
+    <section class="content" id="highlights">
+  <div class="container-fluid">
+
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Highlights</h3>
+      </div>
+
+      <div class="card-body">
+
+        <!-- TOP HIGHLIGHT BOXES -->
+        <div class="row mb-4">
+
+          <div class="col-md-4">
+            <div class="info-box bg-success">
+              <span class="info-box-icon">
+                <i class="fas fa-shield-alt"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">High Security</span>
+                <span class="info-box-number">24×7 Monitoring</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="info-box bg-warning">
+              <span class="info-box-icon">
+                <i class="fas fa-network-wired"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Connectivity</span>
+                <span class="info-box-number">Multiple ISP Links</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="info-box bg-info">
+              <span class="info-box-icon">
+                <i class="fas fa-server"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Infrastructure</span>
+                <span class="info-box-number">Modern Data Centre</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- DETAILED CONTENT -->
+        <h4 class="font-weight-bold">
+          State Data Centre – Key Infrastructure Highlights
+        </h4>
+
+        <p>
+          The State Data Centre serves as a centralized facility for hosting
+          a wide range of e-Governance solutions, supporting the vision of
+          <strong>Digital Jammu & Kashmir</strong> through secure, transparent,
+          and efficient governance services.
+        </p>
+
+        <ul>
+          <li>First <strong>Hyper-Converged Infrastructure</strong> setup in Jammu & Kashmir</li>
+          <li>Support for <strong>Windows, Linux, and Open Source</strong> platforms</li>
+          <li><strong>Common</strong> and <strong>Co-location hosting</strong> facilities</li>
+          <li><strong>Virtualization and Cloud Services</strong> enabled Data Centre</li>
+          <li>
+            <strong>Smart</strong> and <strong>Traditional Rack</strong> solutions,
+            expandable up to <strong>40 racks</strong>
+          </li>
+          <li><strong>Multiple ISP connectivity</strong> for high availability</li>
+          <li><strong>Software Defined Data Centre (SDDC)</strong> solution</li>
+          <li>Comprehensive <strong>Network Security Infrastructure</strong></li>
+          <li><strong>24×7 operations</strong>, monitoring, and support</li>
+          <li>
+            <strong>24×7 power backup</strong> with dual
+            <strong>500 KVA generators</strong>
+          </li>
+          <li><strong>Controlled cooling environment</strong></li>
+          <li>
+            Physical servers with <strong>384 cores</strong> and
+            <strong>768 virtual CPUs</strong>, expandable
+          </li>
+          <li>
+            <strong>Enterprise Storage</strong> with
+            <strong>500 TB capacity</strong>, expandable
+          </li>
+          <li><strong>Enterprise-grade firewalls</strong> and security controls</li>
+          <li>
+            <strong>Automated Tape Library</strong> with
+            <strong>740 TB HDD</strong> and <strong>19.2 TB SSD</strong>
+          </li>
+          <li>Robust <strong>Backup & Disaster Recovery</strong> solutions</li>
+          <li>Separate <strong>Staging</strong> and <strong>Production</strong> environments</li>
+          <li>
+            Dedicated <strong>Physical Rack Space</strong> for hosting IT infrastructure
+          </li>
+          <li>
+            Certified with <strong>ISO 27001</strong> and
+            <strong>ISO 20001</strong>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+    <!-- ================= BENEFITS ================= -->
+    <section class="content" id="benefits">
+      <div class="container-fluid">
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Key Benefits</h3>
+          </div>
+
+          <div class="card-body">
+            <ul>
+              <li><strong>Efficiency:</strong> Reduced CapEx & OpEx through consolidation</li>
+              <li><strong>Agility:</strong> Rapid provisioning from weeks to minutes</li>
+              <li><strong>Optimization:</strong> Predictive analytics & smart alerts</li>
+              <li><strong>Control:</strong> Balanced agility, risk, and cost</li>
+              <li><strong>Security:</strong> Physical & digital protection</li>
+              <li><strong>Flexibility:</strong> Supports future technologies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ONLINE FORMS ================= -->
+    <section class="content" id="onlineForms">
+      <div class="container-fluid">
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Application Forms</h3>
           </div>
-          <div class="card-body d-flex flex-column flex-md-row justify-content-around align-items-center">
-            <a href="/pages" class="btn btn-outline-primary m-2">Apply for Hosting Form</a>
-            <a href="/firewall" class="btn btn-outline-danger m-2">Apply for Firewall Access Form</a>
-            <a href="/vpn" class="btn btn-outline-success m-2">Apply for VPN Access Form</a>
-          </div>
-        </div>
 
-        <!-- Saved Forms Section -->
-        <div class="card card-secondary mt-4">
-          <div class="card-header">
-            <h3 class="card-title">Submitted Forms</h3>
-          </div>
-          <div class="card-body">
-            <p class="text-center">Choose the form type to view submitted requests:</p>
-        
-            <div class="row text-center">
-              <div class="col-md-4 mb-3">
-                <div class="info-box bg-light">
-                  <span class="info-box-icon bg-primary"><i class="fas fa-server"></i></span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">Hosting Submissions</span>
-                    <a href="/hosting-forms" class="btn btn-outline-primary mt-2">View Hosting Forms</a>
-                  </div>
-                </div>
-              </div>
-        
-              <div class="col-md-4 mb-3">
-                <div class="info-box bg-light">
-                  <span class="info-box-icon bg-danger"><i class="fas fa-shield-alt"></i></span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">Firewall Submissions</span>
-                    <a href="/firewall-forms" class="btn btn-outline-danger mt-2">View Firewall Forms</a>
-                  </div>
-                </div>
-              </div>
-        
-              <div class="col-md-4 mb-3">
-                <div class="info-box bg-light">
-                  <span class="info-box-icon bg-success"><i class="fas fa-network-wired"></i></span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">VPN Submissions</span>
-                    <a href="/vpn-forms" class="btn btn-outline-success mt-2">View VPN Forms</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
+          <div class="card-body d-flex flex-column flex-md-row justify-content-around align-items-center">
+            <a href="/pages" class="btn btn-outline-primary m-2">
+              Application Hosting Form
+            </a>
+            <a href="/firewall" class="btn btn-outline-danger m-2">
+              Firewall Application Form
+            </a>
+            <a href="/vpn" class="btn btn-outline-success m-2">
+              VPN Application Form
+            </a>
+            <a href="/decommission" class="btn btn-outline-secondary m-2">
+              Decommisioning of VM form
+            </a>
           </div>
         </div>
-        
+      </div>
+    </section>
+
+   <!-- ================= Gallery ================= -->
+     
+
+    <section class="content" id="gallery">
+  <div class="container-fluid">
+
+    <div class="card card-primary">
+
+      <!-- HEADER (TITLE ONLY) -->
+      <div class="card-header">
+        <h3 class="card-title">Gallery</h3>
+      </div>
+
+      <div class="card-body">
+
+        <!-- TABS (MOVED HERE) -->
+        <ul class="nav nav-tabs mb-3" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#oldSDC" role="tab">
+              Legacy SDC
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#newSDC" role="tab">
+              Modernized SDC
+            </a>
+          </li>
+        </ul>
+
+        <!-- TAB CONTENT -->
+        <div class="tab-content">
+
+          <!-- OLD SDC -->
+          <div class="tab-pane fade show active" id="oldSDC" role="tabpanel">
+            <div class="row">
+
+              <div class="col-md-7">
+                <div class="row" id="oldGallery"></div>
+
+                <div class="text-center mt-3">
+                  <button class="btn btn-secondary btn-sm" id="oldPrev">Previous</button>
+                  <span id="oldPageInfo" class="mx-2"></span>
+                  <button class="btn btn-secondary btn-sm" id="oldNext">Next</button>
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <h5 class="font-weight-bold">Where We Started</h5>
+                <p class="font-weight-bold">Tier II Data Centre</p>
+                <ul>
+                  <li>3 × 200 KVA Diesel Generator</li>
+                  <li>4 × 80 KVA and 2 × 10 KVA UPS</li>
+                  <li>2 × 400 KVA Transformer</li>
+                  <li>13 racks in use (20 capacity)</li>
+                  <li>80% equipment EOL/EOS</li>
+                  <li>85 applications</li>
+                  <li>4000+ sq.ft area</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- NEW SDC -->
+          <div class="tab-pane fade" id="newSDC" role="tabpanel">
+            <div class="row">
+
+              <div class="col-md-7">
+                <div class="row" id="newGallery"></div>
+
+                <div class="text-center mt-3">
+                  <button class="btn btn-secondary btn-sm" id="newPrev">Previous</button>
+                  <span id="newPageInfo" class="mx-2"></span>
+                  <button class="btn btn-secondary btn-sm" id="newNext">Next</button>
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <h5 class="font-weight-bold">Where We Are Now</h5>
+                <p class="font-weight-bold">Tier III State-of-the-Art Data Centre</p>
+                <ul>
+                  <li>Cloud-enabled infrastructure</li>
+                  <li>2 × 630 KVA Transformers</li>
+                  <li>3 × 250 KVA UPS</li>
+                  <li>2 × 500 KVA Diesel Generators</li>
+                  <li>29 racks (expandable to 40)</li>
+                  <li>Advanced security solutions</li>
+                  <li>250+ applications</li>
+                  <li>ISO 27001 & ISO 20001</li>
+                  <li>2000+ cores, 10+ TB RAM, 1.8 PB storage</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
 
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
+  </div>
+</section>
+
+
+
+
+
+    <!-- ================= OTHER / CLOUD SERVICES ================= -->
+<section class="content" id="other">
+  <div class="container-fluid">
+
+    <div class="card card-secondary">
+      <div class="card-header">
+        <h3 class="card-title">Cloud Services</h3>
+      </div>
+
+      <div class="card-body">
+        <div class="row text-center">
+
+          <!-- EXPAND -->
+          <div class="col-md-4">
+            <div class="info-box bg-success">
+              <span class="info-box-icon">
+                <i class="fas fa-expand-arrows-alt"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text font-weight-bold">
+                  EXPAND
+                </span>
+                <span class="info-box-number">
+                  MORE SPACE
+                </span>
+              </div>
+            </div>
+
+            <p class="mt-2">
+              Host your data in the SDC cloud and reduce the need for on-site
+              hardware. Free up physical and digital space and utilize remaining
+              resources more efficiently.
+            </p>
+          </div>
+
+          <!-- IMPROVE -->
+          <div class="col-md-4">
+            <div class="info-box bg-danger">
+              <span class="info-box-icon">
+                <i class="fas fa-tools"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text font-weight-bold">
+                  IMPROVE
+                </span>
+                <span class="info-box-number">
+                  LESS HASSLE
+                </span>
+              </div>
+            </div>
+
+            <p class="mt-2">
+              Cloud reduces the need for additional hardware and eliminates
+              maintenance and repair concerns, providing flexibility and a
+              competitive edge with secure application access.
+            </p>
+          </div>
+
+          <!-- SIMPLIFY -->
+          <div class="col-md-4">
+            <div class="info-box bg-purple">
+              <span class="info-box-icon">
+                <i class="fas fa-cogs"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text font-weight-bold">
+                  SIMPLIFY
+                </span>
+                <span class="info-box-number">
+                  CUSTOM BUILT
+                </span>
+              </div>
+            </div>
+
+            <p class="mt-2">
+              We work with departments to build custom cloud solutions that best
+              fit organizational requirements and long-term goals.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Contact Us Section -->
+<section class="content" id="contact">
+  <div class="container-fluid">
+
+    <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Contact Us</h3>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+
+          <!-- Email -->
+          <div class="col-md-6">
+            <div class="info-box bg-light">
+              <span class="info-box-icon bg-info">
+                <i class="fas fa-envelope"></i>
+              </span>
+
+              <div class="info-box-content">
+                <span class="info-box-text font-weight-bold">
+                  Email Support
+                </span>
+
+                <span class="info-box-number">
+                  <a href="mailto:support.sdcjk@jk.gov.in">
+                    support.sdcjk@jk.gov.in
+                  </a>
+                </span>
+
+                <span class="info-box-number">
+                  <a href="mailto:sdcjk.support@cdac.in">
+                    sdcjk.support@cdac.in
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="col-md-6">
+            <div class="info-box bg-light">
+              <span class="info-box-icon bg-success">
+                <i class="fas fa-phone"></i>
+              </span>
+
+              <div class="info-box-content">
+                <span class="info-box-text font-weight-bold">
+                  Phone Support
+                </span>
+                <span class="info-box-number">
+                  0191-4062123
+                </span>
+                <span class="info-box-number invisible">
+                 spacer
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
   <%- include("../partials/landPageFooter") %>
+
+
+
 
 </div>
 
-<!-- AdminLTE JS and dependencies (if not already included) -->
-<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
-<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/adminlte/js/adminlte.min.js"></script>
-</body>
+
+
+<script>
+function Gallery(config) {
+  this.path = config.path;
+  this.total = config.total;
+  this.perPage = 9;
+  this.page = 1;
+
+  this.container = document.getElementById(config.container);
+  this.pageInfo = document.getElementById(config.pageInfo);
+  this.prevBtn = document.getElementById(config.prev);
+  this.nextBtn = document.getElementById(config.next);
+
+  this.render = () => {
+    this.container.innerHTML = '';
+
+    const start = (this.page - 1) * this.perPage + 1;
+    const end = Math.min(start + this.perPage - 1, this.total);
+
+    for (let i = start; i <= end; i++) {
+      const col = document.createElement('div');
+      col.className = 'col-md-4 gallery-box';
+
+      const box = document.createElement('div');
+      box.className = 'gallery-box-inner';
+
+      const img = document.createElement('img');
+      img.src = `${this.path}/Picture${i}.jpg`;
+      img.loading = 'lazy';
+
+      box.appendChild(img);
+      col.appendChild(box);
+      this.container.appendChild(col);
+    }
+
+    this.pageInfo.textContent =
+      `Page ${this.page} of ${Math.ceil(this.total / this.perPage)}`;
+
+    this.prevBtn.disabled = this.page === 1;
+    this.nextBtn.disabled = end >= this.total;
+  };
+
+  this.prevBtn.onclick = () => {
+    if (this.page > 1) {
+      this.page--;
+      this.render();
+    }
+  };
+
+  this.nextBtn.onclick = () => {
+    if (this.page * this.perPage < this.total) {
+      this.page++;
+      this.render();
+    }
+  };
+
+  this.render();
+}
+
+// INIT GALLERIES
+new Gallery({
+  path: '/gallery/SDCold',
+  total: 7,
+  container: 'oldGallery',
+  pageInfo: 'oldPageInfo',
+  prev: 'oldPrev',
+  next: 'oldNext'
+});
+
+new Gallery({
+  path: '/gallery/SDCnew',
+  total: 12,
+  container: 'newGallery',
+  pageInfo: 'newPageInfo',
+  prev: 'newPrev',
+  next: 'newNext'
+});
+</script>
+
+
+</div>
+  </body>
 </html>
-
-

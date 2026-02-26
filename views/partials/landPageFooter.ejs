@@ -1,25 +1,622 @@
-<footer class="sticky-footer">
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+	$.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<!-- Custom Script -->
+<!-- AdminLTE Scripts -->
+<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/adminlte/js/adminlte.min.js"></script>
+
+
+
+<script>
+	function showTab(index) {
+		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+		const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+
+		// Check if the index is valid
+		if (index < 0 || index >= tabLinks.length) {
+			console.error("Tab or content with index", index, "not found");
+			return;
+		}
+
+		// Remove active class from all tabs and contents
+		tabLinks.forEach((link) => link.classList.remove('active'));
+		tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+		// Add active class to the selected tab and content
+		tabLinks[index].classList.add('active');
+		tabContents[index].classList.add('active', 'show');
+	}
+
+	// Function to display all tabs
+	function showAllTabs() {
+		const navItems = document.querySelectorAll('.nav-item');
+		navItems.forEach(item => {
+			item.classList.remove('invisible');
+		});
+
+		// Set the first tab as active by default
+		showTab(0);
+	}
+
+	function showTabById(tabId) {
+		const tabLinks = document.querySelectorAll('#custom-tabs-one-tab .nav-link');
+		const tabContents = document.querySelectorAll('#custom-tabs-one-tabContent .tab-pane');
+
+		// Remove active class from all tabs and contents
+		tabLinks.forEach((link) => link.classList.remove('active'));
+		tabContents.forEach((content) => content.classList.remove('active', 'show'));
+
+		// Find the tab link and content using the ID
+		const targetLink = Array.from(tabLinks).find(link => link.getAttribute('href') === `#${tabId}`);
+		const targetContent = document.getElementById(tabId);
+
+		if (targetLink && targetContent) {
+			targetLink.classList.add('active');
+			targetContent.classList.add('active', 'show');
+		} else {
+			console.error(`Tab or content with ID ${tabId} not found`);
+		}
+	}
+
+	// Functions to show specific tabs by their IDs
+	function showForm1() {
+		showTabById('custom-tabs-one-landing-page');
+	}
+
+	function showForm2() {
+		showTabById('custom-tabs-one-hosting-page');
+	}
+
+	function showForm3() {
+		showTabById('custom-tabs-one-department-info');
+	}
+
+	function showForm4() {
+		showTabById('custom-tabs-one-contact-info');
+	}
+
+	function showForm5() {
+		showTabById('custom-tabs-one-additional-information');
+	}
+
+	function showForm6() {
+		showTabById('custom-tabs-one-vm-information');
+	}
+
+	function showForm7() {
+		showTabById('custom-tabs-one-terms');
+	}
+
+
+
+
+	// Call showAllTabs on page load or after redirection
+	window.addEventListener('DOMContentLoaded', () => {
+		showAllTabs();
+	});
+
+
+
+
+
+	//  js of contact information table
+    let contactRowCount = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Add three preloaded rows with specific roles and disable their remove buttons
+    addContactRow('Administrator', true);
+    addContactRow('Developer', true);
+    addContactRow('Technical', true);
+});
+
+function addContactRow(preselectedRole = '', isNonRemovable = false) {
+    contactRowCount++;
+    const table = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    newRow.innerHTML = `
+        <td>${contactRowCount}.</td>
+        <td>
+            <select class="custom-select" name="contactRole[]" required>
+                <option value="">Select Role</option>
+                <option value="Administrator" ${preselectedRole === 'Administrator' ? 'selected' : ''}>Administrator</option>
+                <option value="Technical" ${preselectedRole === 'Technical' ? 'selected' : ''}>Technical</option>
+                <option value="Developer" ${preselectedRole === 'Developer' ? 'selected' : ''}>Developer</option>
+            </select>
+        </td>
+        <td><input type="text" name="contactName[]" required placeholder="Contact Name" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
+        <td><input type="email" name="contactEmail[]" required placeholder="Contact Email" class="form-control"></td>
+        <td><input type="tel" name="contactPhNum[]" required placeholder="Contact Phone number" pattern="^[0-9]{10}$" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="form-control"></td>
+        <td><input type="text" name="contactDesignation[]" required placeholder="Contact Designation" class="form-control" oninput="this.value = this.value.toUpperCase();"></td>
+        <td>
+            <button type="button" class="btn btn-danger" onclick="removeContactRow(this)" ${isNonRemovable ? 'disabled' : ''}>Remove</button>
+        </td>
+    `;
+
+    // Update row numbers after adding a new row
+    updateContactRowNumbers();
+}
+
+function removeContactRow(button) {
+    const row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+
+    // Update row numbers after removing a row
+    updateContactRowNumbers();
+}
+
+function updateContactRowNumbers() {
+    const rows = document.getElementById("dynamicTable").getElementsByTagName('tbody')[0].rows;
+
+    // Update the row numbers for all rows
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[0].innerText = `${i + 1}.`;
+    }
+
+    // Adjust contactRowCount after rows are removed
+    contactRowCount = rows.length;
+}
+
+
+
+
+
+	// js of vm info table 
+    let vmRowCount = 0;
+
+function addVmRow() {
+    vmRowCount++;
+    const tbody = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0];
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+        <td>${vmRowCount}</td>
+        <td><input type="text" name="vmName[]" required placeholder="VM Name" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td><select name="vmType[]" required class="form-control">
+                <option value="App Server">App server</option>
+                <option value="Web Server">Web server</option>
+                <option value="DB Server">DB server</option>
+                <option value="FTP Server">FTP server</option>
+            </select> </td>
+        <td><input type="number" name="coresCount[]" required placeholder="Number of cores in multiple of 2" class="form-control" min="0" onchange="this.value = this.value < 0 ? 0 : Math.floor(this.value / 2) * 2"></td>
+        <td><input type="text" name="servicesVersions[]" required placeholder="Plz separate them with '/' " class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td>
+            <select name="osVersion[]" required class="form-control os-version-select" onchange="handleOsVersionChange(this)">
+                <option value="" disabled selected>Select OS Version</option>
+                <option value="WINDOWS 2022">WINDOWS 2022</option>
+                <option value="RHEL-9">RHEL-9</option>           
+                <option value="other">If any other, please specify</option>
+            </select>
+            <input type="text" name="osVersion[]" required placeholder="Specify other OS Version" class="form-control mt-2 os-version-other" style="display: none;" oninput="syncOsVersionInput(this)">
+        </td>
+        <td><input type="text" name="storage[]" required placeholder="Storage" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+        <td>
+            <button type="button" class="btn btn-danger remove-btn" onclick="removeVmRow(this)" ${vmRowCount === 1 ? 'disabled' : ''}>Remove</button>
+        </td>
+    `;
+    tbody.appendChild(row);
+}
+
+function removeVmRow(button) {
+    const row = button.closest('tr');
+    row.parentNode.removeChild(row);
+
+    // Update row count and numbers
+    updateVmRowNumbers();
+}
+
+function updateVmRowNumbers() {
+    const rows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[0].textContent = i + 1;
+    }
+    vmRowCount = rows.length;
+}
+
+function initializeDefaultVmRow() {
+    vmRowCount = 0;
+    addVmRow();
+}
+
+window.onload = function () {
+    initializeDefaultVmRow();
+};
+ 
+function handleOsVersionChange(selectElement) {
+    const textInput = selectElement.nextElementSibling;
+
+    if (selectElement.value === "other") {
+      textInput.style.display = "block";
+      textInput.required = true;
+      textInput.value = ""; // Clear any existing value
+      textInput.focus();
+    } else {
+      textInput.style.display = "none";
+      textInput.required = false;
+      textInput.value = selectElement.value; // Set the value directly for the backend
+    }
+  }
+
+  function syncOsVersionInput(inputElement) {
+    const selectElement = inputElement.previousElementSibling;
+    selectElement.value = "other"; // Ensure "other" remains selected if user is typing
+  }
+ 
+ 
+
+    const submitForm = async (event) => {
+    const formData = new FormData();
+    let hasErrors = false; // Tracks if there are validation errors
+
+    // Ensure terms and conditions are accepted before proceeding
+    const acceptTerms = document.getElementById('acceptTerms');
+    if (!acceptTerms.checked) {
+        showAlert('You must accept the terms and conditions before submitting the form.', 'warning');
+        hasErrors = true;
+    }
+
+   
+
+    // Hosting Info Data
+
+    const appName = document.getElementById('appName');
+    if (!appName || !appName.value.trim()) {
+    showAlert('You must fill the app name in Hosting info tab.', 'warning');
+    hasErrors = true;
+    } else {
+    formData.append('appName', appName.value.trim().toUpperCase());
+    } 
+
+    const appDetails = document.getElementById('appDetails');
+    if (!appDetails || !appDetails.value.trim()) {
+        showAlert('You must fill the app details in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('appDetails', appDetails.value.trim().toUpperCase());
+    }
+
+    const langUsed = document.getElementById('langUsed');
+    if (!langUsed || !langUsed.value.trim()) {
+        showAlert('You must specify the Programming language used in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('langUsed', langUsed.value.trim().toUpperCase());
+    }
+
+    const dbUsed = document.getElementById('dbUsed');
+    if (!dbUsed || !dbUsed.value.trim()) {
+        showAlert('You must specify the Database used in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('dbUsed', dbUsed.value.trim().toUpperCase());
+    }
+
+    const frameworkUsed = document.getElementById('frameworkUsed');
+    if (!frameworkUsed || !frameworkUsed.value.trim()) {
+        showAlert('You must specify the framework used in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('frameworkUsed', frameworkUsed.value.trim().toUpperCase());
+    }
+
+    const appTypeElement = document.querySelector('input[name="appType"]:checked');
+    if (!appTypeElement) {
+        showAlert('You must specify the app type in Hosting info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('appType', appTypeElement.value);
+    }
+
+    // Department Information
+    const deptName = document.getElementById('deptName');
+if (!deptName || !deptName.value.trim()) {
+    showAlert('You must fill the department name in the Department info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('deptName', deptName.value.trim().toUpperCase());
+}
+
+
+
+const deptEmail = document.getElementById('deptEmail');
+
+if (!deptEmail || !deptEmail.value.trim()) {
+    showAlert('You must fill the department email in the Department info tab.', 'warning');
+    hasErrors = true;
+} else {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(cdac\.in|nic\.in|jk.gov\.in)$/;
+    if (!emailRegex.test(deptEmail.value.trim())) {
+        showAlert('Please enter an official email ending with cdac.in, nic.in, or gov.in. in Department info tab', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deptEmail', deptEmail.value);
+    }
+}
+
+
+    const deptPhNum = document.getElementById('deptPhNum');
+    const deptPhNumRegex = /^[0-9]{10}$/;
+
+    if (!deptPhNum || !deptPhNum.value.trim() || !deptPhNumRegex.test(deptPhNum.value)) {
+    showAlert('You must fill the department phone number with a valid 10-digit number in Department Info tab.', 'warning');
+    hasErrors = true;
+    } else {
+    formData.append('deptPhNum', deptPhNum.value);
+    }
+
+
+    const deptAddrs = document.getElementById('deptAddrs');
+    if (!deptAddrs || !deptAddrs.value.trim()) {
+        showAlert('You must fill the department address in Department info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('deptAddrs', deptAddrs.value.trim().toUpperCase());
+    }
+
+    // Contact Information
+    const contactRows = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0].rows;
+    for (let i = 0; i < contactRows.length; i++) {
+        const row = contactRows[i];
+        
+        const contactRole = row.querySelector('select[name="contactRole[]"]').value.trim();
+        const contactName = row.querySelector('input[name="contactName[]"]').value.trim().toUpperCase();
+        const contactEmail = row.querySelector('input[name="contactEmail[]"]').value.trim();
+        const contactPhNum = row.querySelector('input[name="contactPhNum[]"]').value.trim();
+        const contactDesignation = row.querySelector('input[name="contactDesignation[]"]').value.trim().toUpperCase();
+        
+        if (!contactRole) {
+            showAlert('You must select the contact role in Contact Info Tab', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactRole[]', contactRole);
+        }
+
+        if (!contactName) {
+            showAlert('You must fill the contact name in Contact Info Tab', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactName[]', contactName);
+        }
+
+        if (!contactEmail) {
+            showAlert('You must fill the contact email in Contact Info Tab', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactEmail[]', contactEmail);
+        }
+
+        if (!contactPhNum) {
+            showAlert('You must fill the contact phone number in Contact Info Tab', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactPhNum[]', contactPhNum);
+        }
+
+        if (!contactDesignation) {
+            showAlert('You must fill the contact designation in Contact Info Tab', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('contactDesignation[]', contactDesignation);
+        }
+    }
+       
+     	// Additional Information
+		// Validate and append concurrentUsers    
+        const concurrentUsers = document.getElementById('concurrentUsers');
+    if (!concurrentUsers || !concurrentUsers.value.trim()) {
+        showAlert('You must fill the number of Concurrent users in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('concurrentUsers', concurrentUsers.value);
+    }   
+        
+
+		// Validate and append peakTime
+		const peakTime = document.getElementById('peakTime');
+    if (!peakTime || !peakTime.value.trim()) {
+        showAlert('You must fill the Peak time in Additional info tab.', 'warning');
+        hasErrors = true;
+    } else {
+        formData.append('peakTime', peakTime.value);
+    }  
+
+	// Validate and append loadBalance
+const loadBalance = document.querySelector('input[name="loadBalance"]:checked');
+if (!loadBalance) {
+    showAlert('You must specify if you require Load Balancer in the Additional info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('loadBalance', loadBalance.value);
+}
+
+		// Validate and append ipv6Compatibility
+const ipv6Compatibility = document.querySelector('input[name="ipv6Compatibility"]:checked');
+if (!ipv6Compatibility) {
+    showAlert('You must specify if you require ipv6Compatibility in the Additional info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('ipv6Compatibility', ipv6Compatibility.value);
+}
+
+		// Validate and append tapeBackup
+const tapeBackup = document.querySelector('input[name="tapeBackup"]:checked');
+if (!tapeBackup) {
+    showAlert('You must specify if you require Load Balancer in the Additional info tab.', 'warning');
+    hasErrors = true;
+} else {
+    formData.append('tapeBackup', tapeBackup.value);
+}  
+   
+   
+
+       
+    // VM Information
+    const vmRows = document.getElementById('dynamicTableVm').getElementsByTagName('tbody')[0].rows;
+    for (let row of vmRows) {
+        const vmName = row.querySelector('input[name="vmName[]"]').value.trim().toUpperCase();
+        const vmType = row.querySelector('select[name="vmType[]"]').value;  // Get selected server type
+        const coresCount = row.querySelector('input[name="coresCount[]"]').value.trim();
+        const servicesVersions = row.querySelector('input[name="servicesVersions[]"]').value.trim().toUpperCase();
+        const osVersion = row.querySelector('input[name="osVersion[]"]').value.trim().toUpperCase();
+        const storage = row.querySelector('input[name="storage[]"]').value.trim();
+
+        if (!vmName) {
+            showAlert('You must fill the VM Name in the VM details tab.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('vmName[]', vmName);
+        }
+
+        if (!vmType) {
+        showAlert('You must specify the vm type in the VM details tab.', 'warning');
+        hasErrors = true;
+        } else {
+        formData.append('vmType[]', vmType);
+        }
+
+        if (!coresCount) {
+            showAlert('You must specify the CPU count in the VM details tab.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('coresCount[]', coresCount);
+        }
+
+        if (!servicesVersions) {
+            showAlert('You must specify the application services in the VM details tab.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('servicesVersions[]', servicesVersions);
+        }
+
+        if (!osVersion) {
+            showAlert('You must specify the OS version in the VM details tab.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('osVersion[]', osVersion);
+        }
+
+        if (!storage) {
+            showAlert('You must specify the storage in the VM details tab.', 'warning');
+            hasErrors = true;
+        } else {
+            formData.append('storage[]', storage);
+        }
+    }
+
+    // Prevent submission if there are any errors
+    if (hasErrors) {
+        return;
+    }
+
+
+
+    try {
+    const response = await fetch('/submit-form-endpoint', {
+        method: 'POST',
+        body: formData,
+    });
+
+    const text = await response.text(); // Read the raw response first
+    console.log("🟢 Raw server response:", text);
+
+    if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${text}`);
+    }
+
+    const data = JSON.parse(text);
+    console.log("✅ Parsed JSON:", data);
+
+    if (data.redirectUrl) {
+        showAlert('Form submitted successfully, Generating PDF...', 'success');
+        setTimeout(() => {
+            window.location.href = data.redirectUrl;
+        }, 2000);
+    } else {
+        throw new Error('No redirect URL provided by the server.');
+    }
+} catch (error) {
+    console.error('Form submission error:', error);
+    showAlert('Error submitting the form. Please try again.', 'error');
+}
+ };
+
+	function showAlert(displayText, alertType = 'warning') {
+
+		switch (alertType) {
+			case 'info':
+				toastr.info(displayText);
+				break;
+			case 'success':
+				toastr.success(displayText);
+				break;
+			case 'warning':
+				toastr.warning(displayText);
+				break;
+			case 'error':
+				toastr.error(displayText);
+				break;
+			default:
+				toastr.warning(displayText);
+				break;
+		}
+
+	}
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+    try {
+        await fetch('/logout', { method: 'GET', credentials: 'include' });
+        window.location.href = '/'; // Redirect to login page
+    } catch (error) {
+        console.error('Logout failed:', error);
+    }
+});
+
+
+</script>
+
+<footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
     <strong>&copy; 2024 Designed and developed by C-DAC Thiruvananthapuram</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0
     </div>
-  </footer>
+</footer>
   
 
-  <style>
- .sticky-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0; /* Add this! */
-  width: auto; /* Fix width overflow */
-  /* height: 60px; */
-  background-color: #f1f1f1;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-x: hidden; /* Prevents scroll if still needed */
-}
+
+  
 
 
-  </style>
+
+
+

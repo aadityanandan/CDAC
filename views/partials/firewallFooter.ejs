@@ -1,35 +1,35 @@
 <!-- jQuery -->
-<script src="public/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="public/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
 	$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="public/plugins/chart.js/Chart.min.js"></script>
+<script src="/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="public/plugins/sparklines/sparkline.js"></script>
+<script src="/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<script src="public/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="public/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
-<script src="public/plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="public/plugins/moment/moment.min.js"></script>
-<script src="public/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-<script src="public/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="public/dist/js/adminlte.js"></script>
+<script src="/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="public/dist/js/demo.js"></script>
+<script src="/dist/js/demo.js"></script>
 <!-- Custom Script -->
 <script>
 
@@ -353,22 +353,19 @@ if (!publicIpAddrss || !publicIpAddrss.value.trim()) {
     // Parse response JSON
     const responseData = await response.json();
 
+    // ✅ Remove redirect logic
     if (responseData.redirectUrl) {
-    // Show success message first
-    showAlert("Firewall Form submitted successfully! Redirecting...", "success");
+        // Instead of redirecting, just show an error or log it
+        console.error("Unexpected redirect URL in response:", responseData.redirectUrl);
+        showAlert("Unexpected redirect URL received from backend. Please contact support.", "error");
+    } else {
+        // Normal success message
+        showAlert("Firewall Form submitted successfully!", "success");
+    }
 
-    // Delay redirect for 2 seconds
-    setTimeout(() => {
-        window.location.href = responseData.redirectUrl;
-    }, 2000); // 2000ms = 2 seconds
-} else {
-    showAlert("VPN Form submitted successfully!", "success");
-}
-
-    }catch (error) {
+} catch (error) {
     console.error("Firewall Form submission error:", error);
     showAlert("Error submitting the Firewall form. Please try again.", "error");
-}
 }
 
 
@@ -396,7 +393,7 @@ if (!publicIpAddrss || !publicIpAddrss.value.trim()) {
 		}
 
 	}
-    
+}
 
 </script>
 <footer class="main-footer" style="padding-left: 0; margin-left: 0; text-align: left;">
@@ -405,5 +402,4 @@ if (!publicIpAddrss || !publicIpAddrss.value.trim()) {
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0
     </div>
-  </footer>
-  
+  </footer>          

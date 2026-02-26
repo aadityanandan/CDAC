@@ -1,33 +1,18 @@
   <!-- Scripts -->
-  <script src="public/plugins/jquery/jquery.min.js"> </script>
+  <script src="/plugins/jquery/jquery.min.js"> </script>
   <!-- SweetAlert2 -->
-  <script src="public/plugins/sweetalert2/sweetalert2.min.js"> </script>
+  <script src="/plugins/sweetalert2/sweetalert2.min.js"> </script>
   <!-- Toastr -->
-  <script src="public/plugins/toastr/toastr.min.js"> </script>
+  <script src="/plugins/toastr/toastr.min.js"> </script>
 
   <script>
-    
 
-    document.getElementById("showLogin").addEventListener("click", function (event) {
-    event.preventDefault();
-    document.getElementById("signupForm").parentNode.parentNode.style.display = "none";
-    document.getElementById("loginForm").parentNode.parentNode.style.display = "block";
-  });
-
-  document.getElementById("showSignup").addEventListener("click", function (event) {
-    event.preventDefault();
-    document.getElementById("loginForm").parentNode.parentNode.style.display = "none";
-    document.getElementById("signupForm").parentNode.parentNode.style.display = "block";
-  });
-
-  // Initially, show only the signup form
-  document.getElementById("loginForm").parentNode.parentNode.style.display = "none";
 
 // Form validation function
 function validateForm() {
   const email = document.getElementById("email").value;
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@(nic\.in|gov\.in|cdac\.in)$/;
-
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@(nic\.in|cdac\.in|gov\.in|jk\.gov\.in)$/;
+  
   // Validate CAPTCHA response
   if (grecaptcha.getResponse() === "") {
     toastr.warning("Please complete the CAPTCHA"); // Show warning if CAPTCHA is not completed
@@ -53,8 +38,6 @@ function onCaptchaSuccess() {
 function onCaptchaExpired() {
   document.getElementById("sendOtpButton").disabled = true; // Disable the OTP button
 }
-
-
 
 
      

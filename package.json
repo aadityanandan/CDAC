@@ -11,7 +11,6 @@
   "description": "��#\u0000 \u0000C\u0000D\u0000A\u0000C\u0000\r\u0000 \u0000",
   "dependencies": {
     "axios": "^1.7.7",
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^2.0.1",
     "cookie-parser": "^1.4.6",
@@ -24,15 +23,18 @@
     "express": "^5.0.0",
     "express-session": "^1.18.1",
     "finalhandler": "^2.0.0",
+    "https-proxy-agent": "^7.0.6",
     "image-to-base64": "^2.2.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.3",
     "nodemailer": "^6.9.14",
+    "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^3.1.7",
     "pdfkit": "^0.16.0",
-    "puppeteer": "^24.1.0",
+    "puppeteer": "^24.2.0",
+    "socks": "^2.8.7",
     "uuid": "^11.0.2"
   }
 }

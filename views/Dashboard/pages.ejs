@@ -9,7 +9,7 @@
 
   <main>
 
-    <form id="form" action="/form/submit-form-endpoint" method="post" >
+    <form id="form" action="/form/submit-form-endpoint" method="post">
       <div class="row">
         <div class="col-12 col-sm-12">
           <div class="card card-primary card-tabs">
@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item invisible">
                   
-                  <button style="margin-left: 650px;" type="button" class="btn btn-primary"  id="logoutBtn">Logout</button>
+                  <button type="button" style="margin-left: 650px;" type="button" class="btn btn-primary"  id="logoutBtn">Logout</button>
                 
 
                 </li>
@@ -76,6 +76,11 @@
                                   placeholder="Enter the name of the application" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase()" pattern="^[a-zA-Z0-9 ]*$" > 
                               </div>
                               <div class="form-group">
+                                <label for="domainName"> Name of the domain: <span class="required">*</span> </label>
+                                <input type="text" name="domainName" class="form-control" id="domainName"
+                                  placeholder="Requested domain name will only be provided if available" required> 
+                              </div>
+                              <div class="form-group">
                                 <label for="appDetails"> Details about the application: <span class="required">*</span></label>
                                 <textarea class="form-control" id="appDetails" name="appDetails" required
                                   placeholder="Give a brief description about the application" oninput="this.value = this.value.toUpperCase()" ></textarea>
@@ -91,7 +96,7 @@
                                   placeholder="Enter the databases used with their versions" oninput="this.value = this.value.toUpperCase()"></textarea>
                               </div>
                               <div class="form-group">
-                                <label for="frameworkUsed"> Any framwork used: <span class="required">*</span></label>
+                                <label for="frameworkUsed"> Any framework used: <span class="required">*</span></label>
                                 <input type="text" class="form-control" name="frameworkUsed" id="frameworkUsed" required
                                   placeholder="Enter the name of the fraework used" oninput="this.value = this.value.toUpperCase()" >
                               </div>
@@ -133,10 +138,12 @@
                                 <select name="deptName" class="form-control" id="deptName" required>
                                     <option value="">Select a department</option>
                                     <option value="Department of ARI, Trainings & Grievances, J&K">Department of ARI, Trainings & Grievances, J&K </option>
-                                    <option value="Department of Agriculture Production and Farmers Welfare, J&K">Department of Agriculture Production and Farmers Welfare, J&K</option>
+                                    <option value="Department of Animal/Sheep Husbandry & Fisheries, J&K">Department of Animal/Sheep Husbandry & Fisheries, J&K</option>
+                                    <option value="Department of ARI, Trainings & Grievances, J&K">Department of ARI, Trainings & Grievances, J&K </option>
                                     <option value="Department of Anti Corruption Bureau, J&K">Department of Anti Corruption Bureau, J&K</option>
                                     <option value="Department of Cooperatives, J&K">Department of Cooperatives, J&K</option>
                                     <option value="Department of Culture Development, J&K">Department of Culture Development, J&K</option>
+                                    <option value="Department of Defence, J&K">Department of Defence, J&K</option>
                                     <option value="Department of Disaster Management, Relief, Rehabilitation & Reconstruction, J&K">Department of Disaster Management, Relief, Rehabilitation & Reconstruction, J&K</option>
                                     <option value="Department of Ecology, Environment and Remote Sensing, J&K">Department of Ecology, Environment and Remote Sensing, J&K</option>
                                     <option value="Department of Environment and Biodiversity, J&K">Department of Environment and Biodiversity, J&K</option>
@@ -148,6 +155,7 @@
                                     <option value="Department of Floriculture, J&K">Department of Floriculture, J&K</option>
                                     <option value="Department of Forensic Science Laboratory, J&K">Department of Forensic Science Laboratory, J&K</option>
                                     <option value="Department of Forest and Biodiversity Council, J&K">Department of Forest and Biodiversity Council, J&K</option>
+                                    <option value="Department of Forest, Ecology and Environment, J&K">Department of Forest, Ecology and Environment, J&K</option> 
                                     <option value="Department of General Administration, J&K">Department of General Administration, J&K</option>
                                     <option value="Department of General Administration, Ladakh">Department of General Administration, Ladakh</option>
                                     <option value="Department of Geology and Mining, J&K">Department of Geology and Mining, J&K</option>
@@ -163,6 +171,7 @@
                                     <option value="Department of IT, Ladakh">Department of IT, Ladakh</option>
                                     <option value="Department of Information & Public Relation, Ladakh">Department of Information & Public Relation, Ladakh</option>
                                     <option value="Department of Information and Public Relations, J&K">Department of Information and Public Relations, J&K</option>
+                                    <option value="Department of Industries & Commerce, J&K">Department of Industries & Commerce, J&K</option>
                                     <option value="Department of J&K Evacuees Property, J&K">Department of J&K Evacuees Property, J&K</option>
                                     <option value="Department of Labor Commission, J&K">Department of Labor Commission, J&K</option>
                                     <option value="Department of Law, Justice And Parliamentary Affair, J&K">Department of Law, Justice And Parliamentary Affair, J&K</option>
@@ -179,10 +188,14 @@
                                     <option value="Department of Science and Technology, J&K">Department of Science and Technology, J&K</option>
                                     <option value="Department of Skill Development, J&K">Department of Skill Development, J&K</option>
                                     <option value="Department of Social Welfare,J&K">Department of Social Welfare, J&K</option>
+                                    <option value="Department of Social Forestry,J&K">Department of Social Forestry, J&K</option>
                                     <option value="Department of Town Planning organization, Jammu">Department of Town Planning organization, Jammu</option>
+                                    <option value="Department of Tourism, J&K">Department of Tourism, J&K</option>
+                                    <option value="Department of Transport, J&K">Department of Transport, J&K</option>
                                     <option value="Department of Tribal Affairs, J&K">Department of Tribal Affairs, J&K</option>
+                                    <option value ="Department of Water Resources, J&K">Department of Water Resources, J&K</option>
+                                    <option value="Department of Youth Services and Sports, J&K">Department of Youth Services and Sports, J&K</option>
                                     <option value="Department of Urban Local Bodies,J&K">Department of Urban Local Bodies, J&K</option>
-                                    <option value="Jammu and Kashmir e-Governance Agency">Jammu and Kashmir e-Governance Agency</option>
                                 </select>
                             </div>
                             
@@ -192,7 +205,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="deptPhNum">Department Phone Number: <span class="required">*</span></label>
-                                <input type="tel" id="deptPhNum" name="deptPhNum" placeholder="Department Phone Number" class="form-control" required maxlength="10" pattern="^[0-9]{10}$">
+                                <input type="tel" id="deptPhNum" name="deptPhNum" placeholder="Department Phone Number" class="form-control">
                               </div>
                               <div class="form-group">
                                 <label for="deptAddrs">Department Address: <span class="required">*</span></label>
@@ -283,6 +296,7 @@
                                     <option value="October">October</option>
                                     <option value="November">November</option>
                                     <option value="December">December</option>
+                                    <option value="Not Applicable">Not Applicable</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
@@ -352,7 +366,9 @@
                                         <th>Number of Virtual Cores<span class="required">*</span></th>
                                         <th>Application Services <span class="required">*</span></th>
                                         <th>OS Version <span class="required">*</span></th>
+                                        <th> RAM <span class="required">*</span></th>
                                         <th>Storage (GB) <span class="required">*</span></th>
+                                        <th>Expected Growth in 1 year (GB)<span class="required">*</span> </th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

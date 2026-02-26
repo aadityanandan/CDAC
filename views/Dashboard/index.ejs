@@ -23,11 +23,11 @@
 					  <form id="otpForm" action="/generate-otp" method="post" onsubmit="return validateForm()">
 						<div class="form-group" id="mailBox"> 
 						  <label for="email">Enter your email address:</label>
-						  <input type="email" class="form-control" name="email" id="email"
-                        pattern="^[a-zA-Z0-9._%+-]+@(nic\.in|gov\.in|cdac\.in)$" required>
-
+						  <!-- <input type="email" class="form-control" name="email" id="email" placeholder="Email must be an official id ending with nic.in or gov.in or cdac.in" required> -->
+						  <input type="email" class="form-control" name="email" id="email" placeholder=" Email must be an official ID ending with nic.in or gov.in or cdac.in" pattern=/^[a-zA-Z0-9._%+-]+@(nic\.in|cdac\.in|gov\.in|jk\.gov\.in)$/
+						  " required>
 						  <!-- CAPTCHA Widget -->
-						  <div id="captcha-check" class="g-recaptcha" data-sitekey="6LcPZs0qAAAAAEyDh1JV9mnqzho4N1-N_xbANcFW" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+						  <div id="captcha-check" class="g-recaptcha" data-sitekey="6Ldfr80qAAAAALnT5_TfDISoK7PZWtQazgMQeG-Q" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
 						  <!-- Generate OTP Submit Button -->
 						  <button type="submit" id="sendOtpButton" class="btn btn-primary" disabled>Send OTP: </button>
 						</div>
@@ -37,95 +37,10 @@
 				</div>
 			  </div>
 			</div>
-		</section>
-            
-        <!-- Sign-Up Form Section
-		  <section id="form2" class="content">
-			<div class="container-fluid">
-			  <div class="row">
-				<div class="col-md-12">
-				  <div class="card card-primary">
-					<div class="card-header">
-					  <h3 class="card-title">Sign Up</h3>
-					</div>
-					<div class="card-body">
-					  <form id="signupForm" action="/signup" method="post">
-						<div class="form-group">
-						  <label for="name">Full Name:</label>
-						  <input type="text" class="form-control" name="name" id="name" placeholder="Enter your full name" required>
-						</div>
-						<div class="form-group">
-						  <label for="email">Email Address:</label>
-						  <input type="email" class="form-control" name="email" id="signup-email" placeholder="Enter your official email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\(nic\.in|gov\.in|cdac\.in)$" required>
-						</div>
-						<div class="form-group">
-						  <label for="telephone">Telephone Number:</label>
-						  <input type="tel" class="form-control" name="telephone" id="telephone" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
-						</div>
-						<div class="form-group">
-						  <label for="deptName">Department Name:</label>
-						  <input type="text" class="form-control" name="deptName" id="deptName" placeholder="Enter your department name" required>
-						</div>
-						<div class="form-group">
-						  <label for="password">Password:</label>
-						  <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
-						</div>
-						<div class="form-group">
-						  <label for="confirmPassword">Confirm Password:</label>
-						  <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required>
-						</div>
-						<button type="submit" class="btn btn-primary">Sign Up</button>
-					  </form>
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</div>
 		  </section>
-
-		  <div style="margin-left: 10px;">
-		  <button id="showLogin" class="btn btn-secondary">Switch to Login</button>
-          <button id="showSignup" class="btn btn-secondary">Switch to Signup</button>
-		</div>
-        <br></br>
-
-
-		  <section id="form1" class="content">
-			<div class="container-fluid">
-			  <div class="row">
-				<div class="col-md-12">
-				  <div class="card card-primary">
-					<div class="card-header">
-					  <h3 class="card-title">Login</h3>
-					</div>
-					<div class="card-body">
-					  <form id="loginForm" action="/login" method="post">
-						<div class="form-group">
-						  <label for="email">Official Email:</label>
-						  <input type="email" class="form-control" name="email" id="login-email" placeholder="Enter your official email" required>
-						</div>
-						<div class="form-group">
-						  <label for="password">Password:</label>
-						  <input type="password" class="form-control" name="password" id="login-password" placeholder="Enter password" required>
-						</div>
-						<div class="d-flex justify-content-between align-items-center">
-						  <button type="submit" class="btn btn-primary">Login</button>
-						  <a href="/forgot-password" class="text-primary">Forgot Password?</a>
-						</div>
-					  </form>
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</div>
-		  </section> -->
-		  
-  
-  
-
 		</div>
 	  </main>
-	<%- include("../partials/indexFooter") %>
+	<%- include("../partials/indexFooter"); %>
 
 </body>
 
