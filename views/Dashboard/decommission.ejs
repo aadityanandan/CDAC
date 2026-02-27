@@ -3,7 +3,7 @@
 <head>
   <%- include("../partials/decommissionHeader"); %>
   
-  <title>Cloud VM Request Form</title>
+  <title>VM Change Request Form</title>
 
  
 </head>
@@ -152,6 +152,31 @@ Departments must back up data before decommissioning.
 
 
 <script>
+    function showAlert(displayText, alertType = 'warning') {
+
+    switch (alertType) {
+        case 'info':
+            toastr.info(displayText);
+            break;
+
+        case 'success':
+            toastr.success(displayText);
+            break;
+
+        case 'warning':
+            toastr.warning(displayText);
+            break;
+
+        case 'error':
+            toastr.error(displayText);
+            break;
+
+        default:
+            toastr.warning(displayText);
+            break;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const actionSelect = document.getElementById('actionSelect');
@@ -179,43 +204,47 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("decomForm");
     if (!form) return;
 
-    form.addEventListener("submit", async function (e) {
-        e.preventDefault();
+ form.addEventListener("submit", async function(e){
 
-        const formData = new URLSearchParams(new FormData(this));
+    e.preventDefault();
 
-        try {
-            const res = await fetch('/decommission/submit-decom-request', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: formData
-            });
+    const formData = new FormData(this);
 
-            const text = await res.text();
+    try{
 
-            if (text === "success") {
-                alert("Form submitted successfully");
-                window.location.href = "/decommission";
-            } else {
-                alert("Submission failed");
+        const response = await fetch(
+            "/decommission/submit-decom-request",
+            {
+                method:"POST",
+                body:formData
             }
+        );
 
-        } catch (err) {
-            console.error(err);
-            alert("Submission failed");
-        }
-    });
+        const data = await response.json();
+
+        showAlert("Form submitted successfully","success");
+
+        setTimeout(()=>{
+            window.open(data.redirectUrl,"_blank");
+        },800);
+
+    }catch(err){
+        console.error(err);
+        showAlert("Submission failed","error");
+    }
 
 });
+
+
+});
+
 
 </script>
 
 
 
 
-    <script src="/dist/js/global.js"> </script>
+    <!-- <script src="/dist/js/global.js"> </script> -->
 
  <%- include("../partials/footer") %>
 </body>
