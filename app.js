@@ -13,12 +13,11 @@ const firewallRoutes = require('./routes/firewallRoutes');
 const vpnPdfRoutes = require('./routes/vpnPdfRoutes');
 const firewallPdfRoutes = require('./routes/firewallPdfRoutes');
 const landingPageRoutes = require('./routes/landingPageRoutes');
-const decommissionRoutes = require("./routes/decommissionRoutes");
-const decommissionPdfRoutes = require("./routes/decommissionPdfRoutes");
-const db = require('./config/db'); 
+const decommissionRoutes = require('./routes/decommissionRoutes');
+const decommissionPdfRoutes = require('./routes/decommissionPdfRoutes');
 
 require('dotenv').config();
-
+const db = require('./config/db'); 
 
 const app = express();
 
@@ -51,26 +50,16 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 // ** Application Routes **
-app.use('/auth', otpRoutes);
-
+app.use('/', otpRoutes);
+app.use('/', pdfRoutes);
+app.use('/', detailsRoutes);
+app.use('/', vpnRoutes);
+app.use('/', firewallRoutes);
+app.use('/', vpnPdfRoutes);
+app.use('/', firewallPdfRoutes);
+app.use('/', landingPageRoutes);
 app.use('/form', formRoutes);
-
-app.use('/vpn', vpnRoutes);
-app.use('/vpn-pdf', vpnPdfRoutes);
-
-app.use('/firewall', firewallRoutes);
-app.use('/firewall-pdf', firewallPdfRoutes);
-
 app.use('/decommission', decommissionRoutes);
 app.use('/decommission-pdf', decommissionPdfRoutes);
-
-app.use('/details', detailsRoutes);
-app.use('/' , landingPageRoutes);
-
-app.use('/', otpRoutes); 
-
-
-
 module.exports = app;

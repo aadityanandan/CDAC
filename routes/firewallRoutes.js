@@ -6,8 +6,10 @@ const firewallController = require('../controllers/firewallController')
 
 
 
-
-router.get('/', (req, res) => {
+// router.get('/firewall', (req, res) => {
+//     res.render('dashboard/firewall'); 
+// });
+router.get('/firewall', (req, res) => {
     res.render('dashboard/firewall');
 });
 

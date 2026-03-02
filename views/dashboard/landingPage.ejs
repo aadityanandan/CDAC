@@ -83,6 +83,7 @@
   }
 }
 
+
     .page-header-fixed {
       background: #f4f6f9;
       border-bottom: 1px solid #dee2e6;
@@ -127,20 +128,22 @@
       color: #343a40;
       text-transform: uppercase;
     }
-
-/* Hide logo when sidebar collapses */
-.sidebar-collapse .bottom-logo {
-    display: none;
+    .header-footer {
+  padding-left: 150px;
+  font-size: 1.25 rem;
+  font-weight: bold;
+  color: #555;
+  margin-top: -5px;
 }
+
+
+
    </style>
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
-
-<div class="wrapper"> 
+<body class="hold-transition sidebar-mini layout-fixed">
   <!-- PAGE TITLE HEADER -->
-   
 <div class="page-header-fixed">
   <div class="page-header-inner">
 
@@ -148,9 +151,11 @@
     <img src="/pics/logob.png" alt="Left Logo" class="header-logo left-logo">
 
    <div class="header-text">
-      <h1 class="header-title">STATE DATA CENTER JAMMU</h1>
-      <h2 class="header-title">Civil Secretariat (180001)</h2>
-    </div>
+  <h1 class="header-title">STATE DATA CENTRE JAMMU</h1>
+  <h2 class="header-title">Jammu and Kashmir e-Governance Agency</h2>
+  <p class="header-footer">Department of Information Technology</p>
+</div>
+
 
     <!-- RIGHT LOGO (Logo A) -->
     <img src="/pics/logo.png" alt="State Data Centre Logo" class="header-logo right-logo">
@@ -159,6 +164,7 @@
 </div>
 
 
+<div class="wrapper">
 
   <!-- ================= NAVBAR ================= -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -167,14 +173,6 @@
         <a class="nav-link" data-widget="pushmenu" href="#">
           <i class="fas fa-bars"></i>
         </a>
-      </li>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <span class="navbar-text font-weight-bold">
-          JK State Data Center
-        </span>
       </li>
     </ul>
   </nav>
@@ -226,12 +224,21 @@
             </a>
           </li>
 
+
           <li class="nav-item">
             <a href="#onlineForms" class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>Online Forms</p>
             </a>
           </li>
+
+          <!-- <li class="nav-item">
+            <a href="#savedForms" class="nav-link">
+             <i class="nav-icon fas fa-save"></i>
+             <p>Saved Forms</p>
+          </a>
+         </li> -->
+
 
           <li class="nav-item">
             <a href="#other" class="nav-link">
@@ -250,11 +257,6 @@
 
         </ul>
       </nav>
-       <!-- Logo at Bottom -->
-    <div class="mt-auto text-center pb-3 bottom-logo">
-      <img src="/pics/cdac-logo-rwd.png"
-           alt="CDAC Logo" style="max-height:125px;">
-    </div>
     </div>
   </aside>
 
@@ -265,7 +267,6 @@
   <div class="container-fluid">
 
     <div class="card card-primary">
-      
 
       <div class="card-body">
 
@@ -318,6 +319,19 @@
               </div>
             </div>
           </div>
+          
+          <div class="leader-col">
+            <div class="leader-box">
+              <div class="leader-img">
+                <img src="gallery/Leaders/Dr_Piyush_Singla.jpg" alt="">
+              </div>
+              <div class="leader-text">
+                <strong>Dr. Piyush Singla (IAS)</strong><br>
+                <span>Secretary, IT Department</span>
+              </div>
+            </div>
+          </div>
+
 
           <div class="leader-col">
             <div class="leader-box">
@@ -330,6 +344,10 @@
               </div>
             </div>
           </div>
+
+         
+
+          
 
         </div>
 
@@ -658,17 +676,19 @@
           </li>
           <li><strong>Controlled cooling environment</strong></li>
           <li>
-            Physical servers with <strong>384 cores</strong> and
-            <strong>768 virtual CPUs</strong>, expandable
+            <strong>2000+ cores </strong>
           </li>
           <li>
             <strong>Enterprise Storage</strong> with
-            <strong>500 TB capacity</strong>, expandable
+            <strong>1.8 PB capacity</strong>
+          </li>
+          <li> 
+            and <strong>Ram</strong>
+            <strong>10+ TB </strong>
           </li>
           <li><strong>Enterprise-grade firewalls</strong> and security controls</li>
           <li>
-            <strong>Automated Tape Library</strong> with
-            <strong>740 TB HDD</strong> and <strong>19.2 TB SSD</strong>
+            <strong>Automated Tape Library</strong> 
           </li>
           <li>Robust <strong>Backup & Disaster Recovery</strong> solutions</li>
           <li>Separate <strong>Staging</strong> and <strong>Production</strong> environments</li>
@@ -720,7 +740,7 @@
           </div>
 
           <div class="card-body d-flex flex-column flex-md-row justify-content-around align-items-center">
-            <a href="/dash/pages" class="btn btn-outline-primary m-2">
+            <a href="/pages" class="btn btn-outline-primary m-2">
               Application Hosting Form
             </a>
             <a href="/firewall" class="btn btn-outline-danger m-2">
@@ -729,13 +749,75 @@
             <a href="/vpn" class="btn btn-outline-success m-2">
               VPN Application Form
             </a>
-            <a href="/dash/decommission" class="btn btn-outline-secondary m-2">
+            <a href="/decommission" class="btn btn-outline-secondary m-2">
               Decommisioning of VM form
             </a>
           </div>
         </div>
       </div>
     </section>
+
+ <!-- ================= Saved FORMS ================= -->
+
+    <!-- <section class="content" id="savedForms">
+  <div class="container-fluid">
+    <div class="card card-secondary">
+      <div class="card-header">
+        <h3 class="card-title">Saved Forms</h3>
+      </div>
+
+      <div class="card-body">
+        <p class="text-center">Choose the form type to view saved submissions:</p>
+
+        <div class="row text-center">
+          <div class="col-md-4 mb-3">
+            <div class="info-box bg-light">
+              <span class="info-box-icon bg-primary">
+                <i class="fas fa-server"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Hosting Submissions</span>
+                <a href="/hosting-forms" class="btn btn-outline-primary mt-2">
+                  View Hosting Forms
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <div class="info-box bg-light">
+              <span class="info-box-icon bg-danger">
+                <i class="fas fa-shield-alt"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Firewall Submissions</span>
+                <a href="/firewall-forms" class="btn btn-outline-danger mt-2">
+                  View Firewall Forms
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <div class="info-box bg-light">
+              <span class="info-box-icon bg-success">
+                <i class="fas fa-network-wired"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">VPN Submissions</span>
+                <a href="/vpn-forms" class="btn btn-outline-success mt-2">
+                  View VPN Forms
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section> -->
+
 
    <!-- ================= Gallery ================= -->
      
@@ -1004,24 +1086,17 @@
 
 
 
-  
+  </div>
 
-
-
-
-
-
-
-
-<!-- ================= FOOTER ================= -->
+  <!-- ================= FOOTER ================= -->
   <%- include("../partials/landPageFooter") %>
-
-
-
 
 </div>
 
-
+<!-- AdminLTE Scripts -->
+<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/adminlte/js/adminlte.min.js"></script>
 
 <script>
 function Gallery(config) {
@@ -1102,6 +1177,7 @@ new Gallery({
 </script>
 
 
-</div>
-  </body>
+
+
+</body>
 </html>
